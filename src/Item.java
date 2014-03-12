@@ -45,7 +45,7 @@ public class Item implements ItemInterface {
 	 */
 	public void displayComment() {
 		
-		// to hold code to display the comment above the item when appropriate
+		// will contain code to display the comment above the item when appropriate
 		
 		
 	}

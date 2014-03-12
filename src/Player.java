@@ -59,7 +59,7 @@ public class Player implements PlayerInterface
 		color=c;
 		
 	}
-	public int getSpeed() {
+	public double getSpeed() {
 		return speed_x;
 	}
 	
