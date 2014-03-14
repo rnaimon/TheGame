@@ -141,29 +141,31 @@ public class GameMain extends GameTemplate {
 	 */
 	public void updateFrame(Graphics2D g) {
 
-//		switch (gameState) {
+		switch (gameState) {
 		// if the game is happening, you can move and spheres can move, and the game's mechanics happen
-	//	case STATE_PLAYING:
-	/*		if (bar.getValue() >= 0) {
-				// if(isAKeyDown(KeyEvent.VK_A) && canMove(p1,true))
-				// p1.doMove(true);
-				// else if(isAKeyDown(KeyEvent.VK_S) && canMove(p1,false))
-				// p1.doMove(false);
-
+		case STATE_PLAYING:
+	//		if (bar.getValue() >= 0) {
+			/*	 if(isAKeyDown(KeyEvent.VK_A) && canMove(player,true))
+					 player.doMove(true);
+				 else if(isAKeyDown(KeyEvent.VK_S) && canMove(player,false))
+					 player.doMove(false);
+*/
 				if (isAKeyDown(KeyEvent.VK_UP) && canMoveV(player, true))
 					player.doMoveV(true);
 				else if (isAKeyDown(KeyEvent.VK_DOWN)
 						&& canMoveV(player, false))
-					player.doMoveV(false);
+					player.doMoveV(false, ); // the second variable is the speed, which helps determine and then implement the jumping (or not)
 
 				if (isAKeyDown(KeyEvent.VK_LEFT) && canMove(player, true))
-					player.doMove(true);
+					player.doMoveH(true);
 				else if (isAKeyDown(KeyEvent.VK_RIGHT)
 						&& canMove(player, false))
-					player.doMove(false);
+					player.doMoveH(false);
 
 				int newEnemies = 0;
 				int newHealth = 0;
+				
+				/*
 				while (this.getChecker() != this.getKing()) {
 					int p = this.getChecker();
 					if (p % 61 == 0 && numEnemies <= 40) {
@@ -173,8 +175,10 @@ public class GameMain extends GameTemplate {
 						newHealth++;
 					this.setChecker(this.getChecker() + 1);
 				}
-
+*/
 				// createHealth(newHealth);
+				/*
+				
 				findAndRemove(objects, player, bar);
 				for (int i = 0; i < objects.size(); i++) {
 					int y = objects.get(i).getY();
@@ -182,12 +186,14 @@ public class GameMain extends GameTemplate {
 				}
 				createEnemies(newEnemies);
 				createHealth(newHealth);
-				
+				*/
 				
 				// sets the time text to display
 				timer.setText("Timer: " + (gameLength - this.getTimer()));
 				
 				// lowers health and increases difficulty
+				
+				/*
 				if (this.getTimer() % 90 == 0)
 					bar.setValue(bar.getValue() - 10);
 				if (this.getTimer() % 901 == 0) {
@@ -202,7 +208,7 @@ public class GameMain extends GameTemplate {
 				drawBoard(g);
 				drawSprites(g);
 				// System.out.println(bar.getValue());
-			} 
+	//		} 
 			// in the case that the game is over and you died
 //			else {
 
@@ -213,10 +219,10 @@ public class GameMain extends GameTemplate {
 			
 				
 //			}
-	//		break;
+			break;
 			//if the game is over because the player won
-	//	case STATE_DONE:
-	//		g.setColor(Color.black);
+		case STATE_DONE:
+			g.setColor(Color.black);
 	//		g.drawString("You have survived the game!", 200, 100);
 			/*
 			g.drawString("Play again? Press Y or N", 200, 100);
@@ -229,11 +235,13 @@ public class GameMain extends GameTemplate {
 
 			}
 			*/
-		//	break;
+			break;
 
-	//	}
+		}
 
-	//}
+	}
+	
+	
 //this method creates the enemy spheres and sets their speeds and red color
 	/*public void createEnemies(int n) {
 		for (int i = 0; i < n; i++) {
