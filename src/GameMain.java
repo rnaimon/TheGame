@@ -9,6 +9,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Panel;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
@@ -82,7 +83,10 @@ public class GameMain extends GameTemplate {
 	public static void main(String[] args) {
 
 		GameMain game = new GameMain();
-		createGameFrame(game, 600, 900); //to be changed to be entire screen
+		int width = Toolkit.getDefaultToolkit().getScreenSize().width; 
+		int height = Toolkit.getDefaultToolkit().getScreenSize().height;
+		
+		createGameFrame(game, width, height); //to be changed to be entire screen
 		game.init();
 	}
 
