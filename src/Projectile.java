@@ -74,7 +74,7 @@ public class Projectile implements ProjectileInterface {
 	 * @param y is an y-coordinate for the top left 
 	 */
 	public void setTopY(double y) {
-		// TODO Auto-generated method stub
+		top_y=y;
 		
 	}
 
