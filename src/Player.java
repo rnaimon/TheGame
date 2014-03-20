@@ -94,7 +94,13 @@ public class Player implements PlayerInterface
 		 
 	}
 	 
-	 public void doMoveV(boolean moveUpOrDown){
+	/***
+	 * This method deals with vertical movement, which includes climbing up and down
+	 * ladders, or with jumping and falling, which are more often used.
+	 * @param moveUpOrDown is the variable to determine which vertical direction to move
+	 * @param speed is used to create the physics of jumping or falling
+	 */
+	 public void doMoveV(boolean moveUpOrDown, int speed_y){
 		 
 			if(moveUpOrDown==true) { //move up
 				setCentY((int)(getCentY()-speed_y));

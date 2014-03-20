@@ -28,9 +28,9 @@ public abstract class GameTemplate extends Canvas implements Runnable, KeyListen
 	//create your entities here
 	private int[] keysDown=new int[0];
 	private int timer;
-	private int checker=0;
-	private int interval=1;
-	private int king;
+
+
+
 
 
 	
@@ -54,26 +54,7 @@ public abstract class GameTemplate extends Canvas implements Runnable, KeyListen
 	 */
 	public abstract void start();
 	
-	public int getInterval()
-	{
-		return interval;
-	}
-	
-	public int getChecker()
-	{
-		return checker;
-	}
-	
-	public void setChecker(int q)
-	{
-		checker=q;
-	}
-	
-	public int getKing()
-	{
-		return king;
-	}
-	
+
 	public int getTimer()
 	{
 		return timer;

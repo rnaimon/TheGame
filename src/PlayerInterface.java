@@ -31,7 +31,7 @@ public interface PlayerInterface{
 	
 	public void doMoveH(boolean moveLeftOrRight);
 	
-	public void doMoveV(boolean moveUpOrDown);
+	public void doMoveV(boolean moveUpOrDown, int speed_y);
 	
 	public double getSpeedX();
 	

@@ -28,7 +28,6 @@ import java.util.*;
 
 /**
  * 
- @author Danny Fowler
  @author Michael Katz
  @author Rebecca Naimon
  * 
@@ -37,12 +36,23 @@ import java.util.*;
 
 
 // main class of the game in which most things happen
-public class GameMain extends GameTemplate {
+public class GameMain extends Canvas implements Runnable, KeyListener {
 
-	// creates entities here
-	
+	//entities created here
+	private int[] keysDown=new int[0];
+
 	//Player is the class that indicates a player, rather redundantly
 	private Player player;
+	
+	
+	//for double buffered graphics
+	 private int bufferWidth;
+	 private int bufferHeight;
+	 private Image bufferImage;
+	 private Graphics bufferGraphics; 
+
+	 private long lastDrawTime;
+	
 	
 	// these are values that need initiating, and control gameplay
 	//private int numEnemies;
@@ -90,13 +100,60 @@ public class GameMain extends GameTemplate {
 		game.init();
 	}
 
-	/**
-	 * Create a game panel
-	 */
-	public GameMain() {
-		super();
-	}
 
+	
+	/**
+	 * Test whether a key is currently being pressed down 
+	 * Multiple keys can be pressed simultaneously
+	 * @param keyToTest determine if this key is down (see VK_ constants in java.awt.event.KeyEvent)
+	 * @return true if this keys is down otherwise false
+	 */
+	public boolean isAKeyDown(int keyToTest){
+		for (int key : keysDown) {
+			if (key==keyToTest) return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Triggered when a key is released (up)
+	 * @param keyE which key
+	 */
+		public void keyReleased(KeyEvent keyE) {
+			// Remove key released
+			int[] newDown=new int[keysDown.length-1];
+			int atLoc=0;
+		 	for (int i = 0; i < keysDown.length; i++) {
+				if(keysDown[i]!=keyE.getKeyCode()){
+					newDown[atLoc]=keysDown[i];
+					atLoc++;
+				}
+			}
+		 	keysDown=newDown;
+		}
+
+		/**
+		 * Triggered when a key is pressed (up)
+		 * @param keyE which key
+		 */
+
+		public void keyPressed(KeyEvent keyE) {
+			boolean add=true;
+			int[] newDown=new int[keysDown.length+1];
+		 	for (int i = 0; i < keysDown.length; i++) {
+		 		if(keysDown[i]==keyE.getKeyCode())	{add=false;break;}
+		 		newDown[i]=keysDown[i];
+			}
+		 
+		 	if(add){
+		 		
+			 	newDown[keysDown.length]=keyE.getKeyCode();
+			 	keysDown=newDown;
+		 	}
+		}
+	
+	
+	
 	/**
 	 * Initialize game - insert code to set up (not create!) entities
 	 */
@@ -114,21 +171,7 @@ public class GameMain extends GameTemplate {
 	 */
 	public void start() {
 		gameState = STATE_PLAYING;
-		
-		// if the health bar starts out empty, game over
-	/*	if (bar.getValue() <= 0) {
-			gameState = STATE_DONE;
-			// System.out.println("here");
-		}
-	*/
-		/*
-		 * p1.setSpeed(5); p1.setTopX(getWidth()/2-p1.getSizeX()/2); //reset
-		 * positions p1.setTopY(20);
-		 */
-		/*
-		 * player.setSpeed(5); player.setTopX(getWidth()/2-player.getSizeX()/2);
-		 * //reset positions player.setTopY(getHeight()-40);
-		 */
+	
 		player.setSpeed(5);
 		player.setCentX((int) (getWidth() / 2 - player.getRadius() / 2)); // reset
 																			// positions
@@ -137,11 +180,10 @@ public class GameMain extends GameTemplate {
 	}
 
 	/**
-	 * Update the screen - draw the environment, and then call the draw()
+	 * Updates the screen, including drawing the environment and calling the draw()
 	 * methods for each sprite
 	 * 
-	 * @param g
-	 *            graphics object
+	 * @param g is a graphics object
 	 */
 	public void updateFrame(Graphics2D g) {
 
@@ -155,10 +197,10 @@ public class GameMain extends GameTemplate {
 					 player.doMove(false);
 */
 				if (isAKeyDown(KeyEvent.VK_UP) && canMoveV(player, true))
-					player.doMoveV(true);
+					player.doMoveV(true, 5);
 				else if (isAKeyDown(KeyEvent.VK_DOWN)
 						&& canMoveV(player, false))
-					player.doMoveV(false, ); // the second variable is the speed, which helps determine and then implement the jumping (or not)
+					player.doMoveV(false, 5); // the second variable is the speed, which helps determine and then implement the jumping (or not)
 
 				if (isAKeyDown(KeyEvent.VK_LEFT) && canMove(player, true))
 					player.doMoveH(true);
@@ -193,7 +235,7 @@ public class GameMain extends GameTemplate {
 				*/
 				
 				// sets the time text to display
-				timer.setText("Timer: " + (gameLength - this.getTimer()));
+		//		timer.setText("Timer: " + (gameLength - this.getTimer()));
 				
 				// lowers health and increases difficulty
 				
@@ -391,7 +433,7 @@ public class GameMain extends GameTemplate {
 	}
 
 	// main method that creates the frame, sets the accessories at the top, and allows the window to close
-	public static void createGameFrame(GameTemplate game, int width, int height) {
+	public static void createGameFrame(GameMain game, int width, int height) {
 		Frame myFrame = new Frame();
 
 		myFrame.setSize(width, height); // frame size
@@ -406,8 +448,8 @@ public class GameMain extends GameTemplate {
 //		h.setBounds(0, 0, 300, 20);
 
 	//	topPanel.add(h, BorderLayout.WEST);
-		JLabel b = new JLabel("Survivor");
-		topPanel.add(b, BorderLayout.CENTER);
+	
+	//	topPanel.add(b, BorderLayout.CENTER);
 		myFrame.add(topPanel, BorderLayout.NORTH);
 
 		
@@ -429,6 +471,43 @@ public class GameMain extends GameTemplate {
 		myFrame.setVisible(true); // see frame
 		game.requestFocus(); // make sure the game is selected
 
+	}
+
+	//to be ignored for now
+	public void keyTyped(KeyEvent arg0) {
+		
+	}
+	
+
+	private Thread thisThread;
+	
+	/**
+	 * Create a game panel
+	 */
+	public GameMain() {
+		super();
+		thisThread=new Thread(this); //create a thread for an object
+		thisThread.start(); 
+	}
+	
+	
+
+	/**
+	 * Start the thread
+	 */
+	public void run(){
+		
+		while(Thread.currentThread()== thisThread){ //while the thread is running
+			repaint(); //redraw screen
+			
+			try {
+				Thread.sleep(20);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 	}
 
 }
