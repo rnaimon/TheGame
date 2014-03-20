@@ -1,0 +1,63 @@
+import java.util.ArrayList;
+
+public class Obstacles
+{
+	private ArrayList<LineObject> outlines;
+	private ArrayList<Vertex> vertices;
+	
+	public Obstacles(ArrayList<LineObject> o)
+	{
+		outlines=o;
+		ArrayList<Vertex> allV= new ArrayList<Vertex>();
+		if(o!=null)
+		{
+			allV.add(o.get(0).getV1());
+			allV.add(o.get(0).getV2());
+			vertices.add(o.get(0).getV1());
+			vertices.add(o.get(0).getV2());
+		}
+		for(int i=1; i< o.size(); i++)
+		{
+			Vertex v1=o.get(i).getV1();
+			allV.add(v1);
+			boolean add=true;
+			for(int j=0; j<vertices.size(); j++)
+			{
+				if(v1.getXCoord()==vertices.get(i).getXCoord())
+					if(v1.getYCoord()==vertices.get(i).getYCoord())
+						add=false;
+			}
+			if(add=true)
+				vertices.add(v1);
+			Vertex v2=o.get(i).getV2();
+			allV.add(v2);
+			add=true;
+			for(int j=0; j<vertices.size(); j++)
+			{
+				if(v2.getXCoord()==vertices.get(i).getXCoord())
+					if(v2.getYCoord()==vertices.get(i).getYCoord())
+						add=false;
+			}
+			if(add=true)
+				vertices.add(v2);
+		}
+	}
+	
+	/**
+	 * This method returns the lines that make up the obstacle
+	 * @return outlines
+	 */
+	public ArrayList<LineObject> getOutlines()
+	{
+		return outlines;
+	}
+	
+	/**
+	 * This method returns an arraylist of the vertices of the obstacle
+	 * @return vertices
+	 */
+	public ArrayList<Vertex> Vertices()
+	{
+		return vertices;
+	}
+}
