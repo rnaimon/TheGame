@@ -5,12 +5,11 @@ import java.awt.Color;
 
 public interface ProjectileInterface {
 	
-	/***
-	 * The following methods deal with getting and setting the top left 
+	/* The following methods deal with getting and setting the top left 
 	 * coordinates of the projectile, which is especially important
-	 * because it will be moving.
-	 * @return
-	 */
+	 * because it will be moving, so these variables will be regularly
+	 * updated within the program. */
+	
 	public double getTopX();
 	public double getTopY();
 	public void setTopX(double x);

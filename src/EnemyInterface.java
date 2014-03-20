@@ -6,7 +6,8 @@ import java.awt.*;
 public interface EnemyInterface {
 	
 /*	
- * variables for Enemy objects
+ * variables for Enemy objects are all about top left coordinates, sizes,
+ * and speed
  * 
 	double top_x;
 	double top_y;
