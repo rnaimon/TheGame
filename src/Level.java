@@ -4,10 +4,16 @@ public class Level implements LevelInterface
 {
 	private Player player;
 	private ArrayList<Item> itemlist;
+	private ArrayList<Obstacles> obstacleList;
+	private int gameWidth;
+	private int gameHeight;
 	
-	public Level(Player p)
+	public Level(Player p, int w, int h)
 	{
 		player=p;
+		obstacleList=null;
+		gameWidth=w;
+		gameHeight=h;
 	}
 	public int getLevelNumber() {
 		// TODO Auto-generated method stub
@@ -44,5 +50,20 @@ public class Level implements LevelInterface
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public void setObstacleList(ArrayList<Obstacles> o) {
+		obstacleList=o;
+		
+	}
+	
+	public int getGameWidth() {
+		return gameWidth;
+	}
+	
+	public int getGameHeight() {
+		return gameHeight;
+	}
+
+	
 	
 }
