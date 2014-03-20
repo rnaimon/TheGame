@@ -46,7 +46,7 @@ public class Projectile implements ProjectileInterface {
 	 * This method returns the top left x-coordinate.
 	 */
 	public double getTopX() {
-		
+		return top_x;
 	}
 	
 	
@@ -54,7 +54,7 @@ public class Projectile implements ProjectileInterface {
 	 * This method returns the top left y-coordinate.
 	 */
 	public double getTopY() {
-		
+		return top_y;
 	}
 	
 	
@@ -63,6 +63,36 @@ public class Projectile implements ProjectileInterface {
 	 * @param x is an x-coordinate for the top left 
 	 */
 	public void setTopX(double x) {
+		
+	}
+
+	public void setTopX() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setTopY() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public double getSpeedX() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public double getSpeedY() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public void setSpeedX() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setSpeedY() {
+		// TODO Auto-generated method stub
 		
 	}
 	
