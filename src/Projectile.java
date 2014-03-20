@@ -70,48 +70,62 @@ public class Projectile implements ProjectileInterface {
 		top_x=x;
 	}
 
-
+	/***
+	 * This method sets the top left x-coordinate of the projectile.
+	 * @param y is an y-coordinate for the top left 
+	 */
 	public void setTopY(double y) {
 		// TODO Auto-generated method stub
 		
 	}
 
+	/**
+	 * This method returns the component of the speed of the projectile 
+	 * in the x-direction
+	 */
 	public double getSpeedX() {
-		// TODO Auto-generated method stub
-		return 0;
+		return speed_X;
 	}
-
+	
+	/**
+	 * This method returns the component of the speed of the projectile 
+	 * in the y-direction
+	 */
 	public double getSpeedY() {
-		// TODO Auto-generated method stub
-		return 0;
+		return speed_Y;
 	}
 
-	public void setSpeedX() {
-		// TODO Auto-generated method stub
+	/**
+	 * This method sets the x-component of the speed of the projectile
+	 * @param x is the x-component of the speed
+	 */
+	public void setSpeedX(double x) {
+		speed_X=x;
+		
+	}
+	
+	/**
+	 * This method sets the y-component of the speed of the projectile
+	 * @param y is the y-component of the speed
+	 */
+	public void setSpeedY(double y) {
+		speed_Y=y;
 		
 	}
 
-	public void setSpeedY() {
-		// TODO Auto-generated method stub
-		
-	}
-
+	/**
+	 * This method returns the color of the projectile
+	 */
 	public Color getColor() {
 		return color;
 	}
 
+	/**
+	 * This method sets the color of the projectile
+	 * @param c is the new color of the projectile
+	 */
 	public void setColor(Color c) {
 		color=c;
-		
-	}
-
-	public void setSpeedX(double x) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setSpeedY(double y) {
-		// TODO Auto-generated method stub
 		
 	}
 	
