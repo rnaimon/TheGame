@@ -5,6 +5,10 @@ public class Obstacles
 	private ArrayList<LineObject> outlines;
 	private ArrayList<Vertex> vertices;
 	
+	/**
+	 * Constructor for the Obstacles class
+	 * @param o list of LineObjects that are the outlines for the obstacle
+	 */
 	public Obstacles(ArrayList<LineObject> o)
 	{
 		outlines=o;
