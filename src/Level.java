@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class Level implements LevelInterface
 {
 	private Player player;
+	private ArrayList<Item> itemlist;
 	
 	public Level(Player p)
 	{
