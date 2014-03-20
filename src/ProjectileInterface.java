@@ -1,3 +1,5 @@
+import java.awt.Color;
+
 // Interface to deal with the projectile class
 //	Rebecca Naimon
 
@@ -9,10 +11,10 @@ public interface ProjectileInterface {
 	 * because it will be moving.
 	 * @return
 	 */
-	double getTopX();
-	double getTopY();
-	void setTopX();
-	void setTopY();
+	public double getTopX();
+	public double getTopY();
+	public void setTopX(double x);
+	public void setTopY(double y);
 	
 	
 	/***
@@ -21,11 +23,19 @@ public interface ProjectileInterface {
 	 * and the like.
 	 * @return
 	 */
-	double getSpeedX();
-	double getSpeedY();
-	void setSpeedX();
-	void setSpeedY();
+	public double getSpeedX();
+	public double getSpeedY();
+	public void setSpeedX(double x);
+	public void setSpeedY(double y);
 	
+	/***
+	 * The following methods deal with getting and setting the color
+	 * of the projectile.
+	 * @return
+	 */
+	
+	public Color getColor();
+	public void setColor(Color c);
 	
 	
 	

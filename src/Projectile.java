@@ -1,3 +1,5 @@
+import java.awt.Color;
+
 //Projectile class to control projectiles that come from items
 //Rebecca Naimon
 
@@ -10,6 +12,7 @@ public class Projectile implements ProjectileInterface {
 	private double height;
 	private double speed_X;
 	private double speed_Y;
+	private Color color;
 	
 	/***
 	 * This is the constructor without passed-in variables.
@@ -22,6 +25,7 @@ public class Projectile implements ProjectileInterface {
 		height = 1;
 		speed_X = 5;
 		speed_Y = 5;
+		color=new Color(1f, 0f, 0f);
 	}
 	
 	/***
@@ -63,15 +67,11 @@ public class Projectile implements ProjectileInterface {
 	 * @param x is an x-coordinate for the top left 
 	 */
 	public void setTopX(double x) {
-		
+		top_x=x;
 	}
 
-	public void setTopX() {
-		// TODO Auto-generated method stub
-		
-	}
 
-	public void setTopY() {
+	public void setTopY(double y) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -92,6 +92,25 @@ public class Projectile implements ProjectileInterface {
 	}
 
 	public void setSpeedY() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	public void setColor(Color c) {
+		color=c;
+		
+	}
+
+	public void setSpeedX(double x) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setSpeedY(double y) {
 		// TODO Auto-generated method stub
 		
 	}
