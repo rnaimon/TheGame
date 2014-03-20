@@ -16,7 +16,6 @@ public class Projectile implements ProjectileInterface {
 	
 	/***
 	 * This is the constructor without passed-in variables.
-	 * @Rebecca
 	 */
 	public Projectile() {
 		top_x = 0;
