@@ -5,6 +5,7 @@ public class LevelOne extends Level implements LevelOneInterface
 {
 	private boolean reset;
 	private Player player;
+	private int WALL_SIZE=3;
 	public LevelOne(Player p, int width, int height)
 	{
 		super(p, width, height);
@@ -51,4 +52,52 @@ public class LevelOne extends Level implements LevelOneInterface
 	public boolean shouldReset() {
 		return reset;
 	}
+	public boolean canMove(Player p, boolean moveLeftOrRight) {
+		if (moveLeftOrRight) {
+			if ((p.getCentX()) <= WALL_SIZE + p.getSpeed())
+				return false;
+			else
+				return true;
+		}
+		if (p.getCentX() + p.getRadius() >= getWidth() - WALL_SIZE
+				- p.getSpeed())
+			return false;
+		else
+			return true;
+
+	}
+
+	// method to determine if the player can move up or down (limits of the screen)
+	public void checkMoveV(Player p, boolean moveUpOrDown) 
+	{
+		ArrayList<LineObject> nearObstacles= new ArrayList<LineObject>();
+		for(int i=0; i< getObstacleList().size(); i++)
+		{
+			LineObject l= getObstacleList().get(i).getOutlines().get(0);
+			if(l.getOrientation()=='h')
+			{
+				if(p.getCentX()>= l.getV1().getXCoord() && p.getCentX()<= l.getV2().getXCoord())
+				{
+					nearObstacles.add(l);
+				}
+			}
+
+			
+		}
+		if (moveUpOrDown) 
+		{
+			if ((p.getCentY() - p.getRadius()) <= WALL_SIZE + p.getSpeedY()) 
+			{
+				player.doMoveV(false, 0);
+			} 
+			else
+				player.doMoveV(true, 5);
+		}
+		else
+		{
+			player.doMoveV(false, 0);
+		}
+
+	}
+
 }

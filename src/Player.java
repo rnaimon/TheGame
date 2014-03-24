@@ -59,15 +59,12 @@ public class Player implements PlayerInterface
 		color=c;
 		
 	}
-	public double getSpeed() {
-		return speed_x;
-	}
 	
 	/**
 	 * @return  Speed to move with each frame
 	 */
 	public void setSpeed(int speed) {
-		this.speed_x = speed;
+		speed_x = speed;
 	}
 	
 	public void draw(Graphics2D g){
@@ -100,11 +97,14 @@ public class Player implements PlayerInterface
 	 * @param moveUpOrDown is the variable to determine which vertical direction to move
 	 * @param speed is used to create the physics of jumping or falling
 	 */
-	 public void doMoveV(boolean moveUpOrDown, int speed_y){
+	 public void doMoveV(boolean moveUpOrDown, int y){
 		 
-			if(moveUpOrDown==true) { //move up
+			if(moveUpOrDown==true) //move up
+			{ 
 				setCentY((int)(getCentY()-speed_y));
-			} else {
+			} 
+			else 
+			{
 				setCentY((int)(getCentY()+speed_y)); //move down
 			}
 		 

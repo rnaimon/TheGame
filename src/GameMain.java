@@ -65,7 +65,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 	 private int bufferHeight;
 	 private Image bufferImage;
 	 private Graphics bufferGraphics; 
-
+	 private Level currentLevel;
 	 private long lastDrawTime;
 	
 	// there are two overall states: playing, and done 
@@ -78,10 +78,10 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 	public static final Color WALL_COL = new Color(0, 80, 200); // walls
 
 	public static final int WALL_SIZE = 3; // wall size
-
+	private int timer=1;
 	public static final Font SCORE_FONT = new Font("Lucida Console", Font.BOLD
 			& Font.ITALIC, 30);
-
+	
 	// Loads background images (namely, the player image, for now at least)
 	private static BufferedImage IMAGE_BG = null;
 	{
@@ -180,13 +180,17 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 	 */
 	public void start() {
 		gameState = STATE_PLAYING;
-	
+		
 		player.setSpeed(5);
 		
 		// will eventually have an actual location relevant to the game
 		player.setCentX((int) (getWidth() / 2 - player.getRadius() / 2)); 
 	
 		player.setCentY(getHeight() - 40);
+		
+		LevelOne lvl1= new LevelOne(player,getWidth(), getHeight());
+		
+		currentLevel=lvl1;
 
 	}
 
@@ -201,80 +205,28 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 		switch (gameState) {
 		// if the game is happening, you can move and the game continues
 		case STATE_PLAYING:
-	//		if (bar.getValue() >= 0) {
-			/*	 if(isAKeyDown(KeyEvent.VK_A) && canMove(player,true))
-					 player.doMove(true);
-				 else if(isAKeyDown(KeyEvent.VK_S) && canMove(player,false))
-					 player.doMove(false);
-*/
-				if (isAKeyDown(KeyEvent.VK_UP) && canMoveV(player, true))
+	
+				if (isAKeyDown(KeyEvent.VK_UP))
 				{
-					player.doMoveV(true, 5);
+					if(player.)
+					player.checkMoveV(true, 5);
 				}
-				else if (isAKeyDown(KeyEvent.VK_DOWN) && canMoveV(player, false))
-					{
-						player.doMoveV(false, 5); // the second variable is the speed, which helps determine and then implement the jumping (or not)
-					}
+				else
+				{
+					currentLevel.checkMoveV(false, 0); // the second variable is the speed, which helps determine and then implement the jumping (or not)
+				}
+				
+				
 				if (isAKeyDown(KeyEvent.VK_LEFT) && canMove(player, true))
 					player.doMoveH(true);
 				else if (isAKeyDown(KeyEvent.VK_RIGHT)
 						&& canMove(player, false))
 					player.doMoveH(false);
 
-				/*
-				while (this.getChecker() != this.getKing()) {
-					int p = this.getChecker();
-					if (p % 61 == 0 && numEnemies <= 40) {
-						newEnemies++;
-					}
-					if (p % 50 == 0 && numHealth <= 20)
-						newHealth++;
-					this.setChecker(this.getChecker() + 1);
-				}
-*/
-				// createHealth(newHealth);
-				/*
 				
-				findAndRemove(objects, player, bar);
-				for (int i = 0; i < objects.size(); i++) {
-					int y = objects.get(i).getY();
-					objects.get(i).setY(y + objects.get(i).getSpeed());
-				}
-				createEnemies(newEnemies);
-				createHealth(newHealth);
-				*/
-				
-				// sets the time text to display
-		//		timer.setText("Timer: " + (gameLength - this.getTimer()));
-				
-				// lowers health and increases difficulty
-				
-				/*
-				if (this.getTimer() % 90 == 0)
-					bar.setValue(bar.getValue() - 10);
-				if (this.getTimer() % 901 == 0) {
-					evilSpeed++;
-					healthSpeed++;
-					constant = evilSpeed - 4;
-				}
-				if (this.getTimer() % gameLength == 0) {
-					gameState = STATE_DONE;
-				}
-*/
 				drawBoard(g);
 				drawSprites(g);
-				// System.out.println(bar.getValue());
-	//		} 
-			// in the case that the game is over and you died
-//			else {
-
-//				g.setColor(Color.white);
-//				g.fillRect(0, 0, getWidth(), getHeight());
-//				g.setColor(Color.black);
-//				g.drawString("You have lost all of your health and died.", 200, 100);
-			
 				
-//			}
 			break;
 			
 			//if the game is over because the player won
@@ -564,6 +516,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 			repaint(); //redraw screen
 			
 			try {
+				timer=timer+1;
 				Thread.sleep(20);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block

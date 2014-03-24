@@ -62,6 +62,11 @@ public class LineObject
 		Vertices.set(1, v);
  
 	}
+	
+	public char getOrientation()
+	{
+		return orientation;
+	}
  
 	
 
