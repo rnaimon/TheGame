@@ -1,4 +1,5 @@
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 
 public interface PlayerInterface{
 	/*
@@ -31,9 +32,11 @@ public interface PlayerInterface{
 	
 	public void doMoveH(boolean moveLeftOrRight);
 	
-	public void doMoveV(boolean moveUpOrDown, int speed_y);
+	public void doMoveV(boolean moveUpOrDown, int speed_y, ArrayList<LineObject> nearObstacles);
 	
 	public double getSpeedX();
+	
+	public double getCurrentSpeedY();
 	
 	public double getSpeedY();
 	

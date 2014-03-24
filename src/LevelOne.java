@@ -14,7 +14,7 @@ public class LevelOne extends Level implements LevelOneInterface
 		player.setCentY(0);
 		setLevelNumber(1);
 		reset=false;
-		setObstacleList(setUpEnvironment());
+		super.setObstacleList(setUpEnvironment());
 	}
 
 	public ArrayList<Obstacles> setUpEnvironment()
@@ -52,23 +52,9 @@ public class LevelOne extends Level implements LevelOneInterface
 	public boolean shouldReset() {
 		return reset;
 	}
-	public boolean canMove(Player p, boolean moveLeftOrRight) {
-		if (moveLeftOrRight) {
-			if ((p.getCentX()) <= WALL_SIZE + p.getSpeed())
-				return false;
-			else
-				return true;
-		}
-		if (p.getCentX() + p.getRadius() >= getWidth() - WALL_SIZE
-				- p.getSpeed())
-			return false;
-		else
-			return true;
-
-	}
 
 	// method to determine if the player can move up or down (limits of the screen)
-	public void checkMoveV(Player p, boolean moveUpOrDown) 
+	public void checkMoveV(Player p, boolean moveUpOrDown, int jumpspeed) 
 	{
 		ArrayList<LineObject> nearObstacles= new ArrayList<LineObject>();
 		for(int i=0; i< getObstacleList().size(); i++)
@@ -88,14 +74,21 @@ public class LevelOne extends Level implements LevelOneInterface
 		{
 			if ((p.getCentY() - p.getRadius()) <= WALL_SIZE + p.getSpeedY()) 
 			{
-				player.doMoveV(false, 0);
+				player.doMoveV(false, 0, nearObstacles);
 			} 
 			else
-				player.doMoveV(true, 5);
+				player.doMoveV(true, 5, nearObstacles);
 		}
 		else
 		{
-			player.doMoveV(false, 0);
+			if((p.getCentY() + p.getRadius()) >= super.getGameHeight() - WALL_SIZE - p.getSpeedY())
+			{
+				reset=true;
+			}
+			else
+			{
+				player.doMoveV(false, 0, nearObstacles);
+			}
 		}
 
 	}

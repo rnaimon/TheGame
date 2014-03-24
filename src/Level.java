@@ -27,12 +27,12 @@ public class Level implements LevelInterface
 
 	public ArrayList<Obstacles> getObstacleList() {
 		// TODO Auto-generated method stub
-		return null;
+		return obstacleList;
 	}
 
 	public ArrayList<Item> getItemList() {
 		// TODO Auto-generated method stub
-		return null;
+		return itemlist;
 	}
 
 	public Player getPlayer() {

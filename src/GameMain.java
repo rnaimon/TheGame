@@ -11,6 +11,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Panel;
+import java.awt.Polygon;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -56,8 +57,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 	// these are values that need initiating, and control gameplay
 	//private int numEnemies;
 
-	ArrayList<Level> levels = new ArrayList();
-	
+	//ArrayList<Level> levels = new ArrayList();
 	
 	
 	//for double buffered graphics
@@ -65,7 +65,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 	 private int bufferHeight;
 	 private Image bufferImage;
 	 private Graphics bufferGraphics; 
-	 private Level currentLevel;
+	 private LevelOne currentLevel;
 	 private long lastDrawTime;
 	
 	// there are two overall states: playing, and done 
@@ -167,8 +167,8 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 	 * Initializes game and sets up the Player object
 	 */
 	public void init() {
-		player = new Player(30, 300, 100, new Color(0, 0, 200));
-
+		player = new Player(30, 10, 0, new Color(0, 0, 200));
+		currentLevel=new LevelOne(player, getWidth(), getHeight());
 		start();
 
 	}
@@ -181,16 +181,13 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 	public void start() {
 		gameState = STATE_PLAYING;
 		
-		player.setSpeed(5);
+		player.setSpeedX(5);
+		
 		
 		// will eventually have an actual location relevant to the game
-		player.setCentX((int) (getWidth() / 2 - player.getRadius() / 2)); 
+		//player.setCentX((int) (getWidth() / 2 - player.getRadius() / 2)); 
 	
-		player.setCentY(getHeight() - 40);
-		
-		LevelOne lvl1= new LevelOne(player,getWidth(), getHeight());
-		
-		currentLevel=lvl1;
+		//player.setCentY(getHeight() - 40);
 
 	}
 
@@ -206,26 +203,31 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 		// if the game is happening, you can move and the game continues
 		case STATE_PLAYING:
 	
-				if (isAKeyDown(KeyEvent.VK_UP))
-				{
-					if(player.)
-					player.checkMoveV(true, 5);
-				}
-				else
-				{
-					currentLevel.checkMoveV(false, 0); // the second variable is the speed, which helps determine and then implement the jumping (or not)
-				}
-				
-				
-				if (isAKeyDown(KeyEvent.VK_LEFT) && canMove(player, true))
-					player.doMoveH(true);
-				else if (isAKeyDown(KeyEvent.VK_RIGHT)
-						&& canMove(player, false))
-					player.doMoveH(false);
+		if (isAKeyDown(KeyEvent.VK_UP))
+		{
+			int jumpspeed=10;
+			timer=0;
+			if(player.getGrounded()==true)
+			{
+				currentLevel.checkMoveV(player, true, jumpspeed);
+				player.setGrounded(false);
+			}
+		}
+		else
+		{
+			currentLevel.checkMoveV(player, false, 0); // the second variable is the speed, which helps determine and then implement the jumping (or not)
+		}
+		
+		
+		if (isAKeyDown(KeyEvent.VK_LEFT) && canMove(player, true))
+			player.doMoveH(true);
+		else if (isAKeyDown(KeyEvent.VK_RIGHT)
+				&& canMove(player, false))
+			player.doMoveH(false);
 
-				
-				drawBoard(g);
-				drawSprites(g);
+		
+			drawBoard(g);
+			drawSprites(g);
 				
 			break;
 			
@@ -233,17 +235,6 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 		case STATE_DONE:
 			//g.setColor(Color.black);
 			g.drawString("You have survived the game!", 200, 100);
-			/*
-			g.drawString("Play again? Press Y or N", 200, 100);
-			// System.out.println("here");
-			
-			// here we check for keys y or n
-			if (playAgain == 'Y') {
-				start();
-			} else if (playAgain == 'N') {
-
-			}
-			*/
 			break;
 
 		}
@@ -251,31 +242,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 	}
 	
 	
-//this method creates the enemy spheres and sets their speeds and red color
-	/*public void createEnemies(int n) {
-		for (int i = 0; i < n; i++) {
-			int x = (int) (Math.random() * getWidth());
-			int r = 10;
-			Sphere newest = new Sphere(x, r, r, -20, (int) (Math.random()
-					* evilSpeed + constant), new Color(250, 0, 0));
-			objects.add(newest);
-			numEnemies++;
 
-		}
-	}
-*/
-	//this method creates the friendly spheres and sets their speeds and green color
-/*	public void createHealth(int n) {
-		for (int i = 0; i < n; i++) {
-			int x = (int) (Math.random() * getWidth());
-			int r = 10;
-			Sphere newest = new Sphere(x, r, r, 10, (int) (Math.random()
-					* healthSpeed + constant), new Color(0, 250, 0));
-			objects.add(newest);
-
-		}
-	}
-*/
 	/**
 	 * Tests whether a player can move up or down, to be eventually moved to the 
 	 * Level class.
@@ -304,70 +271,17 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 	// will be moved to the Level class
 	public boolean canMove(Player p, boolean moveLeftOrRight) {
 		if (moveLeftOrRight) {
-			if ((p.getCentX()) <= WALL_SIZE + p.getSpeed())
+			if ((p.getCentX()) <= WALL_SIZE + p.getSpeedX())
 				return false;
 			else
 				return true;
 		}
-		if (p.getCentX() + p.getRadius() >= getWidth() - WALL_SIZE
-				- p.getSpeed())
+		if (p.getCentX() + p.getRadius() >= getWidth() - WALL_SIZE - p.getSpeedX())
 			return false;
 		else
 			return true;
 
 	}
-
-	// method to determine if the player can move up or down (limits of the screen)
-	// will be moved to the Level class
-	public boolean canMoveV(Player p, boolean moveUpOrDown) {
-		if (moveUpOrDown) {
-			if ((p.getCentY() - p.getRadius()) <= getHeight() / 2
-					+ p.getSpeed()) {
-				return false;
-			} else
-				return true;
-		}
-		if ((p.getCentY() + p.getRadius()) >= getHeight() - WALL_SIZE
-				- p.getSpeed())
-			return false;
-		else
-			return true;
-
-	}
-
-	// this method detects whether a sphere has touched the player circle, determines its enemy status, and carries out the relevant action
-/*	public void findAndRemove(ArrayList<Sphere> objects, Avatar player,
-			HealthBar bar) {
-		for (int i = 0; i < objects.size(); i++) {
-			Sphere s = objects.get(i);
-			double distance = Math.sqrt((player.getCentX() - s.getX())
-					* (player.getCentX() - s.getX())
-					+ (player.getCentY() - s.getY())
-					* (player.getCentY() - s.getY()));
-			if (distance < (player.getRadius() - s.getRadius())) {
-				bar.changeBar(s.getStatus());
-				if (s.getStatus() <= -1) {
-					numEnemies--;
-				} else {
-					numHealth--;
-				}
-				objects.remove(i);
-				i--;
-			} else if ((s.getY() + s.getRadius() / 2) >= getHeight()) {
-				if (s.getStatus() <= -1) {
-					numEnemies--;
-				} else {
-					numHealth--;
-				}
-				objects.remove(i);
-				i--;
-			}
-		}
-	}
-*/
-	
-	
-	
 	
 	
 	/***
@@ -456,6 +370,21 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 		g.setColor(WALL_COL);
 		g.fillRect(0, 0, getWidth(), WALL_SIZE);
 		g.fillRect(0, getHeight() - WALL_SIZE, getWidth(), WALL_SIZE);
+		
+		ArrayList<Obstacles> thingsInLevel= currentLevel.getObstacleList();
+		
+		for(int i= 0; i<thingsInLevel.size(); i++)
+		{
+			Polygon p= new Polygon();
+			for(int j=0; j<thingsInLevel.get(i).getVertices().size(); j++)
+			{
+				p.addPoint(thingsInLevel.get(i).getVertices().get(j).getXCoord(), thingsInLevel.get(i).getVertices().get(j).getYCoord());
+			}
+			if(p!=null)
+			{
+				g.drawPolygon(p);
+			}
+		}
 
 	}
 
@@ -517,7 +446,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 			
 			try {
 				timer=timer+1;
-				Thread.sleep(20);
+				Thread.sleep(30);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

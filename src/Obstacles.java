@@ -13,10 +13,12 @@ public class Obstacles
 	{
 		outlines=o;
 		ArrayList<Vertex> allV= new ArrayList<Vertex>();
+		vertices= new ArrayList<Vertex>();
 		if(o!=null)
 		{
 			allV.add(o.get(0).getV1());
 			allV.add(o.get(0).getV2());
+
 			vertices.add(o.get(0).getV1());
 			vertices.add(o.get(0).getV2());
 		}
@@ -60,7 +62,7 @@ public class Obstacles
 	 * This method returns an arraylist of the vertices of the obstacle
 	 * @return vertices
 	 */
-	public ArrayList<Vertex> Vertices()
+	public ArrayList<Vertex> getVertices()
 	{
 		return vertices;
 	}
