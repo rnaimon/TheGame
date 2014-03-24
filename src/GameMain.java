@@ -1,5 +1,7 @@
-/*This is the main file where the game comes together. */
+/*This is the main file where the game comes together. The game is run
+ * from this file. */
 //Rebecca Naimon
+// Michael Katz
 
 import java.awt.BorderLayout;
 import java.awt.Canvas;
@@ -35,7 +37,11 @@ import java.util.*;
 
 
 
-// main class of the game in which most things happen
+/***
+ * This is the GameMain class. It is a single class that runs the game.
+ * @author Rebecca Naimon and Michael Katz
+ *
+ */
 public class GameMain extends Canvas implements Runnable, KeyListener {
 
 	//entities created here
@@ -43,6 +49,14 @@ public class GameMain extends Canvas implements Runnable, KeyListener {
 
 	//Player is the class that indicates a player, rather redundantly
 	private Player player;
+	
+
+	
+	// these are values that need initiating, and control gameplay
+	//private int numEnemies;
+
+	ArrayList<Level> levels = new ArrayList();
+	
 	
 	
 	//for double buffered graphics
@@ -53,23 +67,13 @@ public class GameMain extends Canvas implements Runnable, KeyListener {
 
 	 private long lastDrawTime;
 	
-	
-	// these are values that need initiating, and control gameplay
-	//private int numEnemies;
-
-	// ,p1;
-	
-	// these variables deal with the timer on the screen, and the length of the game
-	private static JLabel timer;
-	private static int gameLength = 3600;
-	
-	// there are two states: playing, and done 
+	// there are two overall states: playing, and done 
 	public static final int STATE_PLAYING = 1; // state values
 	public static final int STATE_DONE = 2;
 
 	private int gameState; // current state
 
-	public static final Color BG_COL = new Color(100, 0, 0); // background
+	public static final Color BG_COL = new Color(100, 0, 0); // background color
 	public static final Color WALL_COL = new Color(0, 80, 200); // walls
 
 	public static final int WALL_SIZE = 3; // wall size
@@ -77,36 +81,38 @@ public class GameMain extends Canvas implements Runnable, KeyListener {
 	public static final Font SCORE_FONT = new Font("Lucida Console", Font.BOLD
 			& Font.ITALIC, 30);
 
-	// Load background images (namely, the player image)
+	// Loads background images (namely, the player image, for now at least)
 	private static BufferedImage IMAGE_BG = null;
 	{
 		try {
-			IMAGE_BG = ImageIO.read(new File("bluecircle.png"));
+			IMAGE_BG = ImageIO.read(new File("bluecircle.png")); // later it will not be a blue circle
 		} catch (IOException ex) {
 
 		}
 	}
 
 	/**
-	 * Create Frame and Panel, and initiate the game
+	 * Creates Frame and Panel, and initiates the game. It sets the size of the frame
+	 * to the size of the computer screen.
 	 */
 	public static void main(String[] args) {
 
 		GameMain game = new GameMain();
+		
 		int width = Toolkit.getDefaultToolkit().getScreenSize().width; 
 		int height = Toolkit.getDefaultToolkit().getScreenSize().height;
 		
-		createGameFrame(game, width, height); //to be changed to be entire screen
+		createGameFrame(game, width, height); 
 		game.init();
 	}
 
 
 	
 	/**
-	 * Test whether a key is currently being pressed down 
-	 * Multiple keys can be pressed simultaneously
-	 * @param keyToTest determine if this key is down (see VK_ constants in java.awt.event.KeyEvent)
-	 * @return true if this keys is down otherwise false
+	 * Test whether a key is currently being pressed down. 
+	 * Multiple keys can be pressed simultaneously.
+	 * @param keyToTest determines if this particular key is down
+	 * @return true if this key is down, otherwise, returns false
 	 */
 	public boolean isAKeyDown(int keyToTest){
 		for (int key : keysDown) {
@@ -115,9 +121,10 @@ public class GameMain extends Canvas implements Runnable, KeyListener {
 		return false;
 	}
 	
+	
 	/**
 	 * Triggered when a key is released (up)
-	 * @param keyE which key
+	 * @param keyE returns which key was released.
 	 */
 		public void keyReleased(KeyEvent keyE) {
 			// Remove key released
@@ -132,6 +139,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener {
 		 	keysDown=newDown;
 		}
 
+		
 		/**
 		 * Triggered when a key is pressed (up)
 		 * @param keyE which key
@@ -155,11 +163,9 @@ public class GameMain extends Canvas implements Runnable, KeyListener {
 	
 	
 	/**
-	 * Initialize game - insert code to set up (not create!) entities
+	 * Initializes game and sets up the Player object
 	 */
 	public void init() {
-		// p1=new PaddleDone(20,100);
-		// player=new PaddleDone(20,100);
 		player = new Player(30, 300, 100, new Color(0, 0, 200));
 
 		start();
@@ -167,14 +173,18 @@ public class GameMain extends Canvas implements Runnable, KeyListener {
 	}
 
 	/**
-	 * (re)start game - reset positions, scores etc
+	 * Starts or restarts game - sets up or resets positions and such. 
+	 * 
+	 * There is much more to be added, namely involving levels.
 	 */
 	public void start() {
 		gameState = STATE_PLAYING;
 	
 		player.setSpeed(5);
-		player.setCentX((int) (getWidth() / 2 - player.getRadius() / 2)); // reset
-																			// positions
+		
+		// will eventually have an actual location relevant to the game
+		player.setCentX((int) (getWidth() / 2 - player.getRadius() / 2)); 
+	
 		player.setCentY(getHeight() - 40);
 
 	}
@@ -188,7 +198,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener {
 	public void updateFrame(Graphics2D g) {
 
 		switch (gameState) {
-		// if the game is happening, you can move and spheres can move, and the game's mechanics happen
+		// if the game is happening, you can move and the game continues
 		case STATE_PLAYING:
 	//		if (bar.getValue() >= 0) {
 			/*	 if(isAKeyDown(KeyEvent.VK_A) && canMove(player,true))
@@ -208,9 +218,6 @@ public class GameMain extends Canvas implements Runnable, KeyListener {
 						&& canMove(player, false))
 					player.doMoveH(false);
 
-				int newEnemies = 0;
-				int newHealth = 0;
-				
 				/*
 				while (this.getChecker() != this.getKing()) {
 					int p = this.getChecker();
@@ -266,10 +273,11 @@ public class GameMain extends Canvas implements Runnable, KeyListener {
 				
 //			}
 			break;
+			
 			//if the game is over because the player won
 		case STATE_DONE:
-			g.setColor(Color.black);
-	//		g.drawString("You have survived the game!", 200, 100);
+			//g.setColor(Color.black);
+			g.drawString("You have survived the game!", 200, 100);
 			/*
 			g.drawString("Play again? Press Y or N", 200, 100);
 			// System.out.println("here");
@@ -314,30 +322,31 @@ public class GameMain extends Canvas implements Runnable, KeyListener {
 	}
 */
 	/**
-	 * Test whether a player can move up or down
+	 * Tests whether a player can move up or down, to be eventually moved to the 
+	 * Level class.
 	 * 
-	 * @param p
-	 *            player to test
-	 * @param moveUpOrDown
-	 *            trying to move up or down
+	 * @param p is the player to test
+	 * @param moveUpOrDown is whether we're trying to move up or down
 	 */
+	
 	/*
-	 * public boolean canMove(PaddleDone p,boolean moveLeftOrRight){
-	 * if(moveLeftOrRight){ if(p.getTopX()<=WALL_SIZE+p.getSpeed()) return
-	 * false; else return true; }
-	 * if(p.getTopX()+p.getSizeX()>=getWidth()-WALL_SIZE-p.getSpeed())return
-	 * false; else return true;
-	 * 
-	 * } public boolean canMoveV(PaddleDone p,boolean moveUpOrDown){
-	 * if(moveUpOrDown){ if(p.getTopY()<=WALL_SIZE+p.getSpeed()) return false;
-	 * else return true; }
-	 * if(p.getTopY()+p.getSizeY()>=getHeight()-WALL_SIZE-p.getSpeed())return
-	 * false; else return true;
-	 * 
-	 * }
+	  public boolean canMove(PaddleDone p,boolean moveLeftOrRight){
+	  if(moveLeftOrRight){ if(p.getTopX()<=WALL_SIZE+p.getSpeed()) return
+	  false; else return true; }
+	  if(p.getTopX()+p.getSizeX()>=getWidth()-WALL_SIZE-p.getSpeed())return
+	  false; else return true;
+	  
+	  } public boolean canMoveV(PaddleDone p,boolean moveUpOrDown){
+	  if(moveUpOrDown){ if(p.getTopY()<=WALL_SIZE+p.getSpeed()) return false;
+	  else return true; }
+	  if(p.getTopY()+p.getSizeY()>=getHeight()-WALL_SIZE-p.getSpeed())return
+	  false; else return true;
+	  
+	  }
 	 */
 	
 	//method to determine if the player can move left or right (limits of the screen)
+	// will be moved to the Level class
 	public boolean canMove(Player p, boolean moveLeftOrRight) {
 		if (moveLeftOrRight) {
 			if ((p.getCentX()) <= WALL_SIZE + p.getSpeed())
@@ -354,6 +363,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener {
 	}
 
 	// method to determine if the player can move up or down (limits of the screen)
+	// will be moved to the Level class
 	public boolean canMoveV(Player p, boolean moveUpOrDown) {
 		if (moveUpOrDown) {
 			if ((p.getCentY() - p.getRadius()) <= getHeight() / 2
@@ -400,6 +410,68 @@ public class GameMain extends Canvas implements Runnable, KeyListener {
 		}
 	}
 */
+	
+	
+	
+	
+	
+	/***
+	 * This paint method paints the graphics (it has a Graphics object g).
+	 */
+	public void paint(Graphics g){
+		
+        //    checks the buffersize with the current panelsize
+        //    or initialises the image with the first paint
+        if(bufferWidth!=getSize().width || 
+          bufferHeight!=getSize().height || 
+          bufferImage==null || bufferGraphics==null)
+            resetBuffer();
+        
+        
+        if(bufferGraphics!=null){
+            //this clears the offscreen image, not the onscreen one
+            bufferGraphics.clearRect(0,0,bufferWidth,bufferHeight);
+
+            //calls the paintbuffer method with 
+            //the offscreen graphics as a param
+            updateFrame((Graphics2D)bufferGraphics);
+
+            //we finally paint the offscreen image onto the onscreen image
+            
+            g.drawImage(bufferImage,0,0,this);
+        }
+
+        
+		lastDrawTime=System.currentTimeMillis();
+    }
+	
+
+    /** 
+     * Reinitialize double buffered graphics when canvas changes size
+     */
+    private void resetBuffer(){
+        // always keep track of the image size
+        bufferWidth=getSize().width;
+        bufferHeight=getSize().height;
+
+        //    clean up the previous image
+        
+        if(bufferGraphics!=null){
+            bufferGraphics.dispose();
+            bufferGraphics=null;
+        }
+        if(bufferImage!=null){
+            bufferImage.flush();
+            bufferImage=null;
+        }
+        System.gc();
+
+        //    create the new image with the size of the panel
+        bufferImage=createImage(bufferWidth,bufferHeight);
+        bufferGraphics=bufferImage.getGraphics();
+    }
+	
+	
 	/**
 	 * Stuff to draw when we're playing
 	 * 
@@ -444,18 +516,6 @@ public class GameMain extends Canvas implements Runnable, KeyListener {
 
 		JPanel topPanel = new JPanel();
 		topPanel.setLayout(new BorderLayout());
-	//	HealthBarCanvas h = new HealthBarCanvas(bar);
-//		h.setBounds(0, 0, 300, 20);
-
-	//	topPanel.add(h, BorderLayout.WEST);
-	
-	//	topPanel.add(b, BorderLayout.CENTER);
-		myFrame.add(topPanel, BorderLayout.NORTH);
-
-		
-		timer = new JLabel("                                              ");
-		topPanel.add(timer, BorderLayout.EAST);
-	//	JLabel time = new JLabel(this.getTimer());
 		
 		game.addKeyListener(game);
 		// Make sure program ends when window is closed
