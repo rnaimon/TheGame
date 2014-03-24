@@ -208,11 +208,13 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 					 player.doMove(false);
 */
 				if (isAKeyDown(KeyEvent.VK_UP) && canMoveV(player, true))
+				{
 					player.doMoveV(true, 5);
-				else if (isAKeyDown(KeyEvent.VK_DOWN)
-						&& canMoveV(player, false))
-					player.doMoveV(false, 5); // the second variable is the speed, which helps determine and then implement the jumping (or not)
-
+				}
+				else if (isAKeyDown(KeyEvent.VK_DOWN) && canMoveV(player, false))
+					{
+						player.doMoveV(false, 5); // the second variable is the speed, which helps determine and then implement the jumping (or not)
+					}
 				if (isAKeyDown(KeyEvent.VK_LEFT) && canMove(player, true))
 					player.doMoveH(true);
 				else if (isAKeyDown(KeyEvent.VK_RIGHT)
