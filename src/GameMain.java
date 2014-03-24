@@ -42,7 +42,8 @@ import java.util.*;
  * @author Rebecca Naimon and Michael Katz
  *
  */
-public class GameMain extends Canvas implements Runnable, KeyListener {
+public class GameMain extends Canvas implements Runnable, KeyListener 
+{
 
 	//entities created here
 	private int[] keysDown=new int[0];
