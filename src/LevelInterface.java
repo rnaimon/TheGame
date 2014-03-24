@@ -30,10 +30,29 @@ public interface LevelInterface
 	public void setLevelNumber(int n);
 	
 	/**
+	 * This method "gets" the width of the gameframe
+	 * @return gameWidth
+	 */
+	public int getGameWidth();
+	
+	/**
+	 * This method "gets" the height of the gameframe
+	 * @return gameHeight
+	 */
+	public int getGameHeight();
+	
+	
+	/**
 	 * This method returns an ArrayList of the obstacles/platforms found in the level
 	 * @return obstacles is the list of Obstacle Objects that includes barriers and platforms
 	 */
 	public ArrayList<Obstacles> getObstacleList();
+	
+	/**
+	 * This method sets the ObstacleList to the ArrayList of obstacles, o
+	 * @param o is the new arraylist of obstacles, which may include barriers and platforms
+	 */
+	public void setObstacleList(ArrayList<Obstacles> o);
 	
 	/**
 	 * This method returns an ArrayList of Item objects found in the level

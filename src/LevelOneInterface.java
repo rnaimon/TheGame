@@ -14,4 +14,10 @@ public interface LevelOneInterface extends LevelInterface
 	 * @param g
 	 */
 	public void draw(Graphics2D g);
+	
+	/**
+	 * This method checks if the level should be reset in such cases as if the player "dies"
+	 * @return reset is a variable that is true if the level needs to be reset
+	 */
+	public boolean shouldReset();
 }

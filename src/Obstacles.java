@@ -64,4 +64,13 @@ public class Obstacles
 	{
 		return vertices;
 	}
+	
+	public void translate(int x, int y)
+	{
+		for(int i=0; i< outlines.size(); i++)
+		{
+			outlines.get(i).setV1(new Vertex(outlines.get(i).getV1().getXCoord()+x, outlines.get(i).getV1().getYCoord()+y));
+			outlines.get(i).setV2(new Vertex(outlines.get(i).getV2().getXCoord()+x, outlines.get(i).getV2().getYCoord()+y));
+		}
+	}
 }
