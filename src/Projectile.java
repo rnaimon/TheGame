@@ -77,7 +77,25 @@ public class Projectile implements ProjectileInterface {
 		top_y=y;
 		
 	}
+	
+	/***
+	 * This method sets the width of the projectile.
+	 * @param w is the width of the projectile
+	 */
+	public void setWidth(double w) {
+		width = w;
+	}
 
+	
+	/***
+	 * This method returns the width of the projectile.
+	 * @return width of the projectile
+	 */
+	public double getWidth() {
+		return width;
+	}
+	
+	
 	/**
 	 * This method returns the component of the speed of the projectile 
 	 * in the x-direction
@@ -128,6 +146,16 @@ public class Projectile implements ProjectileInterface {
 		
 	}
 	
+	/***
+	 * This method causes the projectile to disappear once it hits something.
+	 */
+	public void selfDestruct() {
+		speed_X = 0;
+		speed_Y = 0;
+		top_x = -100;
+		top_y = -100;
+		width = 0;
+	}
 	
 	
 }

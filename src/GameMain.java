@@ -455,4 +455,26 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 		
 	}
 
+	
+	/***
+	 * 
+	 * @param dart is the Projectile object that is going to possibly hit a switch
+	 * @param switch1 is the Switch object that will change its contact status if hit
+	 * by a dart
+	 */
+	 public void isProjectileTouchingSwitch(Projectile dart, Switch switch1) {
+	 
+		if(((dart.getTopX()+dart.getWidth()) >= switch1.getOutlines().get(0).getV2().getXCoord()) && dart.getSpeedX()>0) {
+			switch1.changeContactStatus();
+			dart.selfDestruct();
+		}
+		else if (((dart.getTopX()) <= switch1.getOutlines().get(0).getV1().getXCoord()) && dart.getSpeedX()<0) {
+			switch1.changeContactStatus();
+			dart.selfDestruct();
+		}
+		
+	}
+	
+	
+	
 }
