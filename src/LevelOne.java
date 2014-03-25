@@ -15,6 +15,7 @@ public class LevelOne extends Level implements LevelOneInterface
 		setLevelNumber(1);
 		reset=false;
 		super.setObstacleList(setUpEnvironment());
+		player.setPlatforms(getObstacleList());
 	}
 
 	public ArrayList<Obstacles> setUpEnvironment()

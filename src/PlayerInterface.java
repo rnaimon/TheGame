@@ -36,7 +36,6 @@ public interface PlayerInterface{
 	
 	public double getSpeedX();
 	
-	public double getCurrentSpeedY();
 	
 	public double getSpeedY();
 	

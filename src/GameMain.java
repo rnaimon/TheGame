@@ -203,21 +203,24 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 		// if the game is happening, you can move and the game continues
 		case STATE_PLAYING:
 	
-		if (isAKeyDown(KeyEvent.VK_UP))
+		if (isAKeyDown(KeyEvent.VK_UP) && player.getGrounded()==true)
 		{
-			int jumpspeed=10;
-			timer=0;
-			if(player.getGrounded()==true)
-			{
-				currentLevel.checkMoveV(player, true, jumpspeed);
-				player.setGrounded(false);
-			}
+				player.setSpeedY(-9.8*1.5);
 		}
 		else
 		{
-			currentLevel.checkMoveV(player, false, 0); // the second variable is the speed, which helps determine and then implement the jumping (or not)
+			if(player.getGrounded()==true)
+			{
+				player.setSpeedY(0);
+			}
+			else if(timer%50==0)
+			{
+				//timer=0;
+				player.setSpeedY(player.getSpeedY()+9.8);
+			}
 		}
 		
+		currentLevel.checkMoveV(player, true, 2);
 		
 		if (isAKeyDown(KeyEvent.VK_LEFT) && canMove(player, true))
 			player.doMoveH(true);
@@ -446,7 +449,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 			
 			try {
 				timer=timer+1;
-				Thread.sleep(30);
+				Thread.sleep(20);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
