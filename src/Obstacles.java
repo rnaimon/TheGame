@@ -26,27 +26,34 @@ public class Obstacles
 		{
 			Vertex v1=o.get(i).getV1();
 			allV.add(v1);
-			boolean add=true;
+			boolean addit=true;
 			for(int j=0; j<vertices.size(); j++)
 			{
-				if(v1.getXCoord()==vertices.get(i).getXCoord())
-					if(v1.getYCoord()==vertices.get(i).getYCoord())
-						add=false;
+				if(v1.getXCoord()==vertices.get(j).getXCoord())
+					if(v1.getYCoord()==vertices.get(j).getYCoord())
+						addit=false;
 			}
-			if(add=true)
+			if(addit==true)
 				vertices.add(v1);
 			Vertex v2=o.get(i).getV2();
 			allV.add(v2);
-			add=true;
+			addit=true;
 			for(int j=0; j<vertices.size(); j++)
 			{
-				if(v2.getXCoord()==vertices.get(i).getXCoord())
-					if(v2.getYCoord()==vertices.get(i).getYCoord())
-						add=false;
+				if(v2.getXCoord()==vertices.get(j).getXCoord())
+				{
+					System.out.println("here");
+					if(v2.getYCoord()==vertices.get(j).getYCoord())
+					{
+						System.out.println("here");
+						addit=false;
+					}
+				}
 			}
-			if(add=true)
+			if(addit==true)
 				vertices.add(v2);
 		}
+		
 	}
 	
 	/**

@@ -205,7 +205,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 	
 		if (isAKeyDown(KeyEvent.VK_UP) && player.getGrounded()==true)
 		{
-				player.setSpeedY(-9.8*1.5);
+				player.setSpeedY(-9.8*.5);
 		}
 		else
 		{
@@ -213,10 +213,13 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 			{
 				player.setSpeedY(0);
 			}
-			else if(timer%50==0)
+			else 
 			{
-				//timer=0;
-				player.setSpeedY(player.getSpeedY()+9.8);
+				if(timer%50==0)
+				{
+					//timer=0;
+					player.setSpeedY(player.getSpeedY() + player.getAccel());
+				}
 			}
 		}
 		
@@ -378,6 +381,15 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 		
 		for(int i= 0; i<thingsInLevel.size(); i++)
 		{
+			int[] vertx= new int[thingsInLevel.get(i).getVertices().size()];
+			int[] verty= new int[thingsInLevel.get(i).getVertices().size()];
+			for(int j=0; j< thingsInLevel.get(i).getVertices().size(); j++)
+			{
+				vertx[j]=(int)(thingsInLevel.get(i).getVertices().get(j).getXCoord());
+				verty[j]=(int)(thingsInLevel.get(i).getVertices().get(j).getYCoord());
+			}
+			g.fillPolygon(vertx, verty, thingsInLevel.get(i).getVertices().size());
+			/*
 			Polygon p= new Polygon();
 			for(int j=0; j<thingsInLevel.get(i).getVertices().size(); j++)
 			{
@@ -387,6 +399,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 			{
 				g.drawPolygon(p);
 			}
+			*/
 		}
 
 	}

@@ -27,9 +27,9 @@ public class LevelOne extends Level implements LevelOneInterface
 		LineObject platformOneSideR= new LineObject(500,super.getGameHeight()/2, 500, super.getGameHeight()/2 + 20);
 		
 		platform1perimeter.add(platformOneTop);
-		platform1perimeter.add(platformOneSideL);
-		platform1perimeter.add(platformOneBottom);
 		platform1perimeter.add(platformOneSideR);
+		platform1perimeter.add(platformOneBottom);
+		platform1perimeter.add(platformOneSideL);
 		
 		Obstacles Platform1= new Obstacles(platform1perimeter);
 		

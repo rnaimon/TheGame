@@ -5,7 +5,7 @@ public class Player implements PlayerInterface
 {
 	private double  speed_x;
 	private double  speed_y;
-	private double  acceleration=-9.8;
+	private double  acceleration=9.8;
 	private double radius;
 	private int centx;
 	private int centy;
@@ -74,6 +74,16 @@ public class Player implements PlayerInterface
 	{
 		speed_x=x;
 	}
+	
+	public double getAccel()
+	{
+		return acceleration;
+	}
+	
+	public void setAccel(double a)
+	{
+		acceleration=a;
+	}
 
 	
 	public void draw(Graphics2D g){
@@ -105,7 +115,8 @@ public class Player implements PlayerInterface
 	 */
 	 public void doMoveV(boolean moveUpOrDown, int y, ArrayList<LineObject> nearObstacles)
 	 {	
-		 setCentY((int)(getCentY() + speed_y)); //move down
+		 if(getGrounded()==false)
+			 setCentY((int)(getCentY() + speed_y)); //move down
 		 
 	 }
 
@@ -146,7 +157,7 @@ public class Player implements PlayerInterface
 		boolean onPlatform=false;
 		for(int i=0; i< nearObstacles.size(); i++)
 		{
-			if((getCentY() + radius)<= nearObstacles.get(i).getV1().getYCoord() && (getCentY() + radius + speed_y)>= nearObstacles.get(i).getV1().getYCoord())
+			if((getCentY() + radius)<= nearObstacles.get(i).getV1().getYCoord() && (getCentY() + radius + speed_y/2)>= nearObstacles.get(i).getV1().getYCoord())
 			{
 				onPlatform=true;
 				break;
