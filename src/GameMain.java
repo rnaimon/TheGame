@@ -169,6 +169,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 	public void init() {
 		player = new Player(30, 10, 0, new Color(0, 0, 200));
 		currentLevel=new LevelOne(player, getWidth(), getHeight());
+	
 		start();
 
 	}
@@ -198,11 +199,10 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 	 * @param g is a graphics object
 	 */
 	public void updateFrame(Graphics2D g) {
-
+		
 		switch (gameState) {
 		// if the game is happening, you can move and the game continues
 		case STATE_PLAYING:
-	
 		if (isAKeyDown(KeyEvent.VK_UP) && player.getGrounded()==true)
 		{
 				player.setSpeedY(-9.8*.5);
@@ -379,6 +379,8 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 		
 		ArrayList<Obstacles> thingsInLevel= currentLevel.getObstacleList();
 		
+		player.setPlatforms(thingsInLevel);
+		
 		for(int i= 0; i<thingsInLevel.size(); i++)
 		{
 			int[] vertx= new int[thingsInLevel.get(i).getVertices().size()];
@@ -418,6 +420,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 		topPanel.setLayout(new BorderLayout());
 		
 		game.addKeyListener(game);
+		
 		// Make sure program ends when window is closed
 		WindowAdapter d = new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
