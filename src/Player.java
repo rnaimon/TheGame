@@ -139,7 +139,10 @@ public class Player implements PlayerInterface
 	{
 		return speed_y;
 	}
-	
+	/**
+	 * Checks whether the player is within a speed distance of a platform or actually on a platform.
+	 * @return
+	 */
 	public boolean getGrounded()
 	{
 		ArrayList<LineObject> nearObstacles= new ArrayList<LineObject>();
@@ -157,11 +160,12 @@ public class Player implements PlayerInterface
 		boolean onPlatform=false;
 		for(int i=0; i< nearObstacles.size(); i++)
 		{
-			if((getCentY() + radius)<= nearObstacles.get(i).getV1().getYCoord() && (getCentY() + radius + speed_y/2)>= nearObstacles.get(i).getV1().getYCoord())
-			{
-				onPlatform=true;
-				break;
-			}
+				if((getCentY() + radius- speed_y*2/3)<= nearObstacles.get(i).getV1().getYCoord() && (getCentY() + radius + speed_y*2/3)>= nearObstacles.get(i).getV1().getYCoord())
+				{
+					onPlatform=true;
+					break;
+				}
+			
 		}
 		return onPlatform;
 	}

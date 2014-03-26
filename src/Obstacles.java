@@ -42,10 +42,10 @@ public class Obstacles
 			{
 				if(v2.getXCoord()==vertices.get(j).getXCoord())
 				{
-					System.out.println("here");
+					
 					if(v2.getYCoord()==vertices.get(j).getYCoord())
 					{
-						System.out.println("here");
+						
 						addit=false;
 					}
 				}

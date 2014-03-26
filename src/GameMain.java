@@ -13,6 +13,7 @@ import java.awt.Image;
 import java.awt.Panel;
 import java.awt.Polygon;
 import java.awt.Toolkit;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
@@ -67,7 +68,9 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 	 private Graphics bufferGraphics; 
 	 private LevelOne currentLevel;
 	 private long lastDrawTime;
-	
+	 private boolean jump=false;
+	 private int key;
+	 private boolean checkerJump;
 	// there are two overall states: playing, and done 
 	public static final int STATE_PLAYING = 1; // state values
 	public static final int STATE_DONE = 2;
@@ -160,6 +163,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 			 	keysDown=newDown;
 		 	}
 		}
+		
 	
 	
 	
@@ -203,27 +207,36 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 		switch (gameState) {
 		// if the game is happening, you can move and the game continues
 		case STATE_PLAYING:
-		if (isAKeyDown(KeyEvent.VK_UP) && player.getGrounded()==true)
+			//System.out.println(jump);
+		if (jump==true && player.getGrounded()==true)
 		{
-				player.setSpeedY(-9.8*.5);
+				System.out.println("here");
+				player.setSpeedY(-9.8*1.5);
+				checkerJump=true;
 		}
 		else
 		{
+			if(player.getSpeedY()>0 && checkerJump==true)
+			{
+				checkerJump=false;
+				jump=false;
+			}
 			if(player.getGrounded()==true)
 			{
 				player.setSpeedY(0);
 			}
 			else 
 			{
-				if(timer%50==0)
-				{
-					//timer=0;
-					player.setSpeedY(player.getSpeedY() + player.getAccel());
-				}
+					if(timer%50==0)
+					{
+						//timer=0;
+						if(player.getSpeedY()<=15)
+							player.setSpeedY(player.getSpeedY() + player.getAccel());
+					}
 			}
 		}
 		
-		currentLevel.checkMoveV(player, true, 2);
+		player.doMoveV(true, 2, null);
 		
 		if (isAKeyDown(KeyEvent.VK_LEFT) && canMove(player, true))
 			player.doMoveH(true);
@@ -447,8 +460,21 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 	/**
 	 * Create a game panel
 	 */
+
 	public GameMain() {
 		super();
+		addKeyListener(new KeyAdapter()
+		{
+			public void keyPressed(KeyEvent e)
+			{
+				key=(e.getKeyCode());
+				if(key==KeyEvent.VK_UP)
+				{
+					
+					jump=true;
+				}
+			}//end KeyPressed
+		});
 		thisThread=new Thread(this); //create a thread for an object
 		thisThread.start(); 
 	}
