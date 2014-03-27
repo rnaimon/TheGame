@@ -168,7 +168,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 	
 	
 	/**
-	 * Initializes game and sets up the Player object
+	 * Initializes game and sets up the Player object and the Level
 	 */
 	public void init() {
 		player = new Player(30, 10, 0, new Color(0, 0, 200));
@@ -198,7 +198,8 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 
 	/**
 	 * Updates the screen, including drawing the environment and calling the draw()
-	 * methods for each sprite
+	 * methods for each sprite. Also deals with movement and jumping situations each
+	 * time the board is drawn.
 	 * 
 	 * @param g is a graphics object
 	 */
@@ -288,6 +289,13 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 	
 	//method to determine if the player can move left or right (limits of the screen)
 	// will be moved to the Level class
+	/***
+	 * 
+	 * @param p is the player
+	 * @param moveLeftOrRight is a boolean to describe whether the player can move left
+	 * or right
+	 * @return the new moveLeftOrRight boolean
+	 */
 	public boolean canMove(Player p, boolean moveLeftOrRight) {
 		if (moveLeftOrRight) {
 			if ((p.getCentX()) <= WALL_SIZE + p.getSpeedX())
@@ -304,7 +312,8 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 	
 	
 	/***
-	 * This paint method paints the graphics (it has a Graphics object g).
+	 * This paint method paints the graphics (it has a Graphics object g). Also
+	 * includes some code for double buffering.
 	 */
 	public void paint(Graphics g){
 		
@@ -361,7 +370,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 	
 	
 	/**
-	 * Stuff to draw when we're playing
+	 * Characters to draw when we're playing. So far, just the player. 
 	 * 
 	 * @param g
 	 */
@@ -377,7 +386,8 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 	}
 
 	/**
-	 * Draw the board background
+	 * Draws the board background, and creates ArrayLists of the various obstacles and
+	 * platforms in the game (and then draws them).
 	 */
 	private void drawBoard(Graphics2D g) {
 		g.setColor(BG_COL);
@@ -419,10 +429,16 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 
 	}
 
-	// main method that creates the frame, sets the accessories at the top, and allows the window to close
+	// 
+	/***
+	 * Main method that creates the frame, sets the accessories at the top, and allows 
+	 * the window to close
+	 * @param game is the GameMain class
+	 * @param width is the width of the frame
+	 * @param height is the height of the frame
+	 */
 	public static void createGameFrame(GameMain game, int width, int height) {
 		Frame myFrame = new Frame();
-
 		myFrame.setSize(width, height); // frame size
 		myFrame.setBackground(Color.white);
 		// myFrame.setLayout(mgr);
@@ -458,9 +474,8 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 	private Thread thisThread;
 	
 	/**
-	 * Create a game panel
+	 * Creates a game panel, tests for jumping, starts the thread.
 	 */
-
 	public GameMain() {
 		super();
 		addKeyListener(new KeyAdapter()
@@ -482,7 +497,8 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 	
 
 	/**
-	 * Start the thread
+	 * Runs and starts the thread so that the canvas can be repainted over and over,
+	 * with the thread sleeping in between.
 	 */
 	public void run(){
 		
@@ -502,7 +518,9 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 
 	
 	/***
-	 * 
+	 * This method determines whether a projectile, which is an element that appears
+	 * multiple times in the game, is touching a switch, also an element that appears
+	 * throughout the game. 
 	 * @param dart is the Projectile object that is going to possibly hit a switch
 	 * @param switch1 is the Switch object that will change its contact status if hit
 	 * by a dart

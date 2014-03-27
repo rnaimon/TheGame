@@ -1,8 +1,12 @@
 import java.awt.Color;
 
-//Projectile class to control projectiles that come from items
-//Rebecca Naimon
 
+/***
+ * This is the Projectile class to control projectiles that come from items, like darts 
+ * or plasma blasts. They all behave like Projectiles.
+ * @author Rebecca Naimon
+ *
+ */
 public class Projectile implements ProjectileInterface {
 	
 	
@@ -28,13 +32,13 @@ public class Projectile implements ProjectileInterface {
 	}
 	
 	/***
-	 * This is the constructor with variables for the projectile class.
-	 * @param x
-	 * @param y
-	 * @param w
-	 * @param h
-	 * @param sX
-	 * @param sY
+	 * This is the constructor with variables for the Projectile class.
+	 * @param x is the top left x-coordinate
+	 * @param y is the top left y-coordinate
+	 * @param w is the width of the projectile
+	 * @param h is the height of the projectile
+	 * @param sX is the speed constant in the x direction
+	 * @param sY is the speed constant in the y direction
 	 */
 	public Projectile(double x, double y, double w, double h, double sX, double sY) {
 		top_x = x;

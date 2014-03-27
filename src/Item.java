@@ -1,8 +1,12 @@
-/* Class for Item, which the player can use to solve puzzles.*/
-//Rebecca Naimon
 
 import java.awt.*;
 
+/***
+ *  Class for Item, which the player can use to solve puzzles, shoot things, and travel.
+ * @author Rebecca Naimon
+ * @author Michael Katz
+ *
+ */
 public class Item implements ItemInterface {
 	
 	private Color color;
@@ -68,6 +72,11 @@ public class Item implements ItemInterface {
 		
 	}
 */
+	
+	
+	/* A number of getters and setters follow. */
+	
+	
 	public int getXCoord() {
 		// TODO Auto-generated method stub
 		return 0;

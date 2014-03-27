@@ -1,5 +1,13 @@
 import java.util.ArrayList;
 
+/***
+ * This class is the Level class, which is the superclass of individual level classes
+ * that make up the gameplay from level to level. This class contains all of the
+ * commonalities from level to level. It implements LevelInterface.
+ * @author Michael Katz
+ * @author Rebecca Naimon
+ *
+ */
 public class Level implements LevelInterface
 {
 	private Player player;
@@ -8,6 +16,12 @@ public class Level implements LevelInterface
 	private int gameWidth;
 	private int gameHeight;
 	
+	/***
+	 * Constructor for Level.
+	 * @param p is the Player object
+	 * @param w is the width of the game window
+	 * @param h is the height of the game window
+	 */
 	public Level(Player p, int w, int h)
 	{
 		player=p;
@@ -15,6 +29,10 @@ public class Level implements LevelInterface
 		gameWidth=w;
 		gameHeight=h;
 	}
+	
+	/*  The following are getters and setters. For more comments, see the 
+	 * LevelInterface.*/
+	
 	public int getLevelNumber() {
 		// TODO Auto-generated method stub
 		return 0;

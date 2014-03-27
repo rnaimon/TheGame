@@ -1,11 +1,26 @@
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
+/***
+ * This class is the LevelOne class, a subclass of Level, that sets up the first level
+ * of the game and allows the player to travel through it and interact with it.
+ * @author Michael Katz
+ * @author Rebecca Naimon
+ *
+ */
 public class LevelOne extends Level implements LevelOneInterface
 {
 	private boolean reset;
 	private Player player;
 	private int WALL_SIZE=3;
+	
+	/***
+	 * Constructor for LevelOne passes in the player and preps the level for being 
+	 * set up with platforms and obstacles.
+	 * @param p is the Player object
+	 * @param width is the width of the game window
+	 * @param height is the height of the game window
+	 */
 	public LevelOne(Player p, int width, int height)
 	{
 		super(p, width, height);
@@ -18,6 +33,10 @@ public class LevelOne extends Level implements LevelOneInterface
 		player.setPlatforms(getObstacleList());
 	}
 
+	/***
+	 * This method sets up the level environment of Obstacles (like platforms). 
+	 * @return an ArrayList of Obstacles in this specific level
+	 */
 	public ArrayList<Obstacles> setUpEnvironment()
 	{
 		ArrayList<LineObject> platform1perimeter= new ArrayList<LineObject>();
@@ -40,21 +59,39 @@ public class LevelOne extends Level implements LevelOneInterface
 		return obstacleList;
 				
 	}
+	
+	/***
+	 * This method contains code to allow the level-specific Item to have a certain 
+	 * function, if one were to exist. 
+	 */
 	public void function() {
 		
 		
 	}
 
+	/***
+	 * 
+	 */
 	public void draw(Graphics2D g) {
 		// TODO Auto-generated method stub
 		
 	}
 
+	/***
+	 * Returns whether the level needs resetting (as in, when the player must start 
+	 * over or something similar)
+	 */
 	public boolean shouldReset() {
 		return reset;
 	}
 
-	// method to determine if the player can move up or down (limits of the screen)
+	/*** Method to determine if the player can move up or down (limits of the screen or 
+	 * Obstacles)
+	 * 
+	 * @param p is the Player object
+	 * @param moveUpOrDown is the boolean of whether the player can move up or down
+	 * @param jumpspeed is the rate of the player's movement vertically
+	 */
 	public void checkMoveV(Player p, boolean moveUpOrDown, int jumpspeed) 
 	{
 		ArrayList<LineObject> nearObstacles= new ArrayList<LineObject>();

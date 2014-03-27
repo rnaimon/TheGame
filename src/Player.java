@@ -1,6 +1,12 @@
 import java.awt.*;
 import java.util.ArrayList;
 
+/***
+ * This is the Player class, which controls the player character and all of its aspects.
+ * @author Michael Katz
+ * @author Rebecca Naimon
+ *
+ */
 public class Player implements PlayerInterface
 {
 	private double  speed_x;
@@ -14,6 +20,9 @@ public class Player implements PlayerInterface
 	private boolean isGrounded;
 	private ArrayList<Obstacles> levelPlatforms;
 	
+	/***
+	 * This is a constructor for Player without variables.
+	 */
 	public Player()
 	{
 		radius= .25;
@@ -21,6 +30,13 @@ public class Player implements PlayerInterface
 		centy=0;
 	}
 	
+	/***
+	 * This is the constructor that assumes the Player is a circle for the MVP.
+	 * @param r is the radius
+	 * @param x is the center x-coordinate
+	 * @param y is the center y-coordinate
+	 * @param c is the color
+	 */
 	public Player(double r, int x, int y, Color c)
 	{
 		radius=r;

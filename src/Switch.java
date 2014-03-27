@@ -1,14 +1,10 @@
 import java.util.ArrayList;
 
-/* This is the class for a switch, or a button, which, when touched by another object,
-performs some function (to be outlined in the actual level subclass).
-
-//Rebecca Naimon made this.
 
 
 /***
- * This is the class for a switch, or a button, which, when touched by another object,
- * performs some function.
+ *  This is the class for a switch, or a button, which, when touched by another object,
+ * performs some function (to be outlined in the actual level subclass).
  * @author Rebecca Naimon
  *
  */
