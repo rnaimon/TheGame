@@ -73,7 +73,11 @@ public class Obstacles
 	{
 		return vertices;
 	}
-	
+	/**
+	 * Translates the entire obstacle by a delta x and delta y
+	 * @param x the change in x that all the points will be shifted
+	 * @param y the change in y that all the points will be shifted
+	 */
 	public void translate(int x, int y)
 	{
 		for(int i=0; i< outlines.size(); i++)

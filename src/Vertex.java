@@ -7,6 +7,11 @@ public class Vertex
 
 	
  
+	/**
+	 * The constructor that creates the new Vertex object
+	 * @param x X-Coordinate of the vertex
+	 * @param y Y-Coordinate of the vertex
+	 */
 	public Vertex(int x, int y)
 	{
 		xCoord=x;
@@ -14,6 +19,10 @@ public class Vertex
  
 	}
 
+	/**
+	 * Retrieves the X-Coordinate
+	 * @return xCoord
+	 */
 	public int getXCoord()
  
 	{
@@ -21,7 +30,10 @@ public class Vertex
 		return xCoord;	
 
 	 }
-
+	/**
+	 * Retrieves the Y-Coordinate
+	 * @return xCoord
+	 */
 	public int getYCoord()
  
 	{
@@ -29,7 +41,10 @@ public class Vertex
 		return yCoord;	
 
 	 }
-	
+	/**
+	 * Sets the X-Coordinate
+	 * @param x is the new XCoord
+	 */
 	public void setXCoord(int x)
 
 	{
@@ -38,7 +53,10 @@ public class Vertex
 	}
  
 	
-
+	/**
+	 * Sets the Y-Coordinate
+	 * @param y is the new YCoord
+	 */
 	public void setYCoord(int y)
 
 	 {

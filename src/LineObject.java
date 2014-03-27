@@ -9,6 +9,13 @@ public class LineObject
 
 	
  
+	/**
+	 * The constructor for LineObject. A program that is an object for a line
+	 * @param x the x coordinate for the first vertex
+	 * @param y the y coordinate for the first vertex
+	 * @param x2 the x coordinate for the second vertex
+	 * @param y2 the y coordinate for the second vertex
+	 */
 	public LineObject(int x, int y, int x2, int y2)
 	{
 		Vertex v1= new Vertex(x, y);
@@ -31,6 +38,10 @@ public class LineObject
  
 	}
 
+	/**
+	 * Retrieves the first vertex of the line
+	 * @return v1
+	 */
 	public Vertex getV1()
  
 	{
@@ -39,6 +50,10 @@ public class LineObject
 
 	 }
 
+	/**
+	 * Retrieves the second vertex of the line
+	 * @return v2 the second vertex
+	 */
 	public Vertex getV2()
 	 
 	{
@@ -47,6 +62,10 @@ public class LineObject
 
 	 }
 	
+	/**
+	 * Sets the first vertex of the line to v
+	 * @param v is the new first vertex of the line
+	 */
 	public void setV1(Vertex v)
 
 	{
@@ -55,7 +74,10 @@ public class LineObject
 	}
  
 	
-
+	/**
+	 * Sets the second vertex of the line to v
+	 * @param v is the new second vertex of the line
+	 */
 	public void setV2(Vertex v)
 
 	{
@@ -63,6 +85,10 @@ public class LineObject
  
 	}
 	
+	/**
+	 * Gets the orientation of the line
+	 * @return orientation which could be 'h' for horizontal, 'v' for vertical, and 'c' for crazy/nonhorizontalvertical
+	 */
 	public char getOrientation()
 	{
 		return orientation;

@@ -121,6 +121,7 @@ public class LevelOne extends Level implements LevelOneInterface
 		{
 			if((p.getCentY() + p.getRadius()) >= super.getGameHeight() - WALL_SIZE - p.getSpeedY())
 			{
+				System.out.println("here");
 				reset=true;
 			}
 			else

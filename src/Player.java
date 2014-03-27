@@ -47,24 +47,37 @@ public class Player implements PlayerInterface
 		speed_y=0;
 		isGrounded=true;
 	}
-	
+	/**
+	 * This method retrieves the X-Coordinate of the center of the circle shaped avatar.
+	 */
 	public int getCentX() {
 		return centx;
 	}
-
+	/**
+	 * This method retrieves the Y-Coordinate of the center of the circle shaped avatar.
+	 */
 	public int getCentY() {
 		return centy;
 	}
+	/**
+	 * This method sets the list of platforms in the level for the player
+	 * @param l is a list of platforms
+	 */
 	public void setPlatforms(ArrayList<Obstacles> l)
 	{
 		levelPlatforms=l;
 	}
 
+	/**
+	 * Sets the X-Coordinate of the center of the player to 'x'
+	 */
 	public void setCentX(int x) {
 		centx=x;
 		
 	}
-
+	/**
+	 * Sets the Y-Coordinate of the center of the player to 'y'
+	 */
 	public void setCentY(int y) {
 		centy=y;
 		
@@ -78,30 +91,50 @@ public class Player implements PlayerInterface
 		
 	}
 	
+	/**
+	 * Returns the color of the player
+	 * @return color is the color of the player
+	 */
 	public Color getColor() {
 		return color;
 	}
 
+	/**
+	 * Sets the color of the player to c
+	 * @param c is the new color of the player
+	 */
 	public void setColor(Color c) {
 		color=c;
 		
 	}
+	/**
+	 * Sets the new x_speed of the character
+	 * @param x the speed at which the player can move horizontally
+	 */
 	public void setSpeedX(int x)
 	{
 		speed_x=x;
 	}
-	
+	/**
+	 * Returns the acceleration due to gravity of the player
+	 * @return acceleration due to gravity
+	 */
 	public double getAccel()
 	{
 		return acceleration;
 	}
-	
+	/**
+	 * Sets the acceleration due to gravity to a
+	 * @param a the new accelaeration due to gravtiy
+	 */
 	public void setAccel(double a)
 	{
 		acceleration=a;
 	}
 
-	
+	/**
+	 * Draws the player, a circle
+	 */
 	public void draw(Graphics2D g){
 		g.setColor(color); //inside
 		g.fillOval(centx, centy, (int)radius, (int)radius);
@@ -113,6 +146,10 @@ public class Player implements PlayerInterface
 		
 	}
 	 
+	/**
+	 * Moves the player right or left. Is called if the player can move left or right and the left
+	 * or right keys are pressed.
+	 */
 	public void doMoveH(boolean moveLeftOrRight){
 		 
 			if(moveLeftOrRight==true) { //move left
@@ -124,8 +161,7 @@ public class Player implements PlayerInterface
 	}
 	 
 	/***
-	 * This method deals with vertical movement, which includes climbing up and down
-	 * ladders, or with jumping and falling, which are more often used.
+	 * This method just makes the player move if the player can move
 	 * @param moveUpOrDown is the variable to determine which vertical direction to move
 	 * @param speed is used to create the physics of jumping or falling
 	 */
@@ -136,21 +172,34 @@ public class Player implements PlayerInterface
 		 
 	 }
 
+	 /**
+	  * This method sets the item the player is holding to i
+	  * @param i the new item the player is holding
+	  */
 	 public void setItem(Item i) {
 			current_item=i;
 	}
 	 
+	/**
+	 * Retrieves the current item the player is holding
+	 */
 	public Item getItem() {
 		return current_item;
 	}
 
 
+	/**
+	 * Retrieves the speed_x
+	 */
 	public double getSpeedX() 
 	{
 		return speed_x;
 	}
 
 
+	/**
+	 * Retrieves the speed of the player in the vertical direction
+	 */
 	public double getSpeedY()
 	{
 		return speed_y;
@@ -190,14 +239,24 @@ public class Player implements PlayerInterface
 		isGrounded=b;
 	}
 
+	/**
+	 * Returns the radius of the circle shaped player
+	 */
 	public double getRadius() {
 		return radius;
 	}
 
+	/**
+	 * Sets the radius of the circle shaped player
+	 */
 	public void setRadius(double r) {
 		radius=r;
 		
 	}
+	/**
+	 * Sets the speed_y to y, the speed the player is moving in the vertical direction
+	 * @param y the new speed in the vertical direction
+	 */
 	public void setSpeedY(double y) {
 		speed_y=y;
 		
