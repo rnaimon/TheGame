@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 
@@ -33,6 +34,7 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 		setLevelNumber(2);
 		reset=false;
 		setObstacleList(setUpEnvironment());
+		player.setPlatforms(getObstacleList());
 	}
 
 	
@@ -44,7 +46,7 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 	public ArrayList<Obstacles> setUpEnvironment()
 	{
 		
-		
+		int gameHeight = super.getGameHeight();
 		
 		ArrayList<LineObject> platform1perimeter= new ArrayList<LineObject>();
 		LineObject platformOneTop= new LineObject(0,super.getGameHeight()-super.getGameHeight()/5, 300, super.getGameHeight()-super.getGameHeight()/5);
@@ -62,11 +64,110 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 		ArrayList<Obstacles> obstacleList= new ArrayList<Obstacles>();
 		obstacleList.add(Platform1);
 		
+		ArrayList<LineObject> platform2perimeter= new ArrayList<LineObject>();
+		LineObject platformTwoTop= new LineObject(0, gameHeight-2*gameHeight/5, 300, gameHeight-2*gameHeight/5);
+		LineObject platformTwoSideL= new LineObject(0,gameHeight-2*gameHeight/5, 0, gameHeight-2*gameHeight/5 + 20);
+		LineObject platformTwoBottom= new LineObject(0, gameHeight-2*gameHeight/5 + 20, 300, gameHeight-2*gameHeight/5 + 20);
+		LineObject platformTwoSideR= new LineObject(300,gameHeight-2*gameHeight/5, 300, gameHeight-2*gameHeight/5 + 20);
+		
+		platform2perimeter.add(platformTwoTop);
+		platform2perimeter.add(platformTwoSideL);
+		platform2perimeter.add(platformTwoBottom);
+		platform2perimeter.add(platformTwoSideR);
+		
+		ArrayList<LineObject> platform3perimeter= new ArrayList<LineObject>();
+		LineObject platformThreeTop= new LineObject(0, gameHeight-3*gameHeight/5, 300, gameHeight-3*gameHeight/5);
+		LineObject platformThreeSideL= new LineObject(0,gameHeight-3*gameHeight/5, 0, gameHeight-3*gameHeight/5 + 20);
+		LineObject platformThreeBottom= new LineObject(0, gameHeight-3*gameHeight/5 + 20, 300, gameHeight-3*gameHeight/5 + 20);
+		LineObject platformThreeSideR= new LineObject(300,gameHeight-3*gameHeight/5, 300, gameHeight-3*gameHeight/5 + 20);
+		
+		platform3perimeter.add(platformThreeTop);
+		platform3perimeter.add(platformThreeSideL);
+		platform3perimeter.add(platformThreeBottom);
+		platform3perimeter.add(platformThreeSideR);
 		
 		return obstacleList;
-				
+			
+		
+		//Now for the platforms on the right side
+		
+		
 	}
 	
+	
+	/***
+	 * This method contains code to allow the level-specific Item to have a certain 
+	 * function, if one were to exist. 
+	 */
+	public void function() {
+		
+		
+	}
+	
+	
+	/***
+	 * 
+	 */
+	public void draw(Graphics2D g) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+	/***
+	 * Returns whether the level needs resetting (as in, when the player must start 
+	 * over or something similar)
+	 */
+	public boolean shouldReset() {
+		return reset;
+	}
+	
+	/*** Method to determine if the player can move up or down (limits of the screen or 
+	 * Obstacles)
+	 * 
+	 * @param p is the Player object
+	 * @param moveUpOrDown is the boolean of whether the player can move up or down
+	 * @param jumpspeed is the rate of the player's movement vertically
+	 */
+	public void checkMoveV(Player p, boolean moveUpOrDown, int jumpspeed) 
+	{
+		ArrayList<LineObject> nearObstacles= new ArrayList<LineObject>();
+		for(int i=0; i< getObstacleList().size(); i++)
+		{
+			LineObject l= getObstacleList().get(i).getOutlines().get(0);
+			if(l.getOrientation()=='h')
+			{
+				if(p.getCentX()>= l.getV1().getXCoord() && p.getCentX()<= l.getV2().getXCoord())
+				{
+					nearObstacles.add(l);
+				}
+			}
+
+			
+		}
+		if (moveUpOrDown) 
+		{
+			if ((p.getCentY() - p.getRadius()) <= WALL_SIZE + p.getSpeedY()) 
+			{
+				player.doMoveV(false, 0, nearObstacles);
+			} 
+			else
+				player.doMoveV(true, 5, nearObstacles);
+		}
+		else
+		{
+			if((p.getCentY() + p.getRadius()) >= super.getGameHeight() - WALL_SIZE - p.getSpeedY())
+			{
+				System.out.println("here");
+				reset=true;
+			}
+			else
+			{
+				player.doMoveV(false, 0, nearObstacles);
+			}
+		}
+
+	}
 	
 	
 	
