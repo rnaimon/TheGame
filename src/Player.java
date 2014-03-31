@@ -71,7 +71,9 @@ public class Player implements PlayerInterface
 	/**
 	 * Sets the X-Coordinate of the center of the player to 'x'
 	 */
-	public void setCentX(int x) {
+	public void setCentX(int x)
+	{
+		System.out.println("here2");
 		centx=x;
 		
 	}

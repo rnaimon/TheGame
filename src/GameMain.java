@@ -215,9 +215,13 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 		switch (gameState) {
 		// if the game is happening, you can move and the game continues
 		case STATE_PLAYING:
-				if(((Level)(currentLevel)).checkComplete()!=true)
+				if(((Level)(currentLevel)).checkComplete()==true)
 				{
 					currentLevel= levelList.get(1);
+					player.setCentX(0);
+					player.setCentY(0);
+					player.setSpeedY(0);
+					
 				}
 					if((player.getCentY() + player.getRadius()+ player.getSpeedY())>= getHeight())
 					{
@@ -229,7 +233,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 						 
 					if (jump==true && player.getGrounded()==true)
 					{
-							System.out.println("here");
+							
 							player.setSpeedY(-Toolkit.getDefaultToolkit().getScreenSize().height*2/300);
 							checkerJump=true;
 					}
@@ -243,7 +247,6 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 						}
 						if(player.getGrounded()==true)
 						{
-							System.out.println("here");
 							player.setSpeedY(0);
 						}
 						else 
