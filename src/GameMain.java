@@ -219,7 +219,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 		if (jump==true && player.getGrounded()==true)
 		{
 				System.out.println("here");
-				player.setSpeedY(-9.8*2/3);
+				player.setSpeedY(-Toolkit.getDefaultToolkit().getScreenSize().height*2/300);
 				checkerJump=true;
 		}
 		else
@@ -242,7 +242,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 			}
 		}
 		
-		player.doMoveV(true, 2, null);
+		player.doMoveV(false, 2, null);
 		
 		
 		if (isAKeyDown(KeyEvent.VK_LEFT) && canMove(player, true))

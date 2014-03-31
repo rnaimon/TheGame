@@ -11,7 +11,7 @@ public class Player implements PlayerInterface
 {
 	private double  speed_x;
 	private double  speed_y;
-	private double  acceleration=9.8;
+	private double  acceleration=Toolkit.getDefaultToolkit().getScreenSize().height/100;
 	private double radius;
 	private int centx;
 	private int centy;
