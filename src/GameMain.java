@@ -266,6 +266,10 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 							&& canMove(player, false))
 						player.doMoveH(false);
 				
+					if(isAKeyDown(KeyEvent.VK_Z)) {
+						((Level)(currentLevel)).function();
+					}
+						
 					
 						drawBoard(g);
 						drawSprites(g);

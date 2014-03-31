@@ -100,6 +100,13 @@ public class Level implements LevelInterface
 		return gameHeight;
 	}
 
-	
+	/***
+	 * This method contains code to allow the level-specific Item to have a certain 
+	 * function, if one were to exist. 
+	 */
+	public void function() {
+		System.out.println("LEVEL, WRONG ONE");
+		
+	}
 	
 }
