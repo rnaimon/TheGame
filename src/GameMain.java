@@ -219,7 +219,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 		if (jump==true && player.getGrounded()==true)
 		{
 				System.out.println("here");
-				player.setSpeedY(-9.8*1.5);
+				player.setSpeedY(-9.8*2/3);
 				checkerJump=true;
 		}
 		else

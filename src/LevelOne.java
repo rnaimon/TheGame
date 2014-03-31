@@ -51,24 +51,38 @@ public class LevelOne extends Level implements LevelOneInterface
 		platform1perimeter.add(platformOneSideL);
 		
 		Obstacles Platform1= new Obstacles(platform1perimeter);
+		int x=500;
 		
 		ArrayList<LineObject> platform2perimeter= new ArrayList<LineObject>();
 		
-		LineObject platform2Top= new LineObject(500,super.getGameHeight()/2, 750, super.getGameHeight()/2);
-		LineObject platform2SideL= new LineObject(500,super.getGameHeight()/2, 500, super.getGameHeight()/2 + 20);
-		LineObject platform2Bottom= new LineObject(500,super.getGameHeight()/2 + 20, 750, super.getGameHeight()/2 + 20);
-		LineObject platform2SideR= new LineObject(750,super.getGameHeight()/2, 750, super.getGameHeight()/2 + 20);
+		LineObject platform2Top= new LineObject(x,super.getGameHeight()/2, 250+x, super.getGameHeight()/2);
+		LineObject platform2SideL= new LineObject(x,super.getGameHeight()/2, x, super.getGameHeight()/2 + 20);
+		LineObject platform2Bottom= new LineObject(x,super.getGameHeight()/2 + 20, 250+x, super.getGameHeight()/2 + 20);
+		LineObject platform2SideR= new LineObject(250+x,super.getGameHeight()/2, 250+x, super.getGameHeight()/2 + 20);
 		
 		platform2perimeter.add(platform2Top);
 		platform2perimeter.add(platform2SideR);
 		platform2perimeter.add(platform2Bottom);
 		platform2perimeter.add(platform2SideL);
 		Obstacles Platform2= new Obstacles(platform2perimeter);
-		//Platform2.translate(200, 5);
+		
+		ArrayList<LineObject> platform3perimeter= new ArrayList<LineObject>();
+		
+		LineObject platform3Top= new LineObject(2*x,super.getGameHeight()/2, 250+2*x, super.getGameHeight()/2);
+		LineObject platform3SideL= new LineObject(2*x,super.getGameHeight()/2, 2*x, super.getGameHeight()/2 + 20);
+		LineObject platform3Bottom= new LineObject(2*x,super.getGameHeight()/2 + 20, 250+2*x, super.getGameHeight()/2 + 20);
+		LineObject platform3SideR= new LineObject(250+2*x,super.getGameHeight()/2, 250+2*x, super.getGameHeight()/2 + 20);
+		
+		platform3perimeter.add(platform3Top);
+		platform3perimeter.add(platform3SideR);
+		platform3perimeter.add(platform3Bottom);
+		platform3perimeter.add(platform3SideL);
+		Obstacles Platform3= new Obstacles(platform3perimeter);
 		
 		ArrayList<Obstacles> obstacleList= new ArrayList<Obstacles>();
 		obstacleList.add(Platform1);
 		obstacleList.add(Platform2);
+		obstacleList.add(Platform3);
 		
 		//System.out.println(obstacleList);
 		return obstacleList;

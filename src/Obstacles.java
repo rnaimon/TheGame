@@ -65,6 +65,11 @@ public class Obstacles
 		return outlines;
 	}
 	
+	public void setOutlines(ArrayList<LineObject> o)
+	{
+		outlines=o;
+	}
+	
 	/**
 	 * This method returns an arraylist of the vertices of the obstacle
 	 * @return vertices
@@ -78,12 +83,16 @@ public class Obstacles
 	 * @param x the change in x that all the points will be shifted
 	 * @param y the change in y that all the points will be shifted
 	 */
-	public void translate(int x, int y)
+	public ArrayList<LineObject> translate(int x, int y)
 	{
+		ArrayList<LineObject> newOut= new ArrayList<LineObject>();
 		for(int i=0; i< outlines.size(); i++)
 		{
-			outlines.get(i).setV1(new Vertex(outlines.get(i).getV1().getXCoord()+x, outlines.get(i).getV1().getYCoord()+y));
-			outlines.get(i).setV2(new Vertex(outlines.get(i).getV2().getXCoord()+x, outlines.get(i).getV2().getYCoord()+y));
+			Vertex vold1= outlines.get(i).getV1();
+			Vertex vold2= outlines.get(i).getV2();
+			LineObject l= new LineObject(vold1.getXCoord() + x ,vold1.getYCoord() + y, vold2.getXCoord() + x,vold2.getYCoord() + y);
+			newOut.add(l);
 		}
+		return newOut;
 	}
 }
