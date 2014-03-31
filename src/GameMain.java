@@ -446,7 +446,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 	public static void createGameFrame(GameMain game, int width, int height) {
 		Frame myFrame = new Frame();
 		myFrame.setSize(width, height); // frame size
-		myFrame.setBackground(Color.white);
+		myFrame.setBackground(Color.black);
 		// myFrame.setLayout(mgr);
 		myFrame.setLayout(new BorderLayout());
 		myFrame.add(game, BorderLayout.CENTER);
