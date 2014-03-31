@@ -51,8 +51,13 @@ public class Switch extends Obstacles {
 			contacted = false;
 	}
 	
-	
-	
+	/***
+	 * This is the getter for contacted.
+	 * @return boolean of contacted
+	 */
+	public boolean getContacted() {
+		return contacted;
+	}
 	 
 	
 	
