@@ -6,6 +6,8 @@ public class LineObject
  
 	private ArrayList<Vertex> Vertices;
 	private char orientation;
+	private double slope;
+	private double constant;
 
 	
  
@@ -35,6 +37,15 @@ public class LineObject
 		{
 			orientation='c';
 		}
+		if(orientation!='v')
+		{
+			slope=(v2.getYCoord()-v1.getYCoord())/(v2.getXCoord()-v1.getXCoord());
+		}
+		else
+		{
+			slope=0;
+		}
+		constant=v2.getYCoord()-slope*v2.getXCoord();
  
 	}
 
@@ -61,6 +72,7 @@ public class LineObject
 		return Vertices.get(1);	
 
 	 }
+	
 	
 	/**
 	 * Sets the first vertex of the line to v
@@ -92,6 +104,18 @@ public class LineObject
 	public char getOrientation()
 	{
 		return orientation;
+	}
+	public double getSlope() 
+	{
+ 
+		return slope;
+
+	}
+	public double getConstant() 
+	{
+ 
+		return constant;
+
 	}
  
 	

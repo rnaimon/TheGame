@@ -64,7 +64,7 @@ public class LevelOne extends Level implements LevelOneInterface
 		platform2perimeter.add(platform2Bottom);
 		platform2perimeter.add(platform2SideL);
 		Obstacles Platform2= new Obstacles(platform2perimeter);
-		Platform2.translate(200, 5);
+		//Platform2.translate(200, 5);
 		
 		ArrayList<Obstacles> obstacleList= new ArrayList<Obstacles>();
 		obstacleList.add(Platform1);

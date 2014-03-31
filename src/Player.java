@@ -214,29 +214,30 @@ public class Player implements PlayerInterface
 		for(int i=0; i< levelPlatforms.size(); i++)
 		{
 			LineObject l= levelPlatforms.get(i).getOutlines().get(0);
-			if(l.getOrientation()=='h')
+			if(getCentX()>= l.getV1().getXCoord() && getCentX()<= l.getV2().getXCoord())
 			{
-				if(getCentX()>= l.getV1().getXCoord() && getCentX()<= l.getV2().getXCoord())
-				{
-					nearObstacles.add(l);
-				}
+				nearObstacles.add(l);
 			}
 		}
+		
 		boolean onPlatform=false;
 		for(int i=0; i< nearObstacles.size(); i++)
 		{
-				if((getCentY() + radius- speed_y*2/3)<= nearObstacles.get(i).getV1().getYCoord() && (getCentY() + radius + speed_y*2/3)>= nearObstacles.get(i).getV1().getYCoord())
+			
+				if((getCentY() + radius- speed_y*2/3)<= (getCentX()*nearObstacles.get(i).getSlope() + nearObstacles.get(i).getConstant()) 
+						&& (getCentY() + radius + speed_y*2/3)>= (getCentX()*nearObstacles.get(i).getSlope() + nearObstacles.get(i).getConstant()))
 				{
 					onPlatform=true;
 				}
-			
 		}
 		return onPlatform;
 	}
+	/*
 	public void setGrounded(boolean b)
 	{
 		isGrounded=b;
 	}
+	*/
 
 	/**
 	 * Returns the radius of the circle shaped player
