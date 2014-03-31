@@ -40,10 +40,10 @@ public class LevelOne extends Level implements LevelOneInterface
 	public ArrayList<Obstacles> setUpEnvironment()
 	{
 		ArrayList<LineObject> platform1perimeter= new ArrayList<LineObject>();
-		LineObject platformOneTop= new LineObject(0,super.getGameHeight()/2, 500, super.getGameHeight()/2);
+		LineObject platformOneTop= new LineObject(0,super.getGameHeight()/2, 250, super.getGameHeight()/2);
 		LineObject platformOneSideL= new LineObject(0,super.getGameHeight()/2, 0, super.getGameHeight()/2 + 20);
-		LineObject platformOneBottom= new LineObject(0,super.getGameHeight()/2 + 20, 500, super.getGameHeight()/2 + 20);
-		LineObject platformOneSideR= new LineObject(500,super.getGameHeight()/2, 500, super.getGameHeight()/2 + 20);
+		LineObject platformOneBottom= new LineObject(0,super.getGameHeight()/2 + 20, 250, super.getGameHeight()/2 + 20);
+		LineObject platformOneSideR= new LineObject(250,super.getGameHeight()/2, 250, super.getGameHeight()/2 + 20);
 		
 		platform1perimeter.add(platformOneTop);
 		platform1perimeter.add(platformOneSideR);
@@ -54,10 +54,10 @@ public class LevelOne extends Level implements LevelOneInterface
 		
 		ArrayList<LineObject> platform2perimeter= new ArrayList<LineObject>();
 		
-		LineObject platform2Top= new LineObject(200,super.getGameHeight()/2, 700, super.getGameHeight()/2);
-		LineObject platform2SideL= new LineObject(200,super.getGameHeight()/2, 200, super.getGameHeight()/2 + 20);
-		LineObject platform2Bottom= new LineObject(200,super.getGameHeight()/2 + 20, 700, super.getGameHeight()/2 + 20);
-		LineObject platform2SideR= new LineObject(700,super.getGameHeight()/2, 700, super.getGameHeight()/2 + 20);
+		LineObject platform2Top= new LineObject(500,super.getGameHeight()/2, 750, super.getGameHeight()/2);
+		LineObject platform2SideL= new LineObject(500,super.getGameHeight()/2, 500, super.getGameHeight()/2 + 20);
+		LineObject platform2Bottom= new LineObject(500,super.getGameHeight()/2 + 20, 750, super.getGameHeight()/2 + 20);
+		LineObject platform2SideR= new LineObject(750,super.getGameHeight()/2, 750, super.getGameHeight()/2 + 20);
 		
 		platform2perimeter.add(platform2Top);
 		platform2perimeter.add(platform2SideR);

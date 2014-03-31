@@ -208,11 +208,14 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 		switch (gameState) {
 		// if the game is happening, you can move and the game continues
 		case STATE_PLAYING:
+			/*
 		if(currentLevel.shouldReset())
 		{
 			currentLevel=new LevelOne(player, getWidth(), getHeight());
 		}
 			//System.out.println(jump);
+			 
+			 */
 		if (jump==true && player.getGrounded()==true)
 		{
 				System.out.println("here");
@@ -232,9 +235,9 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 			}
 			else 
 			{
-						if(player.getSpeedY()<=15)
-							player.setSpeedY(player.getSpeedY() + player.getAccel()*20/1000);
-					
+				if(player.getSpeedY()<=15)
+					player.setSpeedY(player.getSpeedY() + player.getAccel()*20/1000);
+			
 			}
 		}
 		
