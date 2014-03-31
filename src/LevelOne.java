@@ -13,6 +13,8 @@ public class LevelOne extends Level implements LevelOneInterface
 	private boolean reset;
 	private Player player;
 	private int WALL_SIZE=3;
+	private ArrayList<Switch> switchList;
+	private boolean levelComplete;
 	
 	/***
 	 * Constructor for LevelOne passes in the player and preps the level for being 
@@ -31,6 +33,8 @@ public class LevelOne extends Level implements LevelOneInterface
 		reset=false;
 		super.setObstacleList(setUpEnvironment());
 		player.setPlatforms(getObstacleList());
+		switchList= setUpEndGoal();
+		levelComplete=false;
 	}
 
 	/***
@@ -87,6 +91,48 @@ public class LevelOne extends Level implements LevelOneInterface
 		//System.out.println(obstacleList);
 		return obstacleList;
 				
+	}
+	
+	public boolean checkComplete()
+	{
+		Switch endGoal= switchList.get(0);
+		double d= Math.sqrt((player.getCentX()-endGoal.getCentX())*(player.getCentX()-endGoal.getCentX()) + (player.getCentY()-endGoal.getCentY())*(player.getCentY()-endGoal.getCentY()));
+		if(d<=(player.getRadius()+ 50/2*Math.sqrt(2)))
+		{
+			return true;
+		}
+		else
+			return false;
+	}
+	public ArrayList<Switch> getSwitchList()
+	{
+		return switchList;
+	}
+	
+	public ArrayList<Switch> setUpEndGoal()
+	{
+		ArrayList<LineObject> goalPerimeter= new ArrayList<LineObject>();
+		
+		int x= 500;
+		int y=50;
+		
+		LineObject Goal1Top= new LineObject(250 + 2*x - y,super.getGameHeight()/2 - y , 250+2*x, super.getGameHeight()/2 - y);
+		LineObject Goal1SideL= new LineObject(250 + 2*x - y, super.getGameHeight()/2 -  y, 2*x+ 250 - y, super.getGameHeight()/2);
+		LineObject Goal1Bottom= new LineObject(250 + 2*x - y,super.getGameHeight()/2, 250+2*x, super.getGameHeight()/2);
+		LineObject Goal1SideR= new LineObject(250+2*x,super.getGameHeight()/2 - y, 250+2*x, super.getGameHeight()/2);
+		
+		goalPerimeter.add(Goal1Top);
+		goalPerimeter.add(Goal1SideR);
+		goalPerimeter.add(Goal1Bottom);
+		goalPerimeter.add(Goal1SideL);
+		
+		Switch s= new Switch(goalPerimeter);
+		
+		ArrayList<Switch> switchels= new ArrayList<Switch>();
+		switchels.add(s);
+		
+		return switchels;
+		
 	}
 	
 	/***

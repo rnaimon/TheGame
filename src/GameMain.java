@@ -208,59 +208,63 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 		switch (gameState) {
 		// if the game is happening, you can move and the game continues
 		case STATE_PLAYING:
-			/*
-		if(currentLevel.shouldReset())
-		{
-			currentLevel=new LevelOne(player, getWidth(), getHeight());
-		}
-			//System.out.println(jump);
-			 
-			 */
-		if (jump==true && player.getGrounded()==true)
-		{
-				System.out.println("here");
-				player.setSpeedY(-Toolkit.getDefaultToolkit().getScreenSize().height*2/300);
-				checkerJump=true;
-		}
-		else
-		{
-			if(player.getSpeedY()>0 && checkerJump==true)
+			if(currentLevel.checkComplete()==true)
 			{
-				checkerJump=false;
-				jump=false;
+				gameState=STATE_DONE;
 			}
-			if(player.getGrounded()==true)
+			if(currentLevel.shouldReset() || (player.getCentY() + player.getRadius()+ player.getSpeedY())>= getHeight())
 			{
-				System.out.println("here");
+				currentLevel=new LevelOne(player, getWidth(), getHeight());
+				player.setCentX(0);
+				player.setCentY(0);
 				player.setSpeedY(0);
 			}
-			else 
+				 
+			if (jump==true && player.getGrounded()==true)
 			{
-				if(player.getSpeedY()<=15)
-					player.setSpeedY(player.getSpeedY() + player.getAccel()*20/1000);
-			
+					System.out.println("here");
+					player.setSpeedY(-Toolkit.getDefaultToolkit().getScreenSize().height*2/300);
+					checkerJump=true;
 			}
-		}
-		
-		player.doMoveV(false, 2, null);
-		
-		
-		if (isAKeyDown(KeyEvent.VK_LEFT) && canMove(player, true))
-			player.doMoveH(true);
-		else if (isAKeyDown(KeyEvent.VK_RIGHT)
-				&& canMove(player, false))
-			player.doMoveH(false);
-
-		
-			drawBoard(g);
-			drawSprites(g);
+			else
+			{
 				
-			break;
+				if(player.getSpeedY()>0 && checkerJump==true)
+				{
+					checkerJump=false;
+					jump=false;
+				}
+				if(player.getGrounded()==true)
+				{
+					System.out.println("here");
+					player.setSpeedY(0);
+				}
+				else 
+				{
+					if(player.getSpeedY()<=15)
+						player.setSpeedY(player.getSpeedY() + player.getAccel()*20/1000);
+				
+				}
+			}
 			
-			//if the game is over because the player won
+			player.doMoveV(false, 2, null);
+			
+			
+			if (isAKeyDown(KeyEvent.VK_LEFT) && canMove(player, true))
+				player.doMoveH(true);
+			else if (isAKeyDown(KeyEvent.VK_RIGHT)
+					&& canMove(player, false))
+				player.doMoveH(false);
+		
+			
+				drawBoard(g);
+				drawSprites(g);
+				break;
+				
+				//if the game is over because the player won
 		case STATE_DONE:
-			//g.setColor(Color.black);
-			g.drawString("You have survived the game!", 200, 100);
+			g.setColor(Color.cyan);
+			g.drawString("You beat the level", 200, 100);
 			break;
 
 		}
@@ -331,7 +335,8 @@ public class GameMain extends Canvas implements Runnable, KeyListener
             resetBuffer();
         
         
-        if(bufferGraphics!=null){
+        if(bufferGraphics!=null)
+        {
             //this clears the offscreen image, not the onscreen one
             bufferGraphics.clearRect(0,0,bufferWidth,bufferHeight);
 
@@ -407,8 +412,25 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 		g.fillRect(0, getHeight() - WALL_SIZE, getWidth(), WALL_SIZE);
 		
 		ArrayList<Obstacles> thingsInLevel= currentLevel.getObstacleList();
-		
 		player.setPlatforms(thingsInLevel);
+		/*
+		for(int i= 0; i< currentLevel.getSwitchList().size(); i++)
+		{
+			thingsInLevel.add(currentLevel.getSwitchList().get(i));
+		}
+		*/
+		for(int i= 0; i< currentLevel.getSwitchList().size(); i++)
+		{
+			g.setColor(Color.green);
+			int[] vertx= new int[currentLevel.getSwitchList().get(i).getVertices().size()];
+			int[] verty= new int[currentLevel.getSwitchList().get(i).getVertices().size()];
+			for(int j=0; j< currentLevel.getSwitchList().get(i).getVertices().size(); j++)
+			{
+				vertx[j]=(int)(currentLevel.getSwitchList().get(i).getVertices().get(j).getXCoord());
+				verty[j]=(int)(currentLevel.getSwitchList().get(i).getVertices().get(j).getYCoord());
+			}
+			g.fillPolygon(vertx, verty, currentLevel.getSwitchList().get(i).getVertices().size());
+		}
 		
 		for(int i= 0; i<thingsInLevel.size(); i++)
 		{
@@ -422,6 +444,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 			}
 			g.fillPolygon(vertx, verty, thingsInLevel.get(i).getVertices().size());
 			*/
+			g.setColor(Color.magenta);
 			Polygon p= new Polygon();
 			for(int j=0; j<thingsInLevel.get(i).getVertices().size(); j++)
 			{
