@@ -408,6 +408,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 		
 		for(int i= 0; i<thingsInLevel.size(); i++)
 		{
+			/*
 			int[] vertx= new int[thingsInLevel.get(i).getVertices().size()];
 			int[] verty= new int[thingsInLevel.get(i).getVertices().size()];
 			for(int j=0; j< thingsInLevel.get(i).getVertices().size(); j++)
@@ -416,7 +417,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 				verty[j]=(int)(thingsInLevel.get(i).getVertices().get(j).getYCoord());
 			}
 			g.fillPolygon(vertx, verty, thingsInLevel.get(i).getVertices().size());
-			/*
+			*/
 			Polygon p= new Polygon();
 			for(int j=0; j<thingsInLevel.get(i).getVertices().size(); j++)
 			{
@@ -426,7 +427,6 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 			{
 				g.drawPolygon(p);
 			}
-			*/
 		}
 
 	}

@@ -228,7 +228,6 @@ public class Player implements PlayerInterface
 				if((getCentY() + radius- speed_y*2/3)<= nearObstacles.get(i).getV1().getYCoord() && (getCentY() + radius + speed_y*2/3)>= nearObstacles.get(i).getV1().getYCoord())
 				{
 					onPlatform=true;
-					break;
 				}
 			
 		}

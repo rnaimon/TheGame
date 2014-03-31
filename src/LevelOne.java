@@ -52,10 +52,25 @@ public class LevelOne extends Level implements LevelOneInterface
 		
 		Obstacles Platform1= new Obstacles(platform1perimeter);
 		
+		ArrayList<LineObject> platform2perimeter= new ArrayList<LineObject>();
+		
+		LineObject platform2Top= new LineObject(200,super.getGameHeight()/2, 700, super.getGameHeight()/2);
+		LineObject platform2SideL= new LineObject(200,super.getGameHeight()/2, 200, super.getGameHeight()/2 + 20);
+		LineObject platform2Bottom= new LineObject(200,super.getGameHeight()/2 + 20, 700, super.getGameHeight()/2 + 20);
+		LineObject platform2SideR= new LineObject(700,super.getGameHeight()/2, 700, super.getGameHeight()/2 + 20);
+		
+		platform2perimeter.add(platform2Top);
+		platform2perimeter.add(platform2SideR);
+		platform2perimeter.add(platform2Bottom);
+		platform2perimeter.add(platform2SideL);
+		Obstacles Platform2= new Obstacles(platform2perimeter);
+		Platform2.translate(200, 5);
+		
 		ArrayList<Obstacles> obstacleList= new ArrayList<Obstacles>();
 		obstacleList.add(Platform1);
+		obstacleList.add(Platform2);
 		
-		
+		//System.out.println(obstacleList);
 		return obstacleList;
 				
 	}
