@@ -33,6 +33,8 @@ public class Level implements LevelInterface
 	/*  The following are getters and setters. For more comments, see the 
 	 * LevelInterface.*/
 	
+	
+	
 	public int getLevelNumber() {
 		// TODO Auto-generated method stub
 		return 0;

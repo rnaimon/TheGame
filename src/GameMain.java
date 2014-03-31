@@ -172,8 +172,9 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 	 */
 	public void init() {
 		player = new Player(30, 10, 0, new Color(0, 0, 200));
-		currentLevel=new LevelOne(player, getWidth(), getHeight());
-	
+		
+		
+		 currentLevel= new LevelOne(player, getWidth(), getHeight());
 		start();
 
 	}
@@ -208,9 +209,11 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 		switch (gameState) {
 		// if the game is happening, you can move and the game continues
 		case STATE_PLAYING:
+			
 			if(currentLevel.checkComplete()==true)
 			{
-				gameState=STATE_DONE;
+				System.out.println("here");
+				//currentLevel= new LevelTwo(player, getWidth(), getHeight());
 			}
 			if(currentLevel.shouldReset() || (player.getCentY() + player.getRadius()+ player.getSpeedY())>= getHeight())
 			{
