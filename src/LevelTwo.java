@@ -63,9 +63,9 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 		LineObject platformOneSideR= new LineObject(300,super.getGameHeight()-super.getGameHeight()/5, 300, super.getGameHeight()-super.getGameHeight()/5 + 20);
 		
 		platform1perimeter.add(platformOneTop);
-		platform1perimeter.add(platformOneSideL);
-		platform1perimeter.add(platformOneBottom);
 		platform1perimeter.add(platformOneSideR);
+		platform1perimeter.add(platformOneBottom);
+		platform1perimeter.add(platformOneSideL);
 		
 		Obstacles Platform1= new Obstacles(platform1perimeter);
 		
@@ -79,9 +79,9 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 		LineObject platformTwoSideR= new LineObject(300,gameHeight-2*gameHeight/5, 300, gameHeight-2*gameHeight/5 + 20);
 		
 		platform2perimeter.add(platformTwoTop);
-		platform2perimeter.add(platformTwoSideL);
-		platform2perimeter.add(platformTwoBottom);
 		platform2perimeter.add(platformTwoSideR);
+		platform2perimeter.add(platformTwoBottom);
+		platform2perimeter.add(platformTwoSideL);
 		
 		Obstacles Platform2= new Obstacles(platform2perimeter);
 		obstacleList.add(Platform2);
@@ -94,9 +94,9 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 		LineObject platformThreeSideR= new LineObject(300,gameHeight-3*gameHeight/5, 300, gameHeight-3*gameHeight/5 + 20);
 		
 		platform3perimeter.add(platformThreeTop);
-		platform3perimeter.add(platformThreeSideL);
-		platform3perimeter.add(platformThreeBottom);
 		platform3perimeter.add(platformThreeSideR);
+		platform3perimeter.add(platformThreeBottom);
+		platform3perimeter.add(platformThreeSideL);
 		
 		Obstacles Platform3= new Obstacles(platform3perimeter);
 		obstacleList.add(Platform3);
@@ -111,9 +111,9 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 		LineObject platformFourSideR= new LineObject(gameWidth,gameHeight-gameHeight/5 - 150, gameWidth, gameHeight-gameHeight/5 + 20 - 150);
 		
 		platform4perimeter.add(platformFourTop);
-		platform4perimeter.add(platformFourSideL);
-		platform4perimeter.add(platformFourBottom);
 		platform4perimeter.add(platformFourSideR);
+		platform4perimeter.add(platformFourBottom);
+		platform4perimeter.add(platformFourSideL);
 			
 		Obstacles Platform4= new Obstacles(platform4perimeter);
 		obstacleList.add(Platform4);
@@ -126,9 +126,9 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 		LineObject platformFiveSideR= new LineObject(gameWidth,gameHeight-2*gameHeight/5 - 150, gameWidth, gameHeight-2*gameHeight/5 + 20 - 150);
 		
 		platform5perimeter.add(platformFiveTop);
-		platform5perimeter.add(platformFiveSideL);
-		platform5perimeter.add(platformFiveBottom);
 		platform5perimeter.add(platformFiveSideR);
+		platform5perimeter.add(platformFiveBottom);
+		platform5perimeter.add(platformFiveSideL);
 		
 		Obstacles Platform5= new Obstacles(platform5perimeter);
 		obstacleList.add(Platform5);
@@ -141,9 +141,9 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 		LineObject platformSixSideR= new LineObject(gameWidth,gameHeight-3*gameHeight/5 - 150, gameWidth, gameHeight-3*gameHeight/5 + 20 - 150);
 		
 		platform6perimeter.add(platformSixTop);
-		platform6perimeter.add(platformSixSideL);
-		platform6perimeter.add(platformSixBottom);
 		platform6perimeter.add(platformSixSideR);
+		platform6perimeter.add(platformSixBottom);
+		platform6perimeter.add(platformSixSideL);
 		
 		Obstacles Platform6= new Obstacles(platform6perimeter);
 		obstacleList.add(Platform6);
@@ -166,9 +166,9 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 			LineObject hidden1SideR= new LineObject(gameWidth,gameHeight-3*gameHeight/5 - 150, gameWidth, gameHeight-3*gameHeight/5 + 20 - 150);
 			
 			hidden1perimeter.add(hidden1Top);
-			hidden1perimeter.add(hidden1SideL);
-			hidden1perimeter.add(hidden1Bottom);
 			hidden1perimeter.add(hidden1SideR);
+			hidden1perimeter.add(hidden1Bottom);
+			hidden1perimeter.add(hidden1SideL);
 			
 			Obstacles hidden1= new Obstacles(hidden1perimeter);
 			obstacleList.add(hidden1);
@@ -184,9 +184,9 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 			LineObject hidden2SideR= new LineObject(gameWidth,gameHeight-3*gameHeight/5 - 150, gameWidth, gameHeight-3*gameHeight/5 + 20 - 150);
 			
 			hidden2perimeter.add(hidden2Top);
-			hidden2perimeter.add(hidden2SideL);
-			hidden2perimeter.add(hidden2Bottom);
 			hidden2perimeter.add(hidden2SideR);
+			hidden2perimeter.add(hidden2Bottom);
+			hidden2perimeter.add(hidden2SideL);
 			
 			Obstacles hidden2= new Obstacles(hidden2perimeter);
 			obstacleList.add(hidden2);
@@ -202,9 +202,9 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 			LineObject hidden3SideR= new LineObject(gameWidth,gameHeight-3*gameHeight/5 - 150, gameWidth, gameHeight-3*gameHeight/5 + 20 - 150);
 			
 			hidden3perimeter.add(hidden3Top);
-			hidden3perimeter.add(hidden3SideL);
-			hidden3perimeter.add(hidden3Bottom);
 			hidden3perimeter.add(hidden3SideR);
+			hidden3perimeter.add(hidden3Bottom);
+			hidden3perimeter.add(hidden3SideL);
 			
 			Obstacles hidden3= new Obstacles(hidden3perimeter);
 			obstacleList.add(hidden3);
@@ -220,9 +220,9 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 			LineObject hidden4SideR= new LineObject(gameWidth,gameHeight-3*gameHeight/5 - 150, gameWidth, gameHeight-3*gameHeight/5 + 20 - 150);
 			
 			hidden4perimeter.add(hidden4Top);
-			hidden4perimeter.add(hidden4SideL);
-			hidden4perimeter.add(hidden4Bottom);
 			hidden4perimeter.add(hidden4SideR);
+			hidden4perimeter.add(hidden4Bottom);
+			hidden4perimeter.add(hidden4SideL);
 			
 			Obstacles hidden4= new Obstacles(hidden4perimeter);
 			obstacleList.add(hidden4);
@@ -238,9 +238,9 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 			LineObject hidden5SideR= new LineObject(gameWidth,gameHeight-3*gameHeight/5 - 150, gameWidth, gameHeight-3*gameHeight/5 + 20 - 150);
 			
 			hidden5perimeter.add(hidden5Top);
-			hidden5perimeter.add(hidden5SideL);
-			hidden5perimeter.add(hidden5Bottom);
 			hidden5perimeter.add(hidden5SideR);
+			hidden5perimeter.add(hidden5Bottom);
+			hidden5perimeter.add(hidden5SideL);
 			
 			Obstacles hidden5= new Obstacles(hidden5perimeter);
 			obstacleList.add(hidden5);
@@ -256,9 +256,9 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 			LineObject hidden6SideR= new LineObject(gameWidth,gameHeight-3*gameHeight/5 - 150, gameWidth, gameHeight-3*gameHeight/5 + 20 - 150);
 			
 			hidden6perimeter.add(hidden6Top);
-			hidden6perimeter.add(hidden6SideL);
-			hidden6perimeter.add(hidden6Bottom);
 			hidden6perimeter.add(hidden6SideR);
+			hidden6perimeter.add(hidden6Bottom);
+			hidden6perimeter.add(hidden6SideL);
 			
 			Obstacles hidden6= new Obstacles(hidden6perimeter);
 			obstacleList.add(hidden6);
