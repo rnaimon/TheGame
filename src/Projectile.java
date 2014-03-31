@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.util.ArrayList;
 
 
 /***
@@ -17,6 +18,9 @@ public class Projectile implements ProjectileInterface {
 	private double speed_X;
 	private double speed_Y;
 	private Color color;
+	
+	private ArrayList<LineObject> outline;
+	private ArrayList<Vertex> vertices;
 	
 	/***
 	 * This is the constructor without passed-in variables.
@@ -47,6 +51,19 @@ public class Projectile implements ProjectileInterface {
 		height = h;
 		speed_X = sX;
 		speed_Y = sY;
+		
+		LineObject top = new LineObject((int)x, (int)y, (int)(x+width), (int)y);
+		LineObject sideL = new LineObject((int)x, (int)y, (int)x, (int)(y+height));
+		LineObject bottom = new LineObject((int)x, (int)(y + height), (int)(x+width), (int)(y+height));
+		LineObject sideR = new LineObject((int)(x+width), (int)y, (int)(x+width), (int)(y+height));
+		/*
+		outline.add(top);
+		outline.add(sideR);
+		outline.add(bottom);
+		outline.add(sideL);
+*/
+		
+		
 	}
 	
 	/***

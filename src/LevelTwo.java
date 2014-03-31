@@ -16,9 +16,7 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 	private Player player;
 	private int WALL_SIZE=3;
 	
-	Item dartItem = new Item(Color.BLUE, "Darts", "Dude, press Z and hit the bullseye.");
-	//Projectile dart = new Projectile(player.getCentX() + player.getRadius(), player.getCentY(), 7, 4, 5, 1.5);
-	
+
 	ArrayList<Switch> switchList;
 	private boolean levelComplete;
 
@@ -42,6 +40,9 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 		setObstacleList(setUpEnvironment());
 		player.setPlatforms(getObstacleList());
 		levelComplete=false;
+		Item dartItem = new Item(Color.GREEN, "Darts", "Dude, press Z and hit the bullseye.");
+		Projectile dart = new Projectile(player.getCentX() + player.getRadius(), player.getCentY(), 7, 4, 5, 1.5);
+		
 	}
 
 	
@@ -270,6 +271,9 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 		
 		
 		
+		
+		
+		
 		return obstacleList;
 
 	}
@@ -402,9 +406,9 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 		LineObject Switch1SideR= new LineObject(250+2*x,super.getGameHeight()/2 - y, 250+2*x, super.getGameHeight()/2);
 		
 		switch1.add(Switch1Top);
-		switch1.add(Switch1SideL);
-		switch1.add(Switch1Bottom);
 		switch1.add(Switch1SideR);
+		switch1.add(Switch1Bottom);
+		switch1.add(Switch1SideL);
 
 		Switch s = new Switch(switch1);
 		
@@ -422,9 +426,9 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 		LineObject Switch2SideR= new LineObject(250+2*x,super.getGameHeight()/2 - y, 250+2*x, super.getGameHeight()/2);
 		
 		switch2.add(Switch2Top);
-		switch2.add(Switch2SideL);
-		switch2.add(Switch2Bottom);
 		switch2.add(Switch2SideR);
+		switch2.add(Switch2Bottom);
+		switch2.add(Switch2SideL);
 
 		Switch s2 = new Switch(switch2);
 
@@ -441,9 +445,9 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 		LineObject Switch3SideR= new LineObject(250+2*x,super.getGameHeight()/2 - y, 250+2*x, super.getGameHeight()/2);
 		
 		switch3.add(Switch3Top);
-		switch3.add(Switch3SideL);
-		switch3.add(Switch3Bottom);
 		switch3.add(Switch3SideR);
+		switch3.add(Switch3Bottom);
+		switch3.add(Switch3SideL);
 
 		Switch s3 = new Switch(switch3);
 
@@ -460,9 +464,9 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 		LineObject Switch4SideR= new LineObject(250+2*x,super.getGameHeight()/2 - y, 250+2*x, super.getGameHeight()/2);
 		
 		switch4.add(Switch4Top);
-		switch4.add(Switch4SideL);
-		switch4.add(Switch4Bottom);
 		switch4.add(Switch4SideR);
+		switch4.add(Switch4Bottom);
+		switch4.add(Switch4SideL);
 
 		Switch s4 = new Switch(switch4);
 
@@ -480,9 +484,9 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 		LineObject Switch5SideR= new LineObject(250+2*x,super.getGameHeight()/2 - y, 250+2*x, super.getGameHeight()/2);
 				
 		switch5.add(Switch5Top);
-		switch5.add(Switch5SideL);
-		switch5.add(Switch5Bottom);
 		switch5.add(Switch5SideR);
+		switch5.add(Switch5Bottom);
+		switch5.add(Switch5SideL);
 
 		Switch s5 = new Switch(switch5);
 
@@ -499,9 +503,9 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 		LineObject Switch6SideR= new LineObject(250+2*x,super.getGameHeight()/2 - y, 250+2*x, super.getGameHeight()/2);
 				
 		switch6.add(Switch6Top);
-		switch6.add(Switch6SideL);
-		switch6.add(Switch6Bottom);
 		switch6.add(Switch6SideR);
+		switch6.add(Switch6Bottom);
+		switch6.add(Switch6SideL);
 
 		Switch s6 = new Switch(switch6);
 
@@ -519,9 +523,9 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 		LineObject Switch7SideR= new LineObject(250+2*x,super.getGameHeight()/2 - y, 250+2*x, super.getGameHeight()/2);
 				
 		switch7.add(Switch7Top);
-		switch7.add(Switch7SideL);
-		switch7.add(Switch7Bottom);
 		switch7.add(Switch7SideR);
+		switch7.add(Switch7Bottom);
+		switch7.add(Switch7SideL);
 
 		Switch s7 = new Switch(switch7);
 
