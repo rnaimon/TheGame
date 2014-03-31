@@ -13,8 +13,8 @@ public class LevelOne extends Level implements LevelOneInterface
 	private boolean reset;
 	private Player player;
 	private int WALL_SIZE=3;
-	private ArrayList<Switch> switchList;
-	private boolean levelComplete;
+	
+	
 	
 	/***
 	 * Constructor for LevelOne passes in the player and preps the level for being 
@@ -33,8 +33,7 @@ public class LevelOne extends Level implements LevelOneInterface
 		reset=false;
 		super.setObstacleList(setUpEnvironment());
 		player.setPlatforms(getObstacleList());
-		switchList= setUpEndGoal();
-		levelComplete=false;
+		setSwitchList(setUpEndGoal());
 	}
 
 	/***
@@ -93,9 +92,10 @@ public class LevelOne extends Level implements LevelOneInterface
 				
 	}
 	
+	@Override
 	public boolean checkComplete()
 	{
-		Switch endGoal= switchList.get(0);
+		Switch endGoal= getSwitchList().get(0);
 		double d= Math.sqrt((player.getCentX()-endGoal.getCentX())*(player.getCentX()-endGoal.getCentX()) + (player.getCentY()-endGoal.getCentY())*(player.getCentY()-endGoal.getCentY()));
 		if(d<=(player.getRadius()+ 50/2*Math.sqrt(2)))
 		{
@@ -104,10 +104,8 @@ public class LevelOne extends Level implements LevelOneInterface
 		else
 			return false;
 	}
-	public ArrayList<Switch> getSwitchList()
-	{
-		return switchList;
-	}
+	
+	
 	
 	public ArrayList<Switch> setUpEndGoal()
 	{
@@ -156,9 +154,7 @@ public class LevelOne extends Level implements LevelOneInterface
 	 * Returns whether the level needs resetting (as in, when the player must start 
 	 * over or something similar)
 	 */
-	public boolean shouldReset() {
-		return reset;
-	}
+	
 
 	/*** Method to determine if the player can move up or down (limits of the screen or 
 	 * Obstacles)
@@ -205,6 +201,11 @@ public class LevelOne extends Level implements LevelOneInterface
 			}
 		}
 
+	}
+
+	public boolean shouldReset() {
+		
+		return reset;
 	}
 
 }

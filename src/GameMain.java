@@ -66,11 +66,12 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 	 private int bufferHeight;
 	 private Image bufferImage;
 	 private Graphics bufferGraphics; 
-	 private LevelOne currentLevel;
+	 private Object currentLevel;
 	 private long lastDrawTime;
 	 private boolean jump=false;
 	 private int key;
 	 private boolean checkerJump;
+	 private ArrayList<Object> levelList;
 	// there are two overall states: playing, and done 
 	public static final int STATE_PLAYING = 1; // state values
 	public static final int STATE_DONE = 2;
@@ -173,8 +174,13 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 	public void init() {
 		player = new Player(30, 10, 0, new Color(0, 0, 200));
 		
-		
-		 currentLevel= new LevelOne(player, getWidth(), getHeight());
+		levelList= new ArrayList<Object>();
+		LevelOne lv1=new LevelOne(player, getWidth(), getHeight());
+		LevelTwo lv2= new LevelTwo(player, getWidth(), getHeight());
+		levelList.add(lv1);
+		levelList.add(lv2);
+		if(levelList.get(0)!=null)
+			currentLevel= (LevelOne)(levelList.get(0));
 		start();
 
 	}
@@ -209,61 +215,60 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 		switch (gameState) {
 		// if the game is happening, you can move and the game continues
 		case STATE_PLAYING:
-			
-			if(currentLevel.checkComplete()==true)
-			{
-				System.out.println("here");
-				//currentLevel= new LevelTwo(player, getWidth(), getHeight());
-			}
-			if(currentLevel.shouldReset() || (player.getCentY() + player.getRadius()+ player.getSpeedY())>= getHeight())
-			{
-				currentLevel=new LevelOne(player, getWidth(), getHeight());
-				player.setCentX(0);
-				player.setCentY(0);
-				player.setSpeedY(0);
-			}
-				 
-			if (jump==true && player.getGrounded()==true)
-			{
-					System.out.println("here");
-					player.setSpeedY(-Toolkit.getDefaultToolkit().getScreenSize().height*2/300);
-					checkerJump=true;
-			}
-			else
-			{
+				if(((Level)(currentLevel)).checkComplete()!=true)
+				{
+					currentLevel= levelList.get(1);
+				}
+					if((player.getCentY() + player.getRadius()+ player.getSpeedY())>= getHeight())
+					{
+						currentLevel=new LevelOne(player, getWidth(), getHeight());
+						player.setCentX(0);
+						player.setCentY(0);
+						player.setSpeedY(0);
+					}
+						 
+					if (jump==true && player.getGrounded()==true)
+					{
+							System.out.println("here");
+							player.setSpeedY(-Toolkit.getDefaultToolkit().getScreenSize().height*2/300);
+							checkerJump=true;
+					}
+					else
+					{
+						
+						if(player.getSpeedY()>0 && checkerJump==true)
+						{
+							checkerJump=false;
+							jump=false;
+						}
+						if(player.getGrounded()==true)
+						{
+							System.out.println("here");
+							player.setSpeedY(0);
+						}
+						else 
+						{
+							if(player.getSpeedY()<=15)
+								player.setSpeedY(player.getSpeedY() + player.getAccel()*20/1000);
+						
+						}
+					}
+					
+					player.doMoveV(false, 2, null);
+					
+					
+					if (isAKeyDown(KeyEvent.VK_LEFT) && canMove(player, true))
+						player.doMoveH(true);
+					else if (isAKeyDown(KeyEvent.VK_RIGHT)
+							&& canMove(player, false))
+						player.doMoveH(false);
 				
-				if(player.getSpeedY()>0 && checkerJump==true)
-				{
-					checkerJump=false;
-					jump=false;
-				}
-				if(player.getGrounded()==true)
-				{
-					System.out.println("here");
-					player.setSpeedY(0);
-				}
-				else 
-				{
-					if(player.getSpeedY()<=15)
-						player.setSpeedY(player.getSpeedY() + player.getAccel()*20/1000);
+					
+						drawBoard(g);
+						drawSprites(g);
 				
-				}
-			}
 			
-			player.doMoveV(false, 2, null);
-			
-			
-			if (isAKeyDown(KeyEvent.VK_LEFT) && canMove(player, true))
-				player.doMoveH(true);
-			else if (isAKeyDown(KeyEvent.VK_RIGHT)
-					&& canMove(player, false))
-				player.doMoveH(false);
-		
-			
-				drawBoard(g);
-				drawSprites(g);
 				break;
-				
 				//if the game is over because the player won
 		case STATE_DONE:
 			g.setColor(Color.cyan);
@@ -414,7 +419,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 		g.fillRect(0, 0, getWidth(), WALL_SIZE);
 		g.fillRect(0, getHeight() - WALL_SIZE, getWidth(), WALL_SIZE);
 		
-		ArrayList<Obstacles> thingsInLevel= currentLevel.getObstacleList();
+		ArrayList<Obstacles> thingsInLevel= ((Level)(currentLevel)).getObstacleList();
 		player.setPlatforms(thingsInLevel);
 		/*
 		for(int i= 0; i< currentLevel.getSwitchList().size(); i++)
@@ -422,19 +427,21 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 			thingsInLevel.add(currentLevel.getSwitchList().get(i));
 		}
 		*/
-		for(int i= 0; i< currentLevel.getSwitchList().size(); i++)
+		if(((Level)(currentLevel)).getSwitchList()!=null)
 		{
-			g.setColor(Color.green);
-			int[] vertx= new int[currentLevel.getSwitchList().get(i).getVertices().size()];
-			int[] verty= new int[currentLevel.getSwitchList().get(i).getVertices().size()];
-			for(int j=0; j< currentLevel.getSwitchList().get(i).getVertices().size(); j++)
+			for(int i= 0; i< ((Level)(currentLevel)).getSwitchList().size(); i++)
 			{
-				vertx[j]=(int)(currentLevel.getSwitchList().get(i).getVertices().get(j).getXCoord());
-				verty[j]=(int)(currentLevel.getSwitchList().get(i).getVertices().get(j).getYCoord());
+				g.setColor(Color.green);
+				int[] vertx= new int[((Level)(currentLevel)).getSwitchList().get(i).getVertices().size()];
+				int[] verty= new int[((Level)(currentLevel)).getSwitchList().get(i).getVertices().size()];
+				for(int j=0; j< ((Level)(currentLevel)).getSwitchList().get(i).getVertices().size(); j++)
+				{
+					vertx[j]=(int)(((Level)(currentLevel)).getSwitchList().get(i).getVertices().get(j).getXCoord());
+					verty[j]=(int)(((Level)(currentLevel)).getSwitchList().get(i).getVertices().get(j).getYCoord());
+				}
+				g.fillPolygon(vertx, verty, ((Level)(currentLevel)).getSwitchList().get(i).getVertices().size());
 			}
-			g.fillPolygon(vertx, verty, currentLevel.getSwitchList().get(i).getVertices().size());
 		}
-		
 		for(int i= 0; i<thingsInLevel.size(); i++)
 		{
 			/*
