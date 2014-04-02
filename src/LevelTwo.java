@@ -20,6 +20,7 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 	private ArrayList<Projectile> darts;
 	ArrayList<Switch> switchList;
 	private boolean levelComplete;
+	private ArrayList<Obstacles> hiddenRamps;
 
 	
 	
@@ -197,6 +198,8 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 			for(int i= 0; i< getSwitchList().size(); i++)
 			{
 				g.setColor(Color.green);
+				if(i!=0)
+					g.setColor(Color.white);
 				int[] vertx= new int[getSwitchList().get(i).getVertices().size()];
 				int[] verty= new int[getSwitchList().get(i).getVertices().size()];
 				for(int j=0; j< getSwitchList().get(i).getVertices().size(); j++)
@@ -226,13 +229,16 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 				}
 				boolean hit= false;
 				int numHit=0;
+				
+				System.out.println(nearbySwitches);
 				for(int j= 0; j<nearbySwitches.size(); j++)
 				{
 					double dxf= d.getTopX()+ d.getWidth() + d.getSpeedX();
 					LineObject side1= nearbySwitches.get(j).getOutlines().get(1);
 					LineObject side2= nearbySwitches.get(j).getOutlines().get(3);
-					if((dxf>side1.getV1().getXCoord() && dxf<side2.getV1().getXCoord()))
+					if((dxf>side2.getV1().getXCoord() && dxf<side1.getV1().getXCoord()))
 					{
+						
 						hit=true;
 						numHit=j;
 						break;
@@ -241,11 +247,11 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 				}
 				if(hit==true)
 				{
+					
 					darts.remove(i);
 					i--;
 					nearbySwitches.get(numHit).changeContactStatus();
-					//fixObstacles(getObstacleList());
-					
+					hiddenRamps=fixObstacles();
 					
 				}
 				else
@@ -261,6 +267,32 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 					d.draw(g);
 				}
 				
+			}
+		}
+		if(hiddenRamps!=null)
+		{
+			for(int i= 0; i<hiddenRamps.size(); i++)
+			{
+				/*
+				int[] vertx= new int[thingsInLevel.get(i).getVertices().size()];
+				int[] verty= new int[thingsInLevel.get(i).getVertices().size()];
+				for(int j=0; j< thingsInLevel.get(i).getVertices().size(); j++)
+				{
+					vertx[j]=(int)(thingsInLevel.get(i).getVertices().get(j).getXCoord());
+					verty[j]=(int)(thingsInLevel.get(i).getVertices().get(j).getYCoord());
+				}
+				g.fillPolygon(vertx, verty, thingsInLevel.get(i).getVertices().size());
+				*/
+				g.setColor(Color.magenta);
+				Polygon p= new Polygon();
+				for(int j=0; j<hiddenRamps.get(i).getVertices().size(); j++)
+				{
+					p.addPoint(hiddenRamps.get(i).getVertices().get(j).getXCoord(), getObstacleList().get(i).getVertices().get(j).getYCoord());
+				}
+				if(p!=null)
+				{
+					g.drawPolygon(p);
+				}
 			}
 		}
 		if(getObstacleList()!=null)
@@ -292,9 +324,13 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 		}
 		
 	}
-	/*
-	public void fixObstacles(ArrayList<Obstacles> obstacleList)
+	
+	public ArrayList<Obstacles> fixObstacles()
 	{
+		int gameHeight = super.getGameHeight();
+		int gameWidth = super.getGameWidth();
+		ArrayList<Obstacles> hidden= new ArrayList<Obstacles>();
+		
 		if (switchList.get(1).getContacted() == true) {
 			
 			ArrayList<LineObject> hidden1perimeter= new ArrayList<LineObject>();
@@ -309,7 +345,7 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 			hidden1perimeter.add(hidden1SideL);
 			
 			Obstacles hidden1= new Obstacles(hidden1perimeter);
-			obstacleList.add(hidden1);
+			hidden.add(hidden1);
 			
 		}
 		
@@ -327,7 +363,7 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 			hidden2perimeter.add(hidden2SideL);
 			
 			Obstacles hidden2= new Obstacles(hidden2perimeter);
-			obstacleList.add(hidden2);
+			hidden.add(hidden2);
 			
 		}
 		
@@ -345,7 +381,7 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 			hidden3perimeter.add(hidden3SideL);
 			
 			Obstacles hidden3= new Obstacles(hidden3perimeter);
-			obstacleList.add(hidden3);
+			hidden.add(hidden3);
 			
 		}
 		
@@ -363,7 +399,7 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 			hidden4perimeter.add(hidden4SideL);
 			
 			Obstacles hidden4= new Obstacles(hidden4perimeter);
-			obstacleList.add(hidden4);
+			hidden.add(hidden4);
 			
 		}
 		
@@ -381,7 +417,7 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 			hidden5perimeter.add(hidden5SideL);
 			
 			Obstacles hidden5= new Obstacles(hidden5perimeter);
-			obstacleList.add(hidden5);
+			hidden.add(hidden5);
 			
 		}
 		
@@ -399,11 +435,12 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 			hidden6perimeter.add(hidden6SideL);
 			
 			Obstacles hidden6= new Obstacles(hidden6perimeter);
-			obstacleList.add(hidden6);
+			hidden.add(hidden6);
 			
 		}
+		return hidden;
 	}
-	*/
+	
 	public ArrayList<Projectile> getDarts()
 	{
 		return darts;
@@ -453,7 +490,7 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 		{
 			if((p.getCentY() + p.getRadius()) >= super.getGameHeight() - WALL_SIZE - p.getSpeedY())
 			{
-				System.out.println("here");
+				
 				reset=true;
 			}
 			else

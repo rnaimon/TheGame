@@ -75,7 +75,6 @@ public class Player implements PlayerInterface
 	 */
 	public void setCentX(int x)
 	{
-		System.out.println("here2");
 		centx=x;
 		
 	}
