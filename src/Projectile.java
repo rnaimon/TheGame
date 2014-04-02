@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 
@@ -18,6 +19,7 @@ public class Projectile implements ProjectileInterface {
 	private double speed_X;
 	private double speed_Y;
 	private Color color;
+	private char orientation;
 	
 	private ArrayList<LineObject> outline;
 	private ArrayList<Vertex> vertices;
@@ -44,28 +46,25 @@ public class Projectile implements ProjectileInterface {
 	 * @param sX is the speed constant in the x direction
 	 * @param sY is the speed constant in the y direction
 	 */
-	public Projectile(double x, double y, double w, double h, double sX, double sY) {
+	public Projectile(double x, double y, double w, double h, double sX, double sY, char o) {
 		top_x = x;
 		top_y = y;
 		width = w;
 		height = h;
 		speed_X = sX;
 		speed_Y = sY;
-		
+		orientation=o;
 		LineObject top = new LineObject((int)x, (int)y, (int)(x+width), (int)y);
 		LineObject sideL = new LineObject((int)x, (int)y, (int)x, (int)(y+height));
 		LineObject bottom = new LineObject((int)x, (int)(y + height), (int)(x+width), (int)(y+height));
 		LineObject sideR = new LineObject((int)(x+width), (int)y, (int)(x+width), (int)(y+height));
-		/*
-		outline.add(top);
-		outline.add(sideR);
-		outline.add(bottom);
-		outline.add(sideL);
-*/
 		
 		
 	}
-	
+	public char getOrientation()
+	{
+		return orientation;
+	}
 	/***
 	 * This method returns the top left x-coordinate.
 	 */
@@ -132,7 +131,14 @@ public class Projectile implements ProjectileInterface {
 	public double getSpeedY() {
 		return speed_Y;
 	}
+	public double getHeight() {
+		return height;
+	}
 
+	public void draw(Graphics2D g)
+	{
+		g.fillRect((int)getTopX(), (int)getTopY(), (int)width, (int)height);
+	}
 	/**
 	 * This method sets the x-component of the speed of the projectile
 	 * @param x is the x-component of the speed

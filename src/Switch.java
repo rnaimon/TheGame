@@ -13,6 +13,7 @@ public class Switch extends Obstacles {
 	private boolean contacted;
 	private double centX;
 	private double centY;
+	private boolean inactive;
 	
 	/***
 	 * This constructor sets the default contacted value to false and instantiates
@@ -24,6 +25,7 @@ public class Switch extends Obstacles {
 		centX=(o.get(0).getV2().getXCoord() - o.get(0).getV1().getXCoord())/2 + o.get(0).getV1().getXCoord();
 		centY=(o.get(1).getV2().getYCoord() - o.get(0).getV1().getYCoord())/2 + o.get(1).getV1().getYCoord();
 		contacted = false;
+		inactive=false;
 	}
 	
 	public double getCentX()
@@ -49,6 +51,7 @@ public class Switch extends Obstacles {
 			contacted = true;
 		else
 			contacted = false;
+		
 	}
 	
 	/***

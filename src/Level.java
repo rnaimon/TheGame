@@ -1,3 +1,6 @@
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Polygon;
 import java.util.ArrayList;
 
 /***
@@ -40,7 +43,10 @@ public class Level implements LevelInterface
 	 * LevelInterface.*/
 	
 	
-	
+	public void draw(Graphics2D g)
+	{
+		
+	}
 	public int getLevelNumber() {
 		// TODO Auto-generated method stub
 		return 0;

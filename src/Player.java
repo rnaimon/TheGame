@@ -18,6 +18,7 @@ public class Player implements PlayerInterface
 	private Color color;
 	private Item current_item;
 	private boolean isGrounded;
+	private char orientation;
 	private ArrayList<Obstacles> levelPlatforms;
 	
 	/***
@@ -46,6 +47,7 @@ public class Player implements PlayerInterface
 		speed_x=5;
 		speed_y=0;
 		isGrounded=true;
+		orientation='r';
 	}
 	/**
 	 * This method retrieves the X-Coordinate of the center of the circle shaped avatar.
@@ -143,7 +145,12 @@ public class Player implements PlayerInterface
 		if(current_item!=null)
 		{
 			g.setColor(current_item.getColor());
-			g.fillRect(centx, centy, 2, 2);
+			if(orientation=='r')
+				g.fillRect(centx, centy, 2, 2);
+			else if(orientation=='l')
+			{
+				g.fillRect(centx-2, centy, 2, 2);
+			}
 		}
 		
 	}
@@ -154,14 +161,27 @@ public class Player implements PlayerInterface
 	 */
 	public void doMoveH(boolean moveLeftOrRight){
 		 
-			if(moveLeftOrRight==true) { //move left
+			if(moveLeftOrRight==true) 
+			{ //move left
 				setCentX((int)(getCentX()-speed_x));
-			} else {
-				setCentX((int)(getCentX()+speed_x)); //move right
+				setOrientation('l');
+			} 
+			else 
+			{
+				setCentX((int)(getCentX()+speed_x));//move right
+				setOrientation('r');
 			}
 		 
 	}
+	 public void setOrientation(char o)
+	 {
+		 orientation=o;
+	 }
 	 
+	 public char getOrientation()
+	 {
+		 return orientation;
+	 }
 	/***
 	 * This method just makes the player move if the player can move
 	 * @param moveUpOrDown is the variable to determine which vertical direction to move

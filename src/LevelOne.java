@@ -1,4 +1,6 @@
+import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Polygon;
 import java.util.ArrayList;
 
 /***
@@ -34,6 +36,7 @@ public class LevelOne extends Level implements LevelOneInterface
 		super.setObstacleList(setUpEnvironment());
 		player.setPlatforms(getObstacleList());
 		setSwitchList(setUpEndGoal());
+		player.setItem(null);
 	}
 
 	/***
@@ -143,10 +146,52 @@ public class LevelOne extends Level implements LevelOneInterface
 	}
 
 	/***
-	 * 
+	 * Draws all the objects in the level
 	 */
-	public void draw(Graphics2D g) {
-		// TODO Auto-generated method stub
+	@Override
+	public void draw(Graphics2D g)
+	{
+		if(getSwitchList()!=null)
+		{
+			for(int i= 0; i< getSwitchList().size(); i++)
+			{
+				g.setColor(Color.green);
+				int[] vertx= new int[getSwitchList().get(i).getVertices().size()];
+				int[] verty= new int[getSwitchList().get(i).getVertices().size()];
+				for(int j=0; j< getSwitchList().get(i).getVertices().size(); j++)
+				{
+					vertx[j]=(int)(getSwitchList().get(i).getVertices().get(j).getXCoord());
+					verty[j]=(int)(getSwitchList().get(i).getVertices().get(j).getYCoord());
+				}
+				g.fillPolygon(vertx, verty, (getSwitchList().get(i).getVertices().size()));
+			}
+		}
+		if(getObstacleList()!=null)
+		{
+			for(int i= 0; i<getObstacleList().size(); i++)
+			{
+				/*
+				int[] vertx= new int[thingsInLevel.get(i).getVertices().size()];
+				int[] verty= new int[thingsInLevel.get(i).getVertices().size()];
+				for(int j=0; j< thingsInLevel.get(i).getVertices().size(); j++)
+				{
+					vertx[j]=(int)(thingsInLevel.get(i).getVertices().get(j).getXCoord());
+					verty[j]=(int)(thingsInLevel.get(i).getVertices().get(j).getYCoord());
+				}
+				g.fillPolygon(vertx, verty, thingsInLevel.get(i).getVertices().size());
+				*/
+				g.setColor(Color.magenta);
+				Polygon p= new Polygon();
+				for(int j=0; j<getObstacleList().get(i).getVertices().size(); j++)
+				{
+					p.addPoint(getObstacleList().get(i).getVertices().get(j).getXCoord(), getObstacleList().get(i).getVertices().get(j).getYCoord());
+				}
+				if(p!=null)
+				{
+					g.drawPolygon(p);
+				}
+			}
+		}
 		
 	}
 

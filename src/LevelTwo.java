@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Polygon;
 import java.util.ArrayList;
 
 
@@ -15,8 +16,8 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 	private boolean reset;
 	private Player player;
 	private int WALL_SIZE=3;
-	
-
+	private Item dartgun;
+	private ArrayList<Projectile> darts;
 	ArrayList<Switch> switchList;
 	private boolean levelComplete;
 
@@ -40,8 +41,9 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 		setObstacleList(setUpEnvironment());
 		player.setPlatforms(getObstacleList());
 		levelComplete=false;
-		Item dartItem = new Item(Color.GREEN, "Darts", "Dude, press Z and hit the bullseye.");
-		
+		dartgun = new Item(Color.GREEN, "Darts", "Dude, press Z and hit the bullseye.");
+		darts= new ArrayList<Projectile>();
+		player.setItem(dartgun);
 	}
 
 	
@@ -57,10 +59,10 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 		int gameWidth = super.getGameWidth();
 		
 		ArrayList<LineObject> platform1perimeter= new ArrayList<LineObject>();
-		LineObject platformOneTop= new LineObject(0,super.getGameHeight()-super.getGameHeight()/5, 300, super.getGameHeight()-super.getGameHeight()/5);
+		LineObject platformOneTop= new LineObject(0,super.getGameHeight()-super.getGameHeight()/5, 100, super.getGameHeight()-super.getGameHeight()/5);
 		LineObject platformOneSideL= new LineObject(0,super.getGameHeight()-super.getGameHeight()/5, 0, super.getGameHeight()-super.getGameHeight()/5 + 20);
-		LineObject platformOneBottom= new LineObject(0, super.getGameHeight()-super.getGameHeight()/5 + 20, 300, super.getGameHeight()-super.getGameHeight()/5 + 20);
-		LineObject platformOneSideR= new LineObject(300,super.getGameHeight()-super.getGameHeight()/5, 300, super.getGameHeight()-super.getGameHeight()/5 + 20);
+		LineObject platformOneBottom= new LineObject(0, super.getGameHeight()-super.getGameHeight()/5 + 20, 100, super.getGameHeight()-super.getGameHeight()/5 + 20);
+		LineObject platformOneSideR= new LineObject(100,super.getGameHeight()-super.getGameHeight()/5, 100, super.getGameHeight()-super.getGameHeight()/5 + 20);
 		
 		platform1perimeter.add(platformOneTop);
 		platform1perimeter.add(platformOneSideR);
@@ -73,10 +75,10 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 		obstacleList.add(Platform1);
 		
 		ArrayList<LineObject> platform2perimeter= new ArrayList<LineObject>();
-		LineObject platformTwoTop= new LineObject(0, gameHeight-2*gameHeight/5, 300, gameHeight-2*gameHeight/5);
+		LineObject platformTwoTop= new LineObject(0, gameHeight-2*gameHeight/5, 200, gameHeight-2*gameHeight/5);
 		LineObject platformTwoSideL= new LineObject(0,gameHeight-2*gameHeight/5, 0, gameHeight-2*gameHeight/5 + 20);
-		LineObject platformTwoBottom= new LineObject(0, gameHeight-2*gameHeight/5 + 20, 300, gameHeight-2*gameHeight/5 + 20);
-		LineObject platformTwoSideR= new LineObject(300,gameHeight-2*gameHeight/5, 300, gameHeight-2*gameHeight/5 + 20);
+		LineObject platformTwoBottom= new LineObject(0, gameHeight-2*gameHeight/5 + 20, 200, gameHeight-2*gameHeight/5 + 20);
+		LineObject platformTwoSideR= new LineObject(200,gameHeight-2*gameHeight/5, 200, gameHeight-2*gameHeight/5 + 20);
 		
 		platform2perimeter.add(platformTwoTop);
 		platform2perimeter.add(platformTwoSideR);
@@ -88,10 +90,10 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 		
 		
 		ArrayList<LineObject> platform3perimeter= new ArrayList<LineObject>();
-		LineObject platformThreeTop= new LineObject(0, gameHeight-3*gameHeight/5, 300, gameHeight-3*gameHeight/5);
-		LineObject platformThreeSideL= new LineObject(0,gameHeight-3*gameHeight/5, 0, gameHeight-3*gameHeight/5 + 20);
-		LineObject platformThreeBottom= new LineObject(0, gameHeight-3*gameHeight/5 + 20, 300, gameHeight-3*gameHeight/5 + 20);
-		LineObject platformThreeSideR= new LineObject(300,gameHeight-3*gameHeight/5, 300, gameHeight-3*gameHeight/5 + 20);
+		LineObject platformThreeTop= new LineObject(0, gameHeight-4*gameHeight/5, 300, gameHeight-4*gameHeight/5);
+		LineObject platformThreeSideL= new LineObject(0,gameHeight-4*gameHeight/5, 0, gameHeight-4*gameHeight/5 + 20);
+		LineObject platformThreeBottom= new LineObject(0, gameHeight-4*gameHeight/5 + 20, 300, gameHeight-4*gameHeight/5 + 20);
+		LineObject platformThreeSideR= new LineObject(300,gameHeight-4*gameHeight/5, 300, gameHeight-4*gameHeight/5 + 20);
 		
 		platform3perimeter.add(platformThreeTop);
 		platform3perimeter.add(platformThreeSideR);
@@ -157,6 +159,142 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 		 * until I can see where they are, because I don't want to do that twice.
 		 */
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		return obstacleList;
+
+	}
+	
+	
+	/***
+	 * This method contains code to allow the level-specific Item to have a certain 
+	 * function, if one were to exist. 
+	 */
+	public void function() {
+		
+		//System.out.println("FUNCTION");
+		Projectile dart = new Projectile(player.getCentX() + player.getRadius(), player.getCentY(), 7, 4, 5, 1.5, player.getOrientation());
+		darts.add(dart);
+	}
+	
+	
+	/***
+	 * 
+	 */
+	@Override
+	public void draw(Graphics2D g) 
+	{
+		if(getSwitchList()!=null)
+		{
+			for(int i= 0; i< getSwitchList().size(); i++)
+			{
+				g.setColor(Color.green);
+				int[] vertx= new int[getSwitchList().get(i).getVertices().size()];
+				int[] verty= new int[getSwitchList().get(i).getVertices().size()];
+				for(int j=0; j< getSwitchList().get(i).getVertices().size(); j++)
+				{
+					vertx[j]=(int)(getSwitchList().get(i).getVertices().get(j).getXCoord());
+					verty[j]=(int)(getSwitchList().get(i).getVertices().get(j).getYCoord());
+				}
+				g.fillPolygon(vertx, verty, (getSwitchList().get(i).getVertices().size()));
+			}
+		}
+		if(darts!=null)
+		{
+			for(int i=0; i< darts.size(); i++)
+			{
+				Projectile d= darts.get(i);
+				ArrayList<Switch> nearbySwitches= new ArrayList<Switch>();
+				for(int j= 0; j<getSwitchList().size(); j++)
+				{
+					double dyi= d.getTopY();
+					double dyf= d.getTopY()+ d.getHeight();
+					LineObject side= getSwitchList().get(j).getOutlines().get(1);
+					if((dyi>side.getV1().getYCoord() && dyi<side.getV2().getYCoord()) ||
+							(dyf>side.getV2().getYCoord() && dyf<side.getV1().getYCoord()))
+					{
+						nearbySwitches.add(getSwitchList().get(j));
+					}
+				}
+				boolean hit= false;
+				int numHit=0;
+				for(int j= 0; j<nearbySwitches.size(); j++)
+				{
+					double dxf= d.getTopX()+ d.getWidth() + d.getSpeedX();
+					LineObject side1= nearbySwitches.get(j).getOutlines().get(1);
+					LineObject side2= nearbySwitches.get(j).getOutlines().get(3);
+					if((dxf>side1.getV1().getXCoord() && dxf<side2.getV1().getXCoord()))
+					{
+						hit=true;
+						numHit=j;
+						break;
+						
+					}
+				}
+				if(hit==true)
+				{
+					darts.remove(i);
+					i--;
+					nearbySwitches.get(numHit).changeContactStatus();
+					//fixObstacles(getObstacleList());
+					
+					
+				}
+				else
+				{
+					if(d.getOrientation()=='r')
+					{
+						d.setTopX(d.getTopX()+d.getSpeedX());
+					}
+					else if(d.getOrientation()=='l')
+					{
+						d.setTopX(d.getTopX()-d.getSpeedX());
+					}
+					d.draw(g);
+				}
+				
+			}
+		}
+		if(getObstacleList()!=null)
+		{
+			for(int i= 0; i<getObstacleList().size(); i++)
+			{
+				/*
+				int[] vertx= new int[thingsInLevel.get(i).getVertices().size()];
+				int[] verty= new int[thingsInLevel.get(i).getVertices().size()];
+				for(int j=0; j< thingsInLevel.get(i).getVertices().size(); j++)
+				{
+					vertx[j]=(int)(thingsInLevel.get(i).getVertices().get(j).getXCoord());
+					verty[j]=(int)(thingsInLevel.get(i).getVertices().get(j).getYCoord());
+				}
+				g.fillPolygon(vertx, verty, thingsInLevel.get(i).getVertices().size());
+				*/
+				g.setColor(Color.magenta);
+				Polygon p= new Polygon();
+				for(int j=0; j<getObstacleList().get(i).getVertices().size(); j++)
+				{
+					p.addPoint(getObstacleList().get(i).getVertices().get(j).getXCoord(), getObstacleList().get(i).getVertices().get(j).getYCoord());
+				}
+				if(p!=null)
+				{
+					g.drawPolygon(p);
+				}
+			}
+			
+		}
+		
+	}
+	/*
+	public void fixObstacles(ArrayList<Obstacles> obstacleList)
+	{
 		if (switchList.get(1).getContacted() == true) {
 			
 			ArrayList<LineObject> hidden1perimeter= new ArrayList<LineObject>();
@@ -264,41 +402,12 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 			obstacleList.add(hidden6);
 			
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		return obstacleList;
-
 	}
-	
-	
-	/***
-	 * This method contains code to allow the level-specific Item to have a certain 
-	 * function, if one were to exist. 
-	 */
-	public void function() {
-		
-		//System.out.println("FUNCTION");
-		Projectile dart = new Projectile(player.getCentX() + player.getRadius(), player.getCentY(), 7, 4, 5, 1.5);
-		
-		
+	*/
+	public ArrayList<Projectile> getDarts()
+	{
+		return darts;
 	}
-	
-	
-	/***
-	 * 
-	 */
-	public void draw(Graphics2D g) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	
 	/***
 	 * Returns whether the level needs resetting (as in, when the player must start 

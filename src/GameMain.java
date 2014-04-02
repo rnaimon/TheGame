@@ -53,6 +53,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 	//Player is the class that indicates a player, rather redundantly
 	private Player player;
 	
+	
 
 	
 	// these are values that need initiating, and control gameplay
@@ -70,6 +71,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 	 private long lastDrawTime;
 	 private boolean jump=false;
 	 private int key;
+	 private boolean function=false;
 	 private boolean checkerJump;
 	 private ArrayList<Object> levelList;
 	// there are two overall states: playing, and done 
@@ -266,8 +268,11 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 							&& canMove(player, false))
 						player.doMoveH(false);
 				
-					if(isAKeyDown(KeyEvent.VK_Z)) {
+					if(function==true) 
+					{
 						((Level)(currentLevel)).function();
+						function=false;
+							
 					}
 						
 					
@@ -428,50 +433,8 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 		
 		ArrayList<Obstacles> thingsInLevel= ((Level)(currentLevel)).getObstacleList();
 		player.setPlatforms(thingsInLevel);
-		/*
-		for(int i= 0; i< currentLevel.getSwitchList().size(); i++)
-		{
-			thingsInLevel.add(currentLevel.getSwitchList().get(i));
-		}
-		*/
-		if(((Level)(currentLevel)).getSwitchList()!=null)
-		{
-			for(int i= 0; i< ((Level)(currentLevel)).getSwitchList().size(); i++)
-			{
-				g.setColor(Color.green);
-				int[] vertx= new int[((Level)(currentLevel)).getSwitchList().get(i).getVertices().size()];
-				int[] verty= new int[((Level)(currentLevel)).getSwitchList().get(i).getVertices().size()];
-				for(int j=0; j< ((Level)(currentLevel)).getSwitchList().get(i).getVertices().size(); j++)
-				{
-					vertx[j]=(int)(((Level)(currentLevel)).getSwitchList().get(i).getVertices().get(j).getXCoord());
-					verty[j]=(int)(((Level)(currentLevel)).getSwitchList().get(i).getVertices().get(j).getYCoord());
-				}
-				g.fillPolygon(vertx, verty, ((Level)(currentLevel)).getSwitchList().get(i).getVertices().size());
-			}
-		}
-		for(int i= 0; i<thingsInLevel.size(); i++)
-		{
-			/*
-			int[] vertx= new int[thingsInLevel.get(i).getVertices().size()];
-			int[] verty= new int[thingsInLevel.get(i).getVertices().size()];
-			for(int j=0; j< thingsInLevel.get(i).getVertices().size(); j++)
-			{
-				vertx[j]=(int)(thingsInLevel.get(i).getVertices().get(j).getXCoord());
-				verty[j]=(int)(thingsInLevel.get(i).getVertices().get(j).getYCoord());
-			}
-			g.fillPolygon(vertx, verty, thingsInLevel.get(i).getVertices().size());
-			*/
-			g.setColor(Color.magenta);
-			Polygon p= new Polygon();
-			for(int j=0; j<thingsInLevel.get(i).getVertices().size(); j++)
-			{
-				p.addPoint(thingsInLevel.get(i).getVertices().get(j).getXCoord(), thingsInLevel.get(i).getVertices().get(j).getYCoord());
-			}
-			if(p!=null)
-			{
-				g.drawPolygon(p);
-			}
-		}
+		
+		((Level)(currentLevel)).draw(g);
 
 	}
 
@@ -533,6 +496,10 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 				{
 					
 					jump=true;
+				}
+				if(key== KeyEvent.VK_Z)
+				{
+					function=true;
 				}
 			}//end KeyPressed
 		});
