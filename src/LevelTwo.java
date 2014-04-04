@@ -60,21 +60,22 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 		int gameHeight = super.getGameHeight();
 		int gameWidth = super.getGameWidth();
 		
-		ArrayList<LineObject> platform1perimeter= new ArrayList<LineObject>();
-		LineObject platformOneTop= new LineObject(0,super.getGameHeight()-super.getGameHeight()/5, 100, super.getGameHeight()-super.getGameHeight()/5);
-		LineObject platformOneSideL= new LineObject(0,super.getGameHeight()-super.getGameHeight()/5, 0, super.getGameHeight()-super.getGameHeight()/5 + 20);
-		LineObject platformOneBottom= new LineObject(0, super.getGameHeight()-super.getGameHeight()/5 + 20, 100, super.getGameHeight()-super.getGameHeight()/5 + 20);
-		LineObject platformOneSideR= new LineObject(100,super.getGameHeight()-super.getGameHeight()/5, 100, super.getGameHeight()-super.getGameHeight()/5 + 20);
+		ArrayList<Obstacles> obstacleList= new ArrayList<Obstacles>();
 		
-		platform1perimeter.add(platformOneTop);
-		platform1perimeter.add(platformOneSideR);
-		platform1perimeter.add(platformOneBottom);
-		platform1perimeter.add(platformOneSideL);
+		ArrayList<LineObject> platform1perimeter= new ArrayList<LineObject>();
+		LineObject platform1Top= new LineObject(0, gameHeight-4*gameHeight/5, 300, gameHeight-4*gameHeight/5);
+		LineObject platform1SideL= new LineObject(0,gameHeight-4*gameHeight/5, 0, gameHeight-4*gameHeight/5 + 20);
+		LineObject platform1Bottom= new LineObject(0, gameHeight-4*gameHeight/5 + 20, 300, gameHeight-4*gameHeight/5 + 20);
+		LineObject platform1SideR= new LineObject(300,gameHeight-4*gameHeight/5, 300, gameHeight-4*gameHeight/5 + 20);
+		
+		platform1perimeter.add(platform1Top);
+		platform1perimeter.add(platform1SideR);
+		platform1perimeter.add(platform1Bottom);
+		platform1perimeter.add(platform1SideL);
 		
 		Obstacles Platform1= new Obstacles(platform1perimeter);
-		
-		ArrayList<Obstacles> obstacleList= new ArrayList<Obstacles>();
 		obstacleList.add(Platform1);
+		
 		
 		ArrayList<LineObject> platform2perimeter= new ArrayList<LineObject>();
 		LineObject platformTwoTop= new LineObject(0, gameHeight-2*gameHeight/5, 200, gameHeight-2*gameHeight/5);
@@ -90,20 +91,26 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 		Obstacles Platform2= new Obstacles(platform2perimeter);
 		obstacleList.add(Platform2);
 		
-		
 		ArrayList<LineObject> platform3perimeter= new ArrayList<LineObject>();
-		LineObject platformThreeTop= new LineObject(0, gameHeight-4*gameHeight/5, 300, gameHeight-4*gameHeight/5);
-		LineObject platformThreeSideL= new LineObject(0,gameHeight-4*gameHeight/5, 0, gameHeight-4*gameHeight/5 + 20);
-		LineObject platformThreeBottom= new LineObject(0, gameHeight-4*gameHeight/5 + 20, 300, gameHeight-4*gameHeight/5 + 20);
-		LineObject platformThreeSideR= new LineObject(300,gameHeight-4*gameHeight/5, 300, gameHeight-4*gameHeight/5 + 20);
+		LineObject platform3Top= new LineObject(0,super.getGameHeight()-super.getGameHeight()/5, 100, super.getGameHeight()-super.getGameHeight()/5);
+		LineObject platform3SideL= new LineObject(0,super.getGameHeight()-super.getGameHeight()/5, 0, super.getGameHeight()-super.getGameHeight()/5 + 20);
+		LineObject platform3Bottom= new LineObject(0, super.getGameHeight()-super.getGameHeight()/5 + 20, 100, super.getGameHeight()-super.getGameHeight()/5 + 20);
+		LineObject platform3SideR= new LineObject(100,super.getGameHeight()-super.getGameHeight()/5, 100, super.getGameHeight()-super.getGameHeight()/5 + 20);
 		
-		platform3perimeter.add(platformThreeTop);
-		platform3perimeter.add(platformThreeSideR);
-		platform3perimeter.add(platformThreeBottom);
-		platform3perimeter.add(platformThreeSideL);
+		platform3perimeter.add(platform3Top);
+		platform3perimeter.add(platform3SideR);
+		platform3perimeter.add(platform3Bottom);
+		platform3perimeter.add(platform3SideL);
 		
 		Obstacles Platform3= new Obstacles(platform3perimeter);
+		
+		
 		obstacleList.add(Platform3);
+		
+		
+		
+		
+		
 		
 		//Now for the platforms on the right side
 		
@@ -333,30 +340,34 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 		
 		if (switchList.get(1).getContacted() == true) {
 			
-			ArrayList<LineObject> hidden1perimeter= new ArrayList<LineObject>();
-			LineObject hidden1Top= new LineObject(300, gameHeight-4*gameHeight/5 , gameWidth-300, gameHeight-gameHeight/5-150);
-			LineObject hidden1SideL= new LineObject(300,gameHeight-4*gameHeight/5, 300, gameHeight-4*gameHeight/5 + 5);
-			LineObject hidden1Bottom= new LineObject(300, gameHeight-4*gameHeight/5 + 5, gameWidth-300, gameHeight-gameHeight/5 -150 + 5);
-			LineObject hidden1SideR= new LineObject(gameWidth-300, gameHeight-gameHeight/5-150, gameWidth-300, gameHeight-gameHeight/5-150+5);
+			for(int i=0; i< 20; i++)
+			{
+				ArrayList<LineObject> hidden1perimeter= new ArrayList<LineObject>();
+				LineObject hidden1Top= new LineObject(300 + (gameWidth-280)*i/20, gameHeight-4*gameHeight/5 + (gameHeight-gameHeight/5-130-(gameHeight-4*gameHeight/5))*i/20, 300 + (gameWidth-300)*i/20, gameHeight-4*gameHeight/5 + (gameHeight-gameHeight/5-130-(gameHeight-4*gameHeight/5))*i/20);
+				LineObject hidden1SideL= new LineObject(300 + (gameWidth-280)*i/20,gameHeight-4*gameHeight/5 + (gameHeight-gameHeight/5-130-(gameHeight-4*gameHeight/5))*i/20, 300 + (gameWidth-300)*i/20, gameHeight-4*gameHeight/5 + (gameHeight-gameHeight/5-150-(gameHeight-4*gameHeight/5))*i/20);
+				LineObject hidden1Bottom= new LineObject(300 + (gameWidth-280)*i/20, gameHeight-4*gameHeight/5 + (gameHeight-gameHeight/5-150-(gameHeight-4*gameHeight/5))*i/20, 300 + (gameWidth-300)*i/20, gameHeight-4*gameHeight/5 + (gameHeight-gameHeight/5-150-(gameHeight-4*gameHeight/5))*i/20);
+				LineObject hidden1SideR= new LineObject(300 + (gameWidth-300)*i/20, gameHeight-4*gameHeight/5 + (gameHeight-gameHeight/5-130-(gameHeight-4*gameHeight/5))*i/20, 300 + (gameWidth-300)*i/20, gameHeight-4*gameHeight/5 + (gameHeight-gameHeight/5-150-(gameHeight-4*gameHeight/5))*i/20);
+				
+				System.out.println(hidden1Top.getOrientation());
+				
+				/*
+				int p=-200;
+				int q=-200;
+				ArrayList<LineObject> hidden1perimeter= new ArrayList<LineObject>();
+				LineObject hidden1Top= new LineObject(gameWidth-300+p, gameHeight-3*gameHeight/5 - 150+q, gameWidth+p, gameHeight-3*gameHeight/5 -150+q);
+				LineObject hidden1SideL= new LineObject(gameWidth-300+p,gameHeight-3*gameHeight/5 - 150+q, gameWidth-300+p, gameHeight-3*gameHeight/5 + 20 -150+q);
+				LineObject hidden1Bottom= new LineObject(gameWidth-300+p, gameHeight-3*gameHeight/5 + 20 - 150+q, gameWidth+p, gameHeight-3*gameHeight/5 + 20 - 150+q);
+				LineObject hidden1SideR= new LineObject(gameWidth+p,gameHeight-3*gameHeight/5 - 150+q, gameWidth+p, gameHeight-3*gameHeight/5 + 20 - 150+q);
+				*/
+				hidden1perimeter.add(hidden1Top);
+				hidden1perimeter.add(hidden1SideR);
+				hidden1perimeter.add(hidden1Bottom);
+				hidden1perimeter.add(hidden1SideL);
+				
+				Obstacles hidden1= new Obstacles(hidden1perimeter);
+				hidden.add(hidden1);
+			}
 			
-			System.out.println(hidden1Top.getOrientation());
-			
-			/*
-			int p=-200;
-			int q=-200;
-			ArrayList<LineObject> hidden1perimeter= new ArrayList<LineObject>();
-			LineObject hidden1Top= new LineObject(gameWidth-300+p, gameHeight-3*gameHeight/5 - 150+q, gameWidth+p, gameHeight-3*gameHeight/5 -150+q);
-			LineObject hidden1SideL= new LineObject(gameWidth-300+p,gameHeight-3*gameHeight/5 - 150+q, gameWidth-300+p, gameHeight-3*gameHeight/5 + 20 -150+q);
-			LineObject hidden1Bottom= new LineObject(gameWidth-300+p, gameHeight-3*gameHeight/5 + 20 - 150+q, gameWidth+p, gameHeight-3*gameHeight/5 + 20 - 150+q);
-			LineObject hidden1SideR= new LineObject(gameWidth+p,gameHeight-3*gameHeight/5 - 150+q, gameWidth+p, gameHeight-3*gameHeight/5 + 20 - 150+q);
-			*/
-			hidden1perimeter.add(hidden1Top);
-			hidden1perimeter.add(hidden1SideR);
-			hidden1perimeter.add(hidden1Bottom);
-			hidden1perimeter.add(hidden1SideL);
-			
-			Obstacles hidden1= new Obstacles(hidden1perimeter);
-			hidden.add(hidden1);
 			
 		}
 		
