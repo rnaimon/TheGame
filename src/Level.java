@@ -21,7 +21,7 @@ public class Level implements LevelInterface
 	private boolean levelComplete;
 	private boolean reset;
 	private ArrayList<Switch> switchList;
-	
+	private int levelNum;
 	
 	/***
 	 * Constructor for Level.
@@ -49,7 +49,7 @@ public class Level implements LevelInterface
 	}
 	public int getLevelNumber() {
 		// TODO Auto-generated method stub
-		return 0;
+		return levelNum;
 	}
 	public void setSwitchList(ArrayList<Switch> s){
 		switchList= s;
@@ -62,9 +62,9 @@ public class Level implements LevelInterface
 	{
 		return false;
 	}
-	public int setLevelNumber() {
-		// TODO Auto-generated method stub
-		return 0;
+	public void setLevelNumber(int n) 
+	{
+		levelNum=n;
 	}
 
 	public ArrayList<Obstacles> getObstacleList() {
@@ -87,11 +87,6 @@ public class Level implements LevelInterface
 		player=p1;
 	}
 
-	
-	public void setLevelNumber(int n) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	public void setObstacleList(ArrayList<Obstacles> o) {
 		obstacleList=o;

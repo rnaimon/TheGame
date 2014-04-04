@@ -37,6 +37,7 @@ public class LevelOne extends Level implements LevelOneInterface
 		player.setPlatforms(getObstacleList());
 		setSwitchList(setUpEndGoal());
 		player.setItem(null);
+		setLevelNumber(1);
 	}
 
 	/***

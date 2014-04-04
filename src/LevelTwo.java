@@ -45,6 +45,7 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 		dartgun = new Item(Color.GREEN, "Darts", "Dude, press Z and hit the bullseye.");
 		darts= new ArrayList<Projectile>();
 		player.setItem(dartgun);
+		setLevelNumber(2);
 	}
 
 	
@@ -181,7 +182,7 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 	 */
 	public void function() {
 		
-		//System.out.println("FUNCTION");
+	
 		Projectile dart = new Projectile(player.getCentX() + player.getRadius(), player.getCentY(), 7, 4, 5, 1.5, player.getOrientation());
 		darts.add(dart);
 	}
@@ -230,7 +231,6 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 				boolean hit= false;
 				int numHit=0;
 				
-				System.out.println(nearbySwitches);
 				for(int j= 0; j<nearbySwitches.size(); j++)
 				{
 					double dxf= d.getTopX()+ d.getWidth() + d.getSpeedX();
@@ -332,13 +332,16 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 		ArrayList<Obstacles> hidden= new ArrayList<Obstacles>();
 		
 		if (switchList.get(1).getContacted() == true) {
-			/*
+			
 			ArrayList<LineObject> hidden1perimeter= new ArrayList<LineObject>();
 			LineObject hidden1Top= new LineObject(300, gameHeight-4*gameHeight/5 , gameWidth-300, gameHeight-gameHeight/5-150);
 			LineObject hidden1SideL= new LineObject(300,gameHeight-4*gameHeight/5, 300, gameHeight-4*gameHeight/5 + 5);
 			LineObject hidden1Bottom= new LineObject(300, gameHeight-4*gameHeight/5 + 5, gameWidth-300, gameHeight-gameHeight/5 -150 + 5);
 			LineObject hidden1SideR= new LineObject(gameWidth-300, gameHeight-gameHeight/5-150, gameWidth-300, gameHeight-gameHeight/5-150+5);
-			*/
+			
+			System.out.println(hidden1Top.getOrientation());
+			
+			/*
 			int p=-200;
 			int q=-200;
 			ArrayList<LineObject> hidden1perimeter= new ArrayList<LineObject>();
@@ -346,7 +349,7 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 			LineObject hidden1SideL= new LineObject(gameWidth-300+p,gameHeight-3*gameHeight/5 - 150+q, gameWidth-300+p, gameHeight-3*gameHeight/5 + 20 -150+q);
 			LineObject hidden1Bottom= new LineObject(gameWidth-300+p, gameHeight-3*gameHeight/5 + 20 - 150+q, gameWidth+p, gameHeight-3*gameHeight/5 + 20 - 150+q);
 			LineObject hidden1SideR= new LineObject(gameWidth+p,gameHeight-3*gameHeight/5 - 150+q, gameWidth+p, gameHeight-3*gameHeight/5 + 20 - 150+q);
-			
+			*/
 			hidden1perimeter.add(hidden1Top);
 			hidden1perimeter.add(hidden1SideR);
 			hidden1perimeter.add(hidden1Bottom);

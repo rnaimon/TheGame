@@ -245,7 +245,7 @@ public class Player implements PlayerInterface
 		for(int i=0; i< nearObstacles.size(); i++)
 		{
 			
-				if((getCentY() + radius- speed_y*2/3)<= (getCentX()*nearObstacles.get(i).getSlope() + nearObstacles.get(i).getConstant()) 
+				if((getCentY() + radius - speed_y*2/3)<= (getCentX()*nearObstacles.get(i).getSlope() + nearObstacles.get(i).getConstant()) 
 						&& (getCentY() + radius + speed_y*2/3)>= (getCentX()*nearObstacles.get(i).getSlope() + nearObstacles.get(i).getConstant()))
 				{
 					onPlatform=true;

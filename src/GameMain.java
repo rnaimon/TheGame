@@ -177,8 +177,9 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 		player = new Player(30, 10, 0, new Color(0, 0, 200));
 		
 		levelList= new ArrayList<Object>();
-		LevelOne lv1=new LevelOne(player, getWidth(), getHeight());
+		
 		LevelTwo lv2= new LevelTwo(player, getWidth(), getHeight());
+		LevelOne lv1=new LevelOne(player, getWidth(), getHeight());
 		levelList.add(lv1);
 		levelList.add(lv2);
 		if(levelList.get(0)!=null)
@@ -227,7 +228,10 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 				}
 					if((player.getCentY() + player.getRadius()+ player.getSpeedY())>= getHeight())
 					{
-						currentLevel=new LevelOne(player, getWidth(), getHeight());
+						if(((Level)(currentLevel)).getLevelNumber()==1)
+							currentLevel=new LevelOne(player, getWidth(), getHeight());
+						else
+							currentLevel=new LevelTwo(player, getWidth(), getHeight());
 						player.setCentX(0);
 						player.setCentY(0);
 						player.setSpeedY(0);

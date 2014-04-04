@@ -37,7 +37,8 @@ public class LineObject
 		{
 			orientation='c';
 		}
-		if(orientation!='v')
+		
+		if(orientation=='h' || orientation=='c')
 		{
 			slope=(v2.getYCoord()-v1.getYCoord())/(v2.getXCoord()-v1.getXCoord());
 		}
