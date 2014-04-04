@@ -20,6 +20,7 @@ public class Player implements PlayerInterface
 	private boolean isGrounded;
 	private char orientation;
 	private ArrayList<Obstacles> levelPlatforms;
+	private ArrayList<Obstacles> hiddenPlatforms;
 	
 	/***
 	 * This is a constructor for Player without variables.
@@ -176,7 +177,14 @@ public class Player implements PlayerInterface
 	 {
 		 orientation=o;
 	 }
-	 
+	 public void setHiddenPlatforms(ArrayList<Obstacles> h)
+	 {
+		 hiddenPlatforms=h;
+	 }
+	 public ArrayList<Obstacles> getHiddenPlatforms()
+	 {
+		 return hiddenPlatforms;
+	 }
 	 public char getOrientation()
 	 {
 		 return orientation;
@@ -240,13 +248,24 @@ public class Player implements PlayerInterface
 				nearObstacles.add(l);
 			}
 		}
+		if(hiddenPlatforms!=null)
+		{
+			for(int i=0; i< hiddenPlatforms.size(); i++)
+			{
+				LineObject l= hiddenPlatforms.get(i).getOutlines().get(0);
+				if(getCentX()>= l.getV1().getXCoord() && getCentX()<= l.getV2().getXCoord())
+				{
+					nearObstacles.add(l);
+				}
+			}
+		}
 		
 		boolean onPlatform=false;
 		for(int i=0; i< nearObstacles.size(); i++)
 		{
 			
-				if((getCentY() + radius - speed_y*3/5)<= (getCentX()*nearObstacles.get(i).getSlope() + nearObstacles.get(i).getConstant()) 
-						&& (getCentY() + radius + speed_y*3/5)>= (getCentX()*nearObstacles.get(i).getSlope() + nearObstacles.get(i).getConstant()))
+				if((getCentY() + radius - speed_y*2/3)<= (getCentX()*nearObstacles.get(i).getSlope() + nearObstacles.get(i).getConstant()) 
+						&& (getCentY() + radius + speed_y*2/3)>= (getCentX()*nearObstacles.get(i).getSlope() + nearObstacles.get(i).getConstant()))
 				{
 					onPlatform=true;
 				}
