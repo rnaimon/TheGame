@@ -256,6 +256,7 @@ public class Player implements PlayerInterface
 				if(getCentX()>= l.getV1().getXCoord() && getCentX()<= l.getV2().getXCoord())
 				{
 					nearObstacles.add(l);
+					System.out.println(l.getOrientation() + " : " + l.getSlope() +" : " + l.getConstant());
 				}
 			}
 		}
@@ -264,8 +265,8 @@ public class Player implements PlayerInterface
 		for(int i=0; i< nearObstacles.size(); i++)
 		{
 			
-				if((getCentY() + radius - speed_y*2/3)<= (getCentX()*nearObstacles.get(i).getSlope() + nearObstacles.get(i).getConstant()) 
-						&& (getCentY() + radius + speed_y*2/3)>= (getCentX()*nearObstacles.get(i).getSlope() + nearObstacles.get(i).getConstant()))
+				if((getCentY() + radius - speed_y*2/3)<= (getCentX()*nearObstacles.get(i).getSlope()/100 + nearObstacles.get(i).getConstant()/100) 
+						&& (getCentY() + radius + speed_y*2/3)>= (getCentX()*nearObstacles.get(i).getSlope()/100 + nearObstacles.get(i).getConstant()/100))
 				{
 					onPlatform=true;
 				}

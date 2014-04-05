@@ -30,9 +30,9 @@ public class LineObject
 			orientation='v';
 		}
 		else if(y==y2)
-			{
-				orientation='h';
-			}
+		{
+			orientation='h';
+		}
 		else
 		{
 			orientation='c';
@@ -40,13 +40,13 @@ public class LineObject
 		
 		if(orientation=='h' || orientation=='c')
 		{
-			slope=(v2.getYCoord()-v1.getYCoord())/(v2.getXCoord()-v1.getXCoord());
+			slope=100*(v2.getYCoord()-v1.getYCoord())/(v2.getXCoord()-v1.getXCoord());
 		}
 		else
 		{
 			slope=0;
 		}
-		constant=v2.getYCoord()-slope*v2.getXCoord();
+		constant=100*v1.getYCoord()-slope*v1.getXCoord();
  
 	}
 
