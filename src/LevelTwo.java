@@ -601,10 +601,10 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 		int y=50;
 		
 		// end goal switch is always first
-		LineObject Switch1Top= new LineObject(250 + 2*x - y,super.getGameHeight()/6 - y , 250+2*x, super.getGameHeight()/6 - y);
-		LineObject Switch1SideL= new LineObject(250 + 2*x - y, super.getGameHeight()/6 -  y, 2*x+ 250 - y, super.getGameHeight()/6);
-		LineObject Switch1Bottom= new LineObject(250 + 2*x - y,super.getGameHeight()/6, 250+2*x, super.getGameHeight()/6);
-		LineObject Switch1SideR= new LineObject(250+2*x,super.getGameHeight()/6 - y, 250+2*x, super.getGameHeight()/6);
+		LineObject Switch1Top= new LineObject(250 + 2*x - y,super.getGameHeight()/6 - 2*y , 250+2*x, super.getGameHeight()/6 - 2*y);
+		LineObject Switch1SideL= new LineObject(250 + 2*x - y, super.getGameHeight()/6 - 2* y, 2*x+ 250 - y, super.getGameHeight()/6 - y);
+		LineObject Switch1Bottom= new LineObject(250 + 2*x - y,super.getGameHeight()/6 - y, 250+2*x, super.getGameHeight()/6 - y);
+		LineObject Switch1SideR= new LineObject(250+2*x,super.getGameHeight()/6 - 2*y, 250+2*x, super.getGameHeight()/6 - y);
 		
 		switch1.add(Switch1Top);
 		switch1.add(Switch1SideR);
