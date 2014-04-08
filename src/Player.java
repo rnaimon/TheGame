@@ -226,8 +226,8 @@ public class Player implements PlayerInterface
 				for(int i=0; i< nearObstacles.size(); i++)
 				{
 					
-					if((getCentY() + radius - speed_y*2/3)<= (getCentX()*nearObstacles.get(i).getSlope()/100 + nearObstacles.get(i).getConstant()/100+5) 
-							&& (getCentY() + radius + speed_y*2/3)>= (getCentX()*nearObstacles.get(i).getSlope()/100 + nearObstacles.get(i).getConstant()/100-5))
+					if((getCentY() + radius - speed_y*2/3)<= (getCentX()*nearObstacles.get(i).getSlope()/100 + nearObstacles.get(i).getConstant()/100+2) 
+							&& (getCentY() + radius + speed_y*2/3)>= (getCentX()*nearObstacles.get(i).getSlope()/100 + nearObstacles.get(i).getConstant()/100-2))
 					{
 						throughPlatform=true;
 						slope= nearObstacles.get(i).getSlope();
@@ -339,9 +339,10 @@ public class Player implements PlayerInterface
 		for(int i=0; i< nearObstacles.size(); i++)
 		{
 			
-				if((getCentY() + radius - speed_y*2/3)<= (getCentX()*nearObstacles.get(i).getSlope()/100 + nearObstacles.get(i).getConstant()/100) 
-						&& (getCentY() + radius + speed_y*2/3)>= (getCentX()*nearObstacles.get(i).getSlope()/100 + nearObstacles.get(i).getConstant()/100))
+				if((getCentY() + radius - speed_y*2/3)<= (getCentX()*nearObstacles.get(i).getSlope()/100 + nearObstacles.get(i).getConstant()/100 + 5) 
+						&& (getCentY() + radius + speed_y*2/3)>= (getCentX()*nearObstacles.get(i).getSlope()/100 + nearObstacles.get(i).getConstant()/100 -5))
 				{
+					System.out.println("here");
 					onPlatform=true;
 				}
 		}

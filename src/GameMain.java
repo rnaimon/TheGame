@@ -276,6 +276,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 					else if (isAKeyDown(KeyEvent.VK_RIGHT)
 							&& canMove(player, false))
 						player.doMoveH(false);
+					
 					if(function==true) 
 					{
 						((Level)(currentLevel)).function();
