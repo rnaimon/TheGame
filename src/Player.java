@@ -253,7 +253,7 @@ public class Player implements PlayerInterface
 			for(int i=0; i< hiddenPlatforms.size(); i++)
 			{
 				LineObject l= hiddenPlatforms.get(i).getOutlines().get(0);
-				System.out.println("PLAYER " + -1*l.getSlope()*getCentX() + l.getConstant());
+				//System.out.println("PLAYER " + -1*l.getSlope()*getCentX() + l.getConstant());
 				
 				//if(getCentX()>= l.getV1().getXCoord() && getCentX()<= l.getV2().getXCoord() && (getCentY()+getRadius())  >= (l.getSlope()*getCentX() + l.getConstant()))
 						//getV1().getYCoord() && (getCentY() + getRadius()) <= l.getV2().getYCoord())
@@ -268,15 +268,26 @@ public class Player implements PlayerInterface
 		boolean onPlatform=false;
 		for(int i=0; i< nearObstacles.size(); i++)
 		{
-			
+			//why 2/3?
 				if((getCentY() + radius - speed_y*2/3)<= (getCentX()*nearObstacles.get(i).getSlope()/100 + nearObstacles.get(i).getConstant()/100) 
 						&& (getCentY() + radius + speed_y*2/3)>= (getCentX()*nearObstacles.get(i).getSlope()/100 + nearObstacles.get(i).getConstant()/100))
 				{
 					onPlatform=true;
 				}
+				if((getCentY() + radius - speed_y*2/3)<= (getCentX()*nearObstacles.get(i).getSlope()/100 + nearObstacles.get(i).getConstant()/100 + 5) 
+						&& (getCentY() + radius + speed_y*2/3)>= (getCentX()*nearObstacles.get(i).getSlope()/100 + nearObstacles.get(i).getConstant()/100 - 5))
+				{
+				
+					onPlatform=true;
+				}
+				
 		}
 		return onPlatform;
 	}
+	
+	
+	
+	
 	/*
 	public void setGrounded(boolean b)
 	{
