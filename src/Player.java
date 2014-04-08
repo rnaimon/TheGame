@@ -253,6 +253,10 @@ public class Player implements PlayerInterface
 			for(int i=0; i< hiddenPlatforms.size(); i++)
 			{
 				LineObject l= hiddenPlatforms.get(i).getOutlines().get(0);
+				System.out.println("PLAYER " + -1*l.getSlope()*getCentX() + l.getConstant());
+				
+				//if(getCentX()>= l.getV1().getXCoord() && getCentX()<= l.getV2().getXCoord() && (getCentY()+getRadius())  >= (l.getSlope()*getCentX() + l.getConstant()))
+						//getV1().getYCoord() && (getCentY() + getRadius()) <= l.getV2().getYCoord())
 				if(getCentX()>= l.getV1().getXCoord() && getCentX()<= l.getV2().getXCoord())
 				{
 					nearObstacles.add(l);
