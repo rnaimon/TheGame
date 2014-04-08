@@ -3,6 +3,19 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.util.ArrayList;
 
+/***
+ * Cheat sheet in code for how the switches and platforms should be handled:
+ * Hit switch one, directly across from the landing platform. Go down the ramp and
+ * hit the next lowest switch on the right, and then the lowest switch on the right.
+ * Travel across to the lowest platform on the left and hit that switch. Go back up
+ * to the lowest platform on the right, and then back up the ramp to the very first
+ * platform. Hit the first switch again and make the first ramp disappear. Fall down
+ * to the middle platform on the left, hit that switch, and then travel happily
+ * up the ramps, making the small jump, to the top right platform and the end of 
+ * the level. 
+ */
+
+
 
 /***
  * This is level two, which features the player launching projectiles at switches
