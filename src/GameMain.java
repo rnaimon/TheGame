@@ -220,10 +220,15 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 		case STATE_PLAYING:
 				if(((Level)(currentLevel)).checkComplete()==true)
 				{
-					currentLevel= levelList.get(1);
-					player.setCentX(0);
-					player.setCentY(0);
-					player.setSpeedY(0);
+					if(((Level)(currentLevel)).getLevelNumber()!=2)
+					{
+						currentLevel= levelList.get(1);
+						player.setCentX(0);
+						player.setCentY(0);
+						player.setSpeedY(0);
+					}
+					else
+						gameState= STATE_DONE;
 					
 				}
 					if((player.getCentY() + player.getRadius()+ player.getSpeedY())>= getHeight())
@@ -320,7 +325,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 				//if the game is over because the player won
 		case STATE_DONE:
 			g.setColor(Color.cyan);
-			g.drawString("You beat the level", 200, 100);
+			g.drawString("YOU BEAT THE GAME!!", 200, 100);
 			break;
 
 		}
