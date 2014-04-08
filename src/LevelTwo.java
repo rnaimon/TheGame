@@ -114,24 +114,25 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 		
 		//Now for the platforms on the right side
 		
-		
+		// should be #4, now is
 		ArrayList<LineObject> platform4perimeter= new ArrayList<LineObject>();
-		LineObject platformFourTop= new LineObject(gameWidth-300, gameHeight-gameHeight/5 - 150, gameWidth, gameHeight-gameHeight/5 -150);
-		LineObject platformFourSideL= new LineObject(gameWidth-300,gameHeight-gameHeight/5 - 150, gameWidth-300, gameHeight-gameHeight/5 + 20 -150);
-		LineObject platformFourBottom= new LineObject(gameWidth-300, gameHeight-gameHeight/5 + 20 - 150, gameWidth, gameHeight-gameHeight/5 + 20 - 150);
-		LineObject platformFourSideR= new LineObject(gameWidth,gameHeight-gameHeight/5 - 150, gameWidth, gameHeight-gameHeight/5 + 20 - 150);
+		LineObject platformFourTop= new LineObject(gameWidth-300, gameHeight-3*gameHeight/5 - 150, gameWidth, gameHeight-3*gameHeight/5 -150);
+		LineObject platformFourSideL= new LineObject(gameWidth-300,gameHeight-3*gameHeight/5 - 150, gameWidth-300, gameHeight-3*gameHeight/5 + 20 -150);
+		LineObject platformFourBottom= new LineObject(gameWidth-300, gameHeight-3*gameHeight/5 + 20 - 150, gameWidth, gameHeight-3*gameHeight/5 + 20 - 150);
+		LineObject platformFourSideR= new LineObject(gameWidth,gameHeight-3*gameHeight/5 - 150, gameWidth, gameHeight-3*gameHeight/5 + 20 - 150);
 		
 		platform4perimeter.add(platformFourTop);
 		platform4perimeter.add(platformFourSideR);
 		platform4perimeter.add(platformFourBottom);
 		platform4perimeter.add(platformFourSideL);
-			
+		
 		Obstacles Platform4= new Obstacles(platform4perimeter);
 		obstacleList.add(Platform4);
+	
 		
-		
+		//this one's number is correct
 		ArrayList<LineObject> platform5perimeter= new ArrayList<LineObject>();
-		LineObject platformFiveTop= new LineObject(gameWidth-300, gameHeight-2*gameHeight/5 - 150, gameWidth, gameHeight-2*gameHeight/5 -150);
+		LineObject platformFiveTop= new LineObject(gameWidth-300 - 500, gameHeight-2*gameHeight/5 - 150, gameWidth, gameHeight-2*gameHeight/5 -150);
 		LineObject platformFiveSideL= new LineObject(gameWidth-300,gameHeight-2*gameHeight/5 - 150, gameWidth-300, gameHeight-2*gameHeight/5 + 20 -150);
 		LineObject platformFiveBottom= new LineObject(gameWidth-300, gameHeight-2*gameHeight/5 + 20 - 150, gameWidth, gameHeight-2*gameHeight/5 + 20 - 150);
 		LineObject platformFiveSideR= new LineObject(gameWidth,gameHeight-2*gameHeight/5 - 150, gameWidth, gameHeight-2*gameHeight/5 + 20 - 150);
@@ -144,18 +145,20 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 		Obstacles Platform5= new Obstacles(platform5perimeter);
 		obstacleList.add(Platform5);
 		
+	
 		
+		//should be platform 6
 		ArrayList<LineObject> platform6perimeter= new ArrayList<LineObject>();
-		LineObject platformSixTop= new LineObject(gameWidth-300, gameHeight-3*gameHeight/5 - 150, gameWidth, gameHeight-3*gameHeight/5 -150);
-		LineObject platformSixSideL= new LineObject(gameWidth-300,gameHeight-3*gameHeight/5 - 150, gameWidth-300, gameHeight-3*gameHeight/5 + 20 -150);
-		LineObject platformSixBottom= new LineObject(gameWidth-300, gameHeight-3*gameHeight/5 + 20 - 150, gameWidth, gameHeight-3*gameHeight/5 + 20 - 150);
-		LineObject platformSixSideR= new LineObject(gameWidth,gameHeight-3*gameHeight/5 - 150, gameWidth, gameHeight-3*gameHeight/5 + 20 - 150);
+		LineObject platformSixTop= new LineObject(gameWidth-300, gameHeight-gameHeight/5 - 150, gameWidth, gameHeight-gameHeight/5 -150);
+		LineObject platformSixSideL= new LineObject(gameWidth-300,gameHeight-gameHeight/5 - 150, gameWidth-300, gameHeight-gameHeight/5 + 20 -150);
+		LineObject platformSixBottom= new LineObject(gameWidth-300, gameHeight-gameHeight/5 + 20 - 150, gameWidth, gameHeight-gameHeight/5 + 20 - 150);
+		LineObject platformSixSideR= new LineObject(gameWidth,gameHeight-gameHeight/5 - 150, gameWidth, gameHeight-gameHeight/5 + 20 - 150);
 		
 		platform6perimeter.add(platformSixTop);
 		platform6perimeter.add(platformSixSideR);
 		platform6perimeter.add(platformSixBottom);
 		platform6perimeter.add(platformSixSideL);
-		
+			
 		Obstacles Platform6= new Obstacles(platform6perimeter);
 		obstacleList.add(Platform6);
 		
