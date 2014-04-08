@@ -76,10 +76,10 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 		ArrayList<Obstacles> obstacleList= new ArrayList<Obstacles>();
 		
 		ArrayList<LineObject> platform1perimeter= new ArrayList<LineObject>();
-		LineObject platform1Top= new LineObject(0, gameHeight-4*gameHeight/5, 300, gameHeight-4*gameHeight/5);
+		LineObject platform1Top= new LineObject(0, gameHeight-4*gameHeight/5, gameWidth/5, gameHeight-4*gameHeight/5);
 		LineObject platform1SideL= new LineObject(0,gameHeight-4*gameHeight/5, 0, gameHeight-4*gameHeight/5 + 20);
-		LineObject platform1Bottom= new LineObject(0, gameHeight-4*gameHeight/5 + 20, 300, gameHeight-4*gameHeight/5 + 20);
-		LineObject platform1SideR= new LineObject(300,gameHeight-4*gameHeight/5, 300, gameHeight-4*gameHeight/5 + 20);
+		LineObject platform1Bottom= new LineObject(0, gameHeight-4*gameHeight/5 + 20, gameWidth/5, gameHeight-4*gameHeight/5 + 20);
+		LineObject platform1SideR= new LineObject(gameWidth/5, gameHeight-4*gameHeight/5, gameWidth/5, gameHeight-4*gameHeight/5 + 20);
 		
 		platform1perimeter.add(platform1Top);
 		platform1perimeter.add(platform1SideR);
@@ -91,10 +91,10 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 		
 		
 		ArrayList<LineObject> platform2perimeter= new ArrayList<LineObject>();
-		LineObject platformTwoTop= new LineObject(0, gameHeight-2*gameHeight/5 - 40, 200, gameHeight-2*gameHeight/5 - 40);
+		LineObject platformTwoTop= new LineObject(0, gameHeight-2*gameHeight/5 - 40, gameWidth/6, gameHeight-2*gameHeight/5 - 40);
 		LineObject platformTwoSideL= new LineObject(0,gameHeight-2*gameHeight/5 - 40, 0, gameHeight-2*gameHeight/5 + 20 - 40);
-		LineObject platformTwoBottom= new LineObject(0, gameHeight-2*gameHeight/5 + 20 - 40, 200, gameHeight-2*gameHeight/5 + 20- 40);
-		LineObject platformTwoSideR= new LineObject(200,gameHeight-2*gameHeight/5 - 40, 200, gameHeight-2*gameHeight/5 + 20- 40);
+		LineObject platformTwoBottom= new LineObject(0, gameHeight-2*gameHeight/5 + 20 - 40, gameWidth/6, gameHeight-2*gameHeight/5 + 20- 40);
+		LineObject platformTwoSideR= new LineObject(gameWidth/6, gameHeight-2*gameHeight/5 - 40, gameWidth/6, gameHeight-2*gameHeight/5 + 20- 40);
 		
 		platform2perimeter.add(platformTwoTop);
 		platform2perimeter.add(platformTwoSideR);
@@ -105,10 +105,10 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 		obstacleList.add(Platform2);
 		
 		ArrayList<LineObject> platform3perimeter= new ArrayList<LineObject>();
-		LineObject platform3Top= new LineObject(0,super.getGameHeight()-super.getGameHeight()/5, 100, super.getGameHeight()-super.getGameHeight()/5);
+		LineObject platform3Top= new LineObject(0,super.getGameHeight()-super.getGameHeight()/5, gameWidth/8, super.getGameHeight()-super.getGameHeight()/5);
 		LineObject platform3SideL= new LineObject(0,super.getGameHeight()-super.getGameHeight()/5, 0, super.getGameHeight()-super.getGameHeight()/5 + 20);
-		LineObject platform3Bottom= new LineObject(0, super.getGameHeight()-super.getGameHeight()/5 + 20, 100, super.getGameHeight()-super.getGameHeight()/5 + 20);
-		LineObject platform3SideR= new LineObject(100,super.getGameHeight()-super.getGameHeight()/5, 100, super.getGameHeight()-super.getGameHeight()/5 + 20);
+		LineObject platform3Bottom= new LineObject(0, super.getGameHeight()-super.getGameHeight()/5 + 20, gameWidth/8, super.getGameHeight()-super.getGameHeight()/5 + 20);
+		LineObject platform3SideR= new LineObject(gameWidth/8, super.getGameHeight()-super.getGameHeight()/5, gameWidth/8, super.getGameHeight()-super.getGameHeight()/5 + 20);
 		
 		platform3perimeter.add(platform3Top);
 		platform3perimeter.add(platform3SideR);
@@ -129,10 +129,10 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 		
 		// should be #4, now is
 		ArrayList<LineObject> platform4perimeter= new ArrayList<LineObject>();
-		LineObject platformFourTop= new LineObject(gameWidth-300, gameHeight-3*gameHeight/5 - 150, gameWidth, gameHeight-3*gameHeight/5 -150);
-		LineObject platformFourSideL= new LineObject(gameWidth-300,gameHeight-3*gameHeight/5 - 150, gameWidth-300, gameHeight-3*gameHeight/5 + 20 -150);
-		LineObject platformFourBottom= new LineObject(gameWidth-300, gameHeight-3*gameHeight/5 + 20 - 150, gameWidth, gameHeight-3*gameHeight/5 + 20 - 150);
-		LineObject platformFourSideR= new LineObject(gameWidth,gameHeight-3*gameHeight/5 - 150, gameWidth, gameHeight-3*gameHeight/5 + 20 - 150);
+		LineObject platformFourTop= new LineObject(gameWidth-(gameWidth/5), gameHeight-4*gameHeight/5, gameWidth, gameHeight-4*gameHeight/5);
+		LineObject platformFourSideL= new LineObject(gameWidth-(gameWidth/5),gameHeight-4*gameHeight/5, gameWidth-(gameWidth/5), gameHeight-4*gameHeight/5 + 20);
+		LineObject platformFourBottom= new LineObject(gameWidth-(gameWidth/5), gameHeight-4*gameHeight/5 + 20, gameWidth, gameHeight-4*gameHeight/5 + 20);
+		LineObject platformFourSideR= new LineObject(gameWidth,gameHeight-4*gameHeight/5, gameWidth, gameHeight-4*gameHeight/5 + 20);
 		
 		platform4perimeter.add(platformFourTop);
 		platform4perimeter.add(platformFourSideR);
@@ -145,9 +145,9 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 		
 		//this one's number is correct
 		ArrayList<LineObject> platform5perimeter= new ArrayList<LineObject>();
-		LineObject platformFiveTop= new LineObject(gameWidth-300, gameHeight-2*gameHeight/5 - 150, gameWidth, gameHeight-2*gameHeight/5 -150);
-		LineObject platformFiveSideL= new LineObject(gameWidth-300,gameHeight-2*gameHeight/5 - 150, gameWidth-300, gameHeight-2*gameHeight/5 + 20 -150);
-		LineObject platformFiveBottom= new LineObject(gameWidth-300, gameHeight-2*gameHeight/5 + 20 - 150, gameWidth, gameHeight-2*gameHeight/5 + 20 - 150);
+		LineObject platformFiveTop= new LineObject(gameWidth-(gameWidth/5), gameHeight-2*gameHeight/5 - 150, gameWidth, gameHeight-2*gameHeight/5 -150);
+		LineObject platformFiveSideL= new LineObject(gameWidth-(gameWidth/5),gameHeight-2*gameHeight/5 - 150, gameWidth-(gameWidth/5), gameHeight-2*gameHeight/5 + 20 -150);
+		LineObject platformFiveBottom= new LineObject(gameWidth-(gameWidth/5), gameHeight-2*gameHeight/5 + 20 - 150, gameWidth, gameHeight-2*gameHeight/5 + 20 - 150);
 		LineObject platformFiveSideR= new LineObject(gameWidth,gameHeight-2*gameHeight/5 - 150, gameWidth, gameHeight-2*gameHeight/5 + 20 - 150);
 		
 		platform5perimeter.add(platformFiveTop);
