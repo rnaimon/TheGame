@@ -20,12 +20,12 @@ public interface PlayerInterface{
 	public void setRadius(double r);
 	
 	//Retrieves center of avatar
-	public int getCentX();
-	public int getCentY();
+	public double getCentX();
+	public double getCentY();
 	
 	//Sets center of avatar
-	public void setCentX(int x);
-	public void setCentY(int y);
+	public void setCentX(double x);
+	public void setCentY(double y);
 	
 	
 	public Item getItem();

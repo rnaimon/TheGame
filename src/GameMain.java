@@ -271,44 +271,11 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 					player.doMoveV(false, 2, null);
 					
 					
-					if (isAKeyDown(KeyEvent.VK_LEFT) && canMove(player, true)){
-						
-						ArrayList <Obstacles> hiddenPlatforms = player.getHiddenPlatforms();
-						if(hiddenPlatforms != null) {
-							for(int i=0; i< hiddenPlatforms.size(); i++)
-							{
-								LineObject l= hiddenPlatforms.get(i).getOutlines().get(0);
-								if( l.getSlope() > 0 && player.getGrounded()) {
-								//if(player.getCentX()>= l.getV1().getXCoord() && player.getCentX()<= l.getV2().getXCoord() && (player.getCentY()+player.getRadius())  >= (l.getSlope()*player.getCentX() + l.getConstant()) && (player.getCentY() + player.getRadius()) <= (l.getSlope()*player.getCentX() + l.getConstant()) -5 && l.getSlope() > 0) {
-									
-									 player.setCentY((int)(player.getCentY() - 2));
-											 
-								}
-							}
-						}
-						
+					if (isAKeyDown(KeyEvent.VK_LEFT) && canMove(player, true))
 						player.doMoveH(true);
-					}
 					else if (isAKeyDown(KeyEvent.VK_RIGHT)
-							&& canMove(player, false)) {
-						
-						ArrayList <Obstacles> hiddenPlatforms = player.getHiddenPlatforms();
-						
-						if(hiddenPlatforms != null ) {
-							for(int i=0; i< hiddenPlatforms.size(); i++)
-							{
-								LineObject l= hiddenPlatforms.get(i).getOutlines().get(0);
-								if( l.getSlope() < 0 && player.getGrounded()) {
-								//if(player.getCentX()>= l.getV1().getXCoord() && player.getCentX()<= l.getV2().getXCoord() && (player.getCentY()+player.getRadius())  >= l.getV1().getYCoord() && (player.getCentY() + player.getRadius()) <= l.getV1().getYCoord() -5 && l.getSlope() < 0) {
-									
-									 player.setCentY((int)(player.getCentY() - 2));
-											 
-								}
-							}
-						}
-						
+							&& canMove(player, false))
 						player.doMoveH(false);
-					}
 					if(function==true) 
 					{
 						((Level)(currentLevel)).function();

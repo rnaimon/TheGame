@@ -13,8 +13,8 @@ public class Player implements PlayerInterface
 	private double  speed_y;
 	private double  acceleration=Toolkit.getDefaultToolkit().getScreenSize().height/100;
 	private double radius;
-	private int centx;
-	private int centy;
+	private double centx;
+	private double centy;
 	private Color color;
 	private Item current_item;
 	private boolean isGrounded;
@@ -53,13 +53,13 @@ public class Player implements PlayerInterface
 	/**
 	 * This method retrieves the X-Coordinate of the center of the circle shaped avatar.
 	 */
-	public int getCentX() {
+	public double getCentX() {
 		return centx;
 	}
 	/**
 	 * This method retrieves the Y-Coordinate of the center of the circle shaped avatar.
 	 */
-	public int getCentY() {
+	public double getCentY() {
 		return centy;
 	}
 	/**
@@ -74,7 +74,7 @@ public class Player implements PlayerInterface
 	/**
 	 * Sets the X-Coordinate of the center of the player to 'x'
 	 */
-	public void setCentX(int x)
+	public void setCentX(double x)
 	{
 		centx=x;
 		
@@ -82,7 +82,7 @@ public class Player implements PlayerInterface
 	/**
 	 * Sets the Y-Coordinate of the center of the player to 'y'
 	 */
-	public void setCentY(int y) {
+	public void setCentY(double y) {
 		centy=y;
 		
 	}
@@ -141,15 +141,15 @@ public class Player implements PlayerInterface
 	 */
 	public void draw(Graphics2D g){
 		g.setColor(color); //inside
-		g.fillOval(centx, centy, (int)radius, (int)radius);
+		g.fillOval((int)centx, (int)centy, (int)radius, (int)radius);
 		if(current_item!=null)
 		{
 			g.setColor(current_item.getColor());
 			if(orientation=='r')
-				g.fillRect(centx, centy, 2, 2);
+				g.fillRect((int)centx, (int)centy, 2, 2);
 			else if(orientation=='l')
 			{
-				g.fillRect(centx-2, centy, 2, 2);
+				g.fillRect((int)(centx-2), (int)centy, 2, 2);
 			}
 		}
 		
@@ -162,13 +162,88 @@ public class Player implements PlayerInterface
 	public void doMoveH(boolean moveLeftOrRight){
 		 
 			if(moveLeftOrRight==true) 
-			{ //move left
-				setCentX((int)(getCentX()-speed_x));
+			{
+				ArrayList<LineObject> nearObstacles= new ArrayList<LineObject>();
+				if(hiddenPlatforms!=null)
+				{
+					for(int i=0; i< hiddenPlatforms.size(); i++)
+					{
+						LineObject l= hiddenPlatforms.get(i).getOutlines().get(0);
+						if(getCentX()>= l.getV1().getXCoord() && getCentX()<= l.getV2().getXCoord())
+						{
+							nearObstacles.add(l);
+						}
+					}
+				}
+				
+				boolean throughPlatform=false;
+				double slope=0;
+				double constant=0;
+				for(int i=0; i< nearObstacles.size(); i++)
+				{
+					
+					if((getCentY() + radius - speed_y*2/3)<= (getCentX()*nearObstacles.get(i).getSlope()/100 + nearObstacles.get(i).getConstant()/100+5) 
+							&& (getCentY() + radius + speed_y*2/3)>= (getCentX()*nearObstacles.get(i).getSlope()/100 + nearObstacles.get(i).getConstant()/100-5))
+					{
+						throughPlatform=true;
+						slope= nearObstacles.get(i).getSlope();
+						constant= nearObstacles.get(i).getConstant();
+						break;
+					}
+				}
+				
+				if(throughPlatform==false)
+				{
+					
+					setCentX((getCentX()-speed_x));
+				}
+				else
+				{
+					setCentX((getCentX()-speed_x));
+					setCentY((getCentX()*slope/100 + constant/100 - getRadius()));
+					
+				}
 				setOrientation('l');
 			} 
 			else 
 			{
-				setCentX((int)(getCentX()+speed_x));//move right
+				ArrayList<LineObject> nearObstacles= new ArrayList<LineObject>();
+				if(hiddenPlatforms!=null)
+				{
+					for(int i=0; i< hiddenPlatforms.size(); i++)
+					{
+						LineObject l= hiddenPlatforms.get(i).getOutlines().get(0);
+						if(getCentX()>= l.getV1().getXCoord() && getCentX()<= l.getV2().getXCoord())
+						{
+							nearObstacles.add(l);
+						}
+					}
+				}
+				
+				boolean throughPlatform=false;
+				double slope=0;
+				double constant=0;
+				for(int i=0; i< nearObstacles.size(); i++)
+				{
+					
+					if((getCentY() + radius - speed_y*2/3)<= (getCentX()*nearObstacles.get(i).getSlope()/100 + nearObstacles.get(i).getConstant()/100+5) 
+							&& (getCentY() + radius + speed_y*2/3)>= (getCentX()*nearObstacles.get(i).getSlope()/100 + nearObstacles.get(i).getConstant()/100-5))
+					{
+						throughPlatform=true;
+						slope= nearObstacles.get(i).getSlope();
+						constant=nearObstacles.get(i).getConstant();
+						break;
+					}
+				}
+				
+				if(throughPlatform==false)
+					setCentX((getCentX()+speed_x));
+				else
+				{
+					setCentX((getCentX()+ speed_x));
+					setCentY((getCentX()*slope/100 + constant/100 - getRadius()));
+					
+				}
 				setOrientation('r');
 			}
 		 
@@ -197,7 +272,7 @@ public class Player implements PlayerInterface
 	 public void doMoveV(boolean moveUpOrDown, int y, ArrayList<LineObject> nearObstacles)
 	 {	
 		 if(getGrounded()==false)
-			 setCentY((int)(getCentY() + speed_y)); //move down
+			 setCentY((getCentY() + speed_y)); //move down
 		 
 	 }
 
@@ -253,14 +328,9 @@ public class Player implements PlayerInterface
 			for(int i=0; i< hiddenPlatforms.size(); i++)
 			{
 				LineObject l= hiddenPlatforms.get(i).getOutlines().get(0);
-				//System.out.println("PLAYER " + -1*l.getSlope()*getCentX() + l.getConstant());
-				
-				//if(getCentX()>= l.getV1().getXCoord() && getCentX()<= l.getV2().getXCoord() && (getCentY()+getRadius())  >= (l.getSlope()*getCentX() + l.getConstant()))
-						//getV1().getYCoord() && (getCentY() + getRadius()) <= l.getV2().getYCoord())
 				if(getCentX()>= l.getV1().getXCoord() && getCentX()<= l.getV2().getXCoord())
 				{
 					nearObstacles.add(l);
-					System.out.println(l.getOrientation() + " : " + l.getSlope() +" : " + l.getConstant());
 				}
 			}
 		}
@@ -268,26 +338,15 @@ public class Player implements PlayerInterface
 		boolean onPlatform=false;
 		for(int i=0; i< nearObstacles.size(); i++)
 		{
-			//why 2/3?
+			
 				if((getCentY() + radius - speed_y*2/3)<= (getCentX()*nearObstacles.get(i).getSlope()/100 + nearObstacles.get(i).getConstant()/100) 
 						&& (getCentY() + radius + speed_y*2/3)>= (getCentX()*nearObstacles.get(i).getSlope()/100 + nearObstacles.get(i).getConstant()/100))
 				{
 					onPlatform=true;
 				}
-				if((getCentY() + radius - speed_y*2/3)<= (getCentX()*nearObstacles.get(i).getSlope()/100 + nearObstacles.get(i).getConstant()/100 + 5) 
-						&& (getCentY() + radius + speed_y*2/3)>= (getCentX()*nearObstacles.get(i).getSlope()/100 + nearObstacles.get(i).getConstant()/100 - 5))
-				{
-				
-					onPlatform=true;
-				}
-				
 		}
 		return onPlatform;
 	}
-	
-	
-	
-	
 	/*
 	public void setGrounded(boolean b)
 	{
