@@ -1,4 +1,6 @@
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.util.ArrayList;
@@ -145,10 +147,10 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 		
 		//this one's number is correct
 		ArrayList<LineObject> platform5perimeter= new ArrayList<LineObject>();
-		LineObject platformFiveTop= new LineObject(gameWidth-(gameWidth/5), gameHeight-2*gameHeight/5 - 150, gameWidth, gameHeight-2*gameHeight/5 -150);
-		LineObject platformFiveSideL= new LineObject(gameWidth-(gameWidth/5),gameHeight-2*gameHeight/5 - 150, gameWidth-(gameWidth/5), gameHeight-2*gameHeight/5 + 20 -150);
-		LineObject platformFiveBottom= new LineObject(gameWidth-(gameWidth/5), gameHeight-2*gameHeight/5 + 20 - 150, gameWidth, gameHeight-2*gameHeight/5 + 20 - 150);
-		LineObject platformFiveSideR= new LineObject(gameWidth,gameHeight-2*gameHeight/5 - 150, gameWidth, gameHeight-2*gameHeight/5 + 20 - 150);
+		LineObject platformFiveTop= new LineObject(gameWidth-(gameWidth/5), gameHeight-3*gameHeight/5, gameWidth, gameHeight-3*gameHeight/5);
+		LineObject platformFiveSideL= new LineObject(gameWidth-(gameWidth/5), gameHeight-3*gameHeight/5, gameWidth-(gameWidth/5), gameHeight-3*gameHeight/5 + 20);
+		LineObject platformFiveBottom= new LineObject(gameWidth-(gameWidth/5), gameHeight-3*gameHeight/5 + 20, gameWidth, gameHeight-3*gameHeight/5 + 20);
+		LineObject platformFiveSideR= new LineObject(gameWidth,gameHeight-3*gameHeight/5, gameWidth, gameHeight-3*gameHeight/5 + 20);
 		
 		platform5perimeter.add(platformFiveTop);
 		platform5perimeter.add(platformFiveSideR);
@@ -162,10 +164,10 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 		
 		//should be platform 6
 		ArrayList<LineObject> platform6perimeter= new ArrayList<LineObject>();
-		LineObject platformSixTop= new LineObject(gameWidth-300, gameHeight-gameHeight/5 - 150, gameWidth, gameHeight-gameHeight/5 -150);
-		LineObject platformSixSideL= new LineObject(gameWidth-300,gameHeight-gameHeight/5 - 150, gameWidth-300, gameHeight-gameHeight/5 + 20 -150);
-		LineObject platformSixBottom= new LineObject(gameWidth-300, gameHeight-gameHeight/5 + 20 - 150, gameWidth, gameHeight-gameHeight/5 + 20 - 150);
-		LineObject platformSixSideR= new LineObject(gameWidth,gameHeight-gameHeight/5 - 150, gameWidth, gameHeight-gameHeight/5 + 20 - 150);
+		LineObject platformSixTop= new LineObject(gameWidth-(gameWidth/4), gameHeight-2*gameHeight/5, gameWidth, gameHeight-2*gameHeight/5);
+		LineObject platformSixSideL= new LineObject(gameWidth-(gameWidth/4),gameHeight-2*gameHeight/5, gameWidth-(gameWidth/4), gameHeight-2*gameHeight/5 + 20);
+		LineObject platformSixBottom= new LineObject(gameWidth-(gameWidth/4), gameHeight-2*gameHeight/5 + 20, gameWidth, gameHeight-2*gameHeight/5 + 20);
+		LineObject platformSixSideR= new LineObject(gameWidth, gameHeight-2*gameHeight/5, gameWidth, gameHeight-2*gameHeight/5 + 20);
 		
 		platform6perimeter.add(platformSixTop);
 		platform6perimeter.add(platformSixSideR);
@@ -217,6 +219,16 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 	@Override
 	public void draw(Graphics2D g) 
 	{
+		
+		
+		int gameHeight = super.getGameHeight();
+		int gameWidth = super.getGameWidth();
+		
+		//FontMetrics fm = g.getFontMetrics();
+		Font f = new Font("Arial", Font.PLAIN, 20);
+		g.setFont(f);
+		g.drawString("Press 'Z' to fire darts at those white targets!", gameWidth / 17, gameHeight/10);
+		
 		if(getSwitchList()!=null)
 		{
 			for(int i= 0; i< getSwitchList().size(); i++)
