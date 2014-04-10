@@ -351,7 +351,8 @@ public class Player implements PlayerInterface
 				/**
 				 * The following if-statement needs to be in terms of slope, not horizontal platforms.
 				 Another way to fix it would just be to do the same thing for x as I did for y...
-				 */
+				 I'd appreciate if you not deal with this code below yet.*/
+				/*
 				if(!onPlatform) {
 					
 					//&& (getCentX() - radius/2 < nearObstacles.get(i).getV1().getXCoord()) && (getCentX() + radius/2 > nearObstacles.get(i).getV2().getXCoord()))
@@ -359,6 +360,7 @@ public class Player implements PlayerInterface
 						onPlatform = true;
 					}
 				}
+				*/
 				
 		}
 		return onPlatform;
