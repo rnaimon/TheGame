@@ -182,8 +182,8 @@ public class Player implements PlayerInterface
 				for(int i=0; i< nearObstacles.size(); i++)
 				{
 					
-					if((getCentY() + radius - speed_y*2/3)<= (getCentX()*nearObstacles.get(i).getSlope()/100 + nearObstacles.get(i).getConstant()/100+5) 
-							&& (getCentY() + radius + speed_y*2/3)>= (getCentX()*nearObstacles.get(i).getSlope()/100 + nearObstacles.get(i).getConstant()/100-5))
+					if((getCentY() + radius - speed_y*2/3)<= (getCentX()*nearObstacles.get(i).getSlope()/100 + nearObstacles.get(i).getConstant()/100+3) 
+							&& (getCentY() + radius + speed_y*2/3)>= (getCentX()*nearObstacles.get(i).getSlope()/100 + nearObstacles.get(i).getConstant()/100-3))
 					{
 						throughPlatform=true;
 						slope= nearObstacles.get(i).getSlope();
@@ -200,7 +200,7 @@ public class Player implements PlayerInterface
 				else
 				{
 					setCentX((getCentX()-speed_x));
-					setCentY((getCentX()*slope/100 + constant/100 - getRadius()));
+					setCentY((getCentX()*slope/100 + constant/100 - getRadius()-3));
 					
 				}
 				setOrientation('l');
@@ -226,8 +226,8 @@ public class Player implements PlayerInterface
 				for(int i=0; i< nearObstacles.size(); i++)
 				{
 					
-					if((getCentY() + radius - speed_y*2/3)<= (getCentX()*nearObstacles.get(i).getSlope()/100 + nearObstacles.get(i).getConstant()/100+2) 
-							&& (getCentY() + radius + speed_y*2/3)>= (getCentX()*nearObstacles.get(i).getSlope()/100 + nearObstacles.get(i).getConstant()/100-2))
+					if((getCentY() + radius - speed_y*2/3)<= (getCentX()*nearObstacles.get(i).getSlope()/100 + nearObstacles.get(i).getConstant()/100+3) 
+							&& (getCentY() + radius + speed_y*2/3)>= (getCentX()*nearObstacles.get(i).getSlope()/100 + nearObstacles.get(i).getConstant()/100-3))
 					{
 						throughPlatform=true;
 						slope= nearObstacles.get(i).getSlope();
@@ -241,7 +241,7 @@ public class Player implements PlayerInterface
 				else
 				{
 					setCentX((getCentX()+ speed_x));
-					setCentY((getCentX()*slope/100 + constant/100 - getRadius()));
+					setCentY((getCentX()*slope/100 + constant/100 - getRadius()-3));
 					
 				}
 				setOrientation('r');
@@ -339,8 +339,8 @@ public class Player implements PlayerInterface
 		for(int i=0; i< nearObstacles.size(); i++)
 		{
 			
-				if((getCentY() + radius - speed_y*2/3)<= (getCentX()*nearObstacles.get(i).getSlope()/100 + nearObstacles.get(i).getConstant()/100 + 5) 
-						&& (getCentY() + radius + speed_y*2/3)>= (getCentX()*nearObstacles.get(i).getSlope()/100 + nearObstacles.get(i).getConstant()/100 -5))
+				if((getCentY() + radius - speed_y*2/3)<= (getCentX()*nearObstacles.get(i).getSlope()/100 + nearObstacles.get(i).getConstant()/100 + 3) 
+						&& (getCentY() + radius + speed_y*2/3)>= (getCentX()*nearObstacles.get(i).getSlope()/100 + nearObstacles.get(i).getConstant()/100 -3))
 				{
 					System.out.println("here");
 					onPlatform=true;
