@@ -328,7 +328,7 @@ public class Player implements PlayerInterface
 			for(int i=0; i< hiddenPlatforms.size(); i++)
 			{
 				LineObject l= hiddenPlatforms.get(i).getOutlines().get(0);
-				if(getCentX()>= l.getV1().getXCoord() && getCentX()<= l.getV2().getXCoord())
+				if(getCentX()>= l.getV1().getXCoord() - 1 && getCentX()<= l.getV2().getXCoord() + 1)
 				{
 					nearObstacles.add(l);
 				}
@@ -377,6 +377,18 @@ public class Player implements PlayerInterface
 		speed_y=y;
 		
 	}
+	
+	/***
+	 * This method determines whether the player is touching an obstacle so that
+	 * the program can determine if the player can move through something or not.
+	 * @return the boolean of whether the player is touching an obstacle
+	 */
+	/*public boolean touchingObstacle() {
+		
+		
+		
+		
+	}*/
 
 	
 
