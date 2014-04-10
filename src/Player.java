@@ -341,10 +341,25 @@ public class Player implements PlayerInterface
 			
 				if((getCentY() + radius - speed_y*2/3)<= (getCentX()*nearObstacles.get(i).getSlope()/100 + nearObstacles.get(i).getConstant()/100 + 3) 
 						&& (getCentY() + radius + speed_y*2/3)>= (getCentX()*nearObstacles.get(i).getSlope()/100 + nearObstacles.get(i).getConstant()/100 -3))
+								
 				{
 					System.out.println("here");
 					onPlatform=true;
+					
 				}
+				
+				/**
+				 * The following if-statement needs to be in terms of slope, not horizontal platforms.
+				 Another way to fix it would just be to do the same thing for x as I did for y...
+				 */
+				if(!onPlatform) {
+					
+					//&& (getCentX() - radius/2 < nearObstacles.get(i).getV1().getXCoord()) && (getCentX() + radius/2 > nearObstacles.get(i).getV2().getXCoord()))
+					if ((getCentX() - radius/2 > nearObstacles.get(i).getV1().getXCoord() && getCentY() + radius - 3 < nearObstacles.get(i).getV1().getYCoord() && !(getCentY() + radius - 3 < nearObstacles.get(i).getV1().getYCoord() - 5) || (getCentX() + radius/2 < nearObstacles.get(i).getV2().getXCoord() && getCentY() + radius - 3 < nearObstacles.get(i).getV2().getYCoord() && !(getCentY() + radius - 3 < nearObstacles.get(i).getV2().getYCoord() - 5) ))){
+						onPlatform = true;
+					}
+				}
+				
 		}
 		return onPlatform;
 	}

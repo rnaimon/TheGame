@@ -206,6 +206,13 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 
 	}
 
+	/***
+	 * double buffered update method
+	 */
+	public void update(Graphics g) {
+		paint(g);
+	}
+	
 	/**
 	 * Updates the screen, including drawing the environment and calling the draw()
 	 * methods for each sprite. Also deals with movement and jumping situations each
