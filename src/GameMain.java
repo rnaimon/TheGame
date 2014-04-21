@@ -177,13 +177,14 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 		player = new Player(30, 10, 0, new Color(0, 0, 200));
 		
 		levelList= new ArrayList<Object>();
-		
+		LevelThree lv3= new LevelThree(player, getWidth(), getHeight());
 		LevelTwo lv2= new LevelTwo(player, getWidth(), getHeight());
 		LevelOne lv1=new LevelOne(player, getWidth(), getHeight());
 		levelList.add(lv1);
 		levelList.add(lv2);
+		levelList.add(lv3);
 		if(levelList.get(0)!=null)
-			currentLevel= (LevelOne)(levelList.get(0));
+			currentLevel= (LevelThree)(levelList.get(2));
 		start();
 
 	}
@@ -227,15 +228,22 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 		case STATE_PLAYING:
 				if(((Level)(currentLevel)).checkComplete()==true)
 				{
-					if(((Level)(currentLevel)).getLevelNumber()!=2)
+					if(((Level)(currentLevel)).getLevelNumber()==1)
 					{
 						currentLevel= levelList.get(1);
 						player.setCentX(0);
 						player.setCentY(0);
 						player.setSpeedY(0);
 					}
-					else
-						gameState= STATE_DONE;
+					else if(((Level)(currentLevel)).getLevelNumber()==2)
+						{
+							currentLevel= levelList.get(2);
+							player.setCentX(0);
+							player.setCentY(0);
+							player.setSpeedY(0);
+						}
+						else
+							gameState= STATE_DONE;
 					
 				}
 					if((player.getCentY() + player.getRadius()+ player.getSpeedY())>= getHeight())
@@ -513,7 +521,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 					
 					jump=true;
 				}
-				if(key== KeyEvent.VK_Z)
+				if(key == KeyEvent.VK_Z)
 				{
 					function=true;
 				}

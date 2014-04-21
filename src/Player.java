@@ -343,7 +343,6 @@ public class Player implements PlayerInterface
 						&& (getCentY() + radius + speed_y*2/3)>= (getCentX()*nearObstacles.get(i).getSlope()/100 + nearObstacles.get(i).getConstant()/100 -3))
 								
 				{
-					System.out.println("here");
 					onPlatform=true;
 					
 				}

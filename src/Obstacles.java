@@ -88,10 +88,13 @@ public class Obstacles
 		ArrayList<LineObject> newOut= new ArrayList<LineObject>();
 		for(int i=0; i< outlines.size(); i++)
 		{
+			
 			Vertex vold1= outlines.get(i).getV1();
 			Vertex vold2= outlines.get(i).getV2();
-			LineObject l= new LineObject(vold1.getXCoord() + x ,vold1.getYCoord() + y, vold2.getXCoord() + x,vold2.getYCoord() + y);
-			newOut.add(l);
+			LineObject lin= new LineObject(vold1.getXCoord() + x ,vold1.getYCoord() + y, vold2.getXCoord() + x,vold2.getYCoord() + y);
+			//System.out.println(vold1.getXCoord() + " : " + lin.getV1().getXCoord());
+			newOut.add(lin);
+			
 		}
 		return newOut;
 	}
