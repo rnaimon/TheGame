@@ -83,7 +83,7 @@ public class Obstacles
 	 * @param x the change in x that all the points will be shifted
 	 * @param y the change in y that all the points will be shifted
 	 */
-	public ArrayList<LineObject> translate(int x, int y)
+	public Obstacles translate(int x, int y)
 	{
 		ArrayList<LineObject> newOut= new ArrayList<LineObject>();
 		for(int i=0; i< outlines.size(); i++)
@@ -96,6 +96,7 @@ public class Obstacles
 			newOut.add(lin);
 			
 		}
-		return newOut;
+		Obstacles d= new Obstacles(newOut);
+		return d;
 	}
 }

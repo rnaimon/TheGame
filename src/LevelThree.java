@@ -107,13 +107,10 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		Obstacles Platform2= new Obstacles(platform2perimeter);
 		obstacleList.add(Platform2);
 		
-		ArrayList<LineObject> genericperimeter= Platform2.translate(-gameWidth/5,-(int)(pipelength+2*player.getRadius()+2));
-		Obstacles GenericPlatform= new Obstacles(genericperimeter);
+		Obstacles GenericPlatform = Platform2.translate(-gameWidth/5,-(int)(pipelength+2*player.getRadius()+2));
 		
-		ArrayList<LineObject> platform3perimeter= new ArrayList<LineObject>();
-		platform3perimeter= Platform2.translate(2* gameWidth/5, 0);
 		
-		Obstacles Platform3= new Obstacles(platform3perimeter);
+		Obstacles Platform3=  Platform2.translate(2* gameWidth/5, 0);
 		
 		
 		obstacleList.add(Platform3);
@@ -126,25 +123,18 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		//Now for the platforms on the right side
 		
 		// should be #4, now is
-		ArrayList<LineObject> platform4perimeter= new ArrayList<LineObject>();
-		
-		platform4perimeter= GenericPlatform.translate(pipelength,(gameHeight-2*pipelength)/2);
-		Obstacles Platform4= new Obstacles(platform4perimeter);
+		Obstacles Platform4 = GenericPlatform.translate(pipelength,(gameHeight-2*pipelength)/2);
 		obstacleList.add(Platform4);
 	
 		
 		//this one's number is correct
-		ArrayList<LineObject> platform5perimeter= new ArrayList<LineObject>();
-		platform5perimeter= Platform4.translate(gameWidth*2/5, 0);
-		Obstacles Platform5= new Obstacles(platform5perimeter);
+		Obstacles Platform5= Platform4.translate(gameWidth*2/5, 0);
 		obstacleList.add(Platform5);
 		
 	
 		
 		//should be platform 6
-		ArrayList<LineObject> platform6perimeter= new ArrayList<LineObject>();
-		platform6perimeter= Platform5.translate(gameWidth*2/5, 0);
-		Obstacles Platform6= new Obstacles(platform6perimeter);
+		Obstacles Platform6= Platform5.translate(gameWidth*2/5, 0);
 		obstacleList.add(Platform6);
 		
 		
