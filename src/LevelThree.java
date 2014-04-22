@@ -134,8 +134,9 @@ public class LevelThree extends Level implements LevelTwoInterface {
 	
 		
 		//should be platform 6
-		Obstacles Platform6= Platform5.translate(gameWidth*2/5, 0);
+		Obstacles Platform6= Platform5.translate(gameWidth*2/5-pipelength, 0);
 		obstacleList.add(Platform6);
+		
 		
 		
 		
@@ -598,22 +599,9 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		// hit, while playing this level, instead of by position. Makes more sense to me,
 		// hope that's ok.
 		
-		ArrayList<LineObject> switch2 = new ArrayList<LineObject>();
+		Switch sgeneric = (Switch)(s.translate(2,2));
 
-		
-		LineObject Switch2Top= new LineObject(50 + 2*x - y,super.getGameHeight()/6 - y, 50+2*x, super.getGameHeight()/6 - y);
-		LineObject Switch2SideL= new LineObject(50 + 2*x - y, super.getGameHeight()/6 -  y, 2*x+ 50 - y, super.getGameHeight()/6);
-		LineObject Switch2Bottom= new LineObject(50 + 2*x - y,super.getGameHeight()/6, 50+2*x, super.getGameHeight()/6);
-		LineObject Switch2SideR= new LineObject(50+2*x,super.getGameHeight()/6 - y, 50+2*x, super.getGameHeight()/6);
-		
-		switch2.add(Switch2Top);
-		switch2.add(Switch2SideR);
-		switch2.add(Switch2Bottom);
-		switch2.add(Switch2SideL);
-
-		Switch s2 = new Switch(switch2);
-
-		switches.add(s2);
+		switches.add(sgeneric);
 		
 		
 		
