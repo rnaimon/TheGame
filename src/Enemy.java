@@ -22,18 +22,24 @@ public class Enemy implements EnemyInterface {
 	private Color color = new Color(255, 0, 0);
 	
 	
-	public Enemy(double r, int x, int y, Color c)
+	private boolean isAlive = true;
+	
+	public Enemy(double r, int x, int y)
 	{
 		radius=r;
 		centx=x;
 		centy=y;
-		color=c;
 		speed_x=4;
 		speed_y=4;
 	}
 	
-	
-	
+	/***
+	 * This method returns the boolean variable of whether the enemy is alive or not.
+	 * @return the boolean of whether the enemy is alive or not
+	 */
+	public boolean getAlive() {
+		return isAlive;
+	}
 	
 	/***
 	 * This method returns the center x-coordinate of the Enemy.
@@ -105,6 +111,14 @@ public class Enemy implements EnemyInterface {
 		
 	}
 	
+	/***
+	 * This method returns the radius of the enemy.
+	 * @return the radius
+	 */
+	public double getRadius() {
+		return radius;
+	}
+	
 	
 	/***
 	 * This method draws the Enemy object on the canvas. Currently, it's a rectangle, and should 
@@ -134,8 +148,6 @@ public class Enemy implements EnemyInterface {
 		
 		setCentX((getCentX()-(speed_x*amountH)));
 		setCentY((getCentY()-(speed_y*amountY)));
-
-
 		
 		
 	}

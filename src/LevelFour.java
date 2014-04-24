@@ -18,7 +18,7 @@ public class LevelFour extends Level {
 //	private ArrayList<Projectile> darts;
 	ArrayList<Switch> switchList;
 	private boolean levelComplete;
-	
+	private ArrayList<Enemy> enemies;
 	
 	/***
 	 * This is level four, which features the player shooting at anti-virus enemies in order to
@@ -34,13 +34,19 @@ public class LevelFour extends Level {
 		player.setCentY(0);
 		setLevelNumber(4);
 		reset=false;
-//		switchList= setUpSwitches();
+		switchList= setUpSwitches();
 		setObstacleList(setUpEnvironment());
 		player.setPlatforms(getObstacleList());
 		levelComplete=false;
+		
+		enemies = new ArrayList<Enemy>();
+		setUpEnemies();
+		
 //		dartgun = new Item(Color.GREEN, "Darts", "Dude, press Z and hit the bullseye.");
 //		darts= new ArrayList<Projectile>();
 //		player.setItem(dartgun);
+		
+		
 	}
 	
 	
@@ -264,8 +270,100 @@ public class LevelFour extends Level {
 				g.fillPolygon(vertx, verty, (getSwitchList().get(i).getVertices().size()));
 			}	
 		}
+		
+		if (enemies != null) {
+			manageEnemies();
+			g.setColor(Color.red);
+		//	System.out.println(enemies.size());
+			for (int x = 0; x < enemies.size(); x++) {
+				g.fillOval((int)enemies.get(x).getCentX(), (int)enemies.get(x).getCentY(), (int)enemies.get(x).getRadius(), (int)enemies.get(x).getRadius());
+			}
+			
+			
+			
+		}
+		
+		
+	}
+	
+	/***
+	 * This method creates the initial enemies that populate the level as it begins.
+	 */
+	public void setUpEnemies() {
+		
+		int numEnemies = (int)(Math.random()*6 + 1);
+			
+		for (int x = 0; x < numEnemies; x++) {
+			createEnemy();
+		}
+		
+	}
+	
+	
+	/***
+	 * This method generally keeps track of the enemies on the screen, checking if they need to be
+	 * removed if hit by a dart or plasma blast, and allowing them to move. It will also occasionally
+	 * make new enemies.
+	 */
+	public void manageEnemies() {
+		
+		int numEnemies = enemies.size();
+		
+		for (int x = 0; x < numEnemies; x++) {
+			
+			Enemy e = enemies.get(x);
+			System.out.println("here");
+
+			if (e.getAlive() == false) {
+				System.out.println("here1");
+
+				//get rid of enemy
+			}
+			else if (enemyTouching(e, player)) {
+				System.out.println("here2");
+				shouldReset();
+			}
+			else {
+				System.out.println("here3");
+				e.doMove(player);
+				
+			}
+			
+		}
+
+		
 	}
 		
+	
+	/***
+	 * This method creates an enemy and adds it to the arraylist.
+	 */
+	public void createEnemy() {
+		
+		double r = (Math.random()*270 + 30);
+		int x = super.getGameWidth() - 100;
+		int y = 0 + 100;
+		
+		Enemy e = new Enemy(r, x, y);
+		
+		enemies.add(e);
+		
+	}
+	
+	
+	public boolean enemyTouching(Enemy e, Player p) {
+		
+		int dCenter = (int)Math.sqrt(Math.pow(e.getCentX()-p.getCentX(), 2) + Math.pow(e.getCentY()-p.getCentY(), 2));
+		
+		if (e.getRadius()+p.getRadius() <= dCenter) {
+			return true;
+		}
+		return false;
+		
+		//PROBLEM IN HERE
+		
+	}
+	
 	
 }
 	
