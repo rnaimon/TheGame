@@ -18,17 +18,17 @@ public interface EnemyInterface {
 	
 */
 	
-	public double getTopX();
-	public void setTopX();
+	public double getCentX();
+	public void setCentX(double x);
 	
-	public double getTopY();
-	public void setTopY();
+	public double getCentY();
+	public void setCentY(double y);
 	
 	public double getSpeedX();
-	public void setSpeedX();
+	public void setSpeedX(double x);
 	
 	public double getSpeedY();
-	public void setSpeedY();
+	public void setSpeedY(double y);
 	
 	public void draw(Graphics2D g);
 	

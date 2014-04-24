@@ -1,4 +1,4 @@
-import java.awt.Graphics2D;
+import java.awt.*;
 
 // Rebecca Naimon
 
@@ -11,38 +11,50 @@ public class Enemy implements EnemyInterface {
 	
 	/* The following are the variables for the Enemy class.*/
 	
-	private double top_x;
-	private double top_y;
+	private double centx;
+	private double centy;
 	
-	private double width;
-	private double height;
+	private double radius;
 	
-	private double speed_X;
-	private double speed_Y;
+	private double speed_x;
+	private double speed_y;
+	
+	private Color color = new Color(255, 0, 0);
+	
+	
+	public Enemy(double r, int x, int y, Color c)
+	{
+		radius=r;
+		centx=x;
+		centy=y;
+		color=c;
+		speed_x=4;
+		speed_y=4;
+	}
+	
 	
 	
 	
 	/***
-	 * This method returns the top left x-coordinate of the Enemy.
+	 * This method returns the center x-coordinate of the Enemy.
 	 */
-	public double getTopX() {
-		
+	public double getCentX() {
+		return centx;
 	}
 	
 	/***
 	 * This method sets the top left x-coordinate of the Enemy.
 	 * @param x is the top left x-coordinate of the Enemy.
 	 */
-	public void setTopX(double x) {
-		
-		
+	public void setCentX(double x) {
+		centx = x;
 	}
 	
 	/***
 	 * This method returns the top left y-coordinate of the Enemy.
 	 */
-	public double getTopY() {
-		
+	public double getCentY() {
+		return centy;
 		
 	}
 	
@@ -50,8 +62,8 @@ public class Enemy implements EnemyInterface {
 	 * This method sets the top left y-coordinate of the Enemy.
 	 * @param y is the top left y-coordinate of the Enemy.
 	 */
-	public void setTopY(double y) {
-		top_y = y;
+	public void setCentY(double y) {
+		centy = y;
 		
 	}
 	
@@ -61,7 +73,7 @@ public class Enemy implements EnemyInterface {
 	 */
 	public double getSpeedX() {
 		
-		
+		return speed_x;
 	}
 	
 	/***
@@ -71,7 +83,7 @@ public class Enemy implements EnemyInterface {
 	 */
 	public void setSpeedX(double x) {
 		
-		
+		speed_x = x;
 	}
 	
 	/***
@@ -79,7 +91,7 @@ public class Enemy implements EnemyInterface {
 	 * of the Enemy object.
 	 */
 	public double getSpeedY() {
-		
+		return speed_y;
 		
 	}
 	
@@ -89,22 +101,46 @@ public class Enemy implements EnemyInterface {
 	 * @param y is the component of the speed in the y direction
 	 */
 	public void setSpeedY(double y) {
-		
+		speed_y = y;
 		
 	}
 	
 	
 	/***
-	 * This method draws the Enemy object on the canvas.
+	 * This method draws the Enemy object on the canvas. Currently, it's a rectangle, and should 
+	 * probably be a circle.
 	 */
 	public void draw(Graphics2D g) {
-		
+		g.setColor(color);
+		g.fillOval((int)centx, (int)centy, (int)radius, (int)radius);
 		
 	}
 	
-	
-	
-	
+	/***
+	 * This method causes the enemy virus to move in a threatening manner toward the player.
+	 */
+	public void doMove(Player p) {
+		
+		double pLocX = p.getCentX();
+		double pLocY = p.getCentY();
+		
+		int amountH = (int)(Math.random()*(1 + 1));
+		if (centx < pLocX)
+			amountH = 0-amountH;
+		
+		int amountY = (int)(Math.random()*(1+1));
+		if (centy < pLocY) 
+			amountY = 0 - amountY;
+		
+		setCentX((getCentX()-(speed_x*amountH)));
+		setCentY((getCentY()-(speed_y*amountY)));
+
+
+		
+		
+	}
+
+
 	
 	
 }
