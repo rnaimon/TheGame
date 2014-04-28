@@ -599,7 +599,7 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		// hit, while playing this level, instead of by position. Makes more sense to me,
 		// hope that's ok.
 		
-		Switch sgeneric = (Switch)(s.translate(2,2));
+		Switch sgeneric = (s.translate(2,2));
 
 		switches.add(sgeneric);
 		
