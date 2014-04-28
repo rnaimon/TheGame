@@ -3,6 +3,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 /***
@@ -37,7 +38,7 @@ public class LevelThree extends Level implements LevelTwoInterface {
 	ArrayList<Switch> switchList;
 	private boolean levelComplete;
 	private ArrayList<Obstacles> hiddenRamps;
-
+	private ArrayList<BufferedImage> pipeConnectors;
 	
 	
 	/***
@@ -54,6 +55,7 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		player.setCentY(0);
 		setLevelNumber(2);
 		reset=false;
+		pipeConnectors= new ArrayList<BufferedImage>();
 		switchList= setUpSwitches();
 		setObstacleList(setUpEnvironment());
 		player.setPlatforms(getObstacleList());
@@ -105,41 +107,47 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		platform2perimeter.add(platformTwoSideL);
 		
 		Obstacles Platform2= new Obstacles(platform2perimeter);
-		obstacleList.add(Platform2);
+		//obstacleList.add(Platform2);
 		
 		Obstacles GenericPlatform = Platform2.translate(-gameWidth/5,-(int)(pipelength+2*player.getRadius()+2));
 		
 		
-		Obstacles Platform3=  Platform2.translate(2* gameWidth/5, 0);
-		
-		
+		Obstacles Platform3=  GenericPlatform.translate(pipelength + 20, gameHeight/3);
 		obstacleList.add(Platform3);
 		
-		
-		
-		
-		
-		
-		//Now for the platforms on the right side
-		
-		// should be #4, now is
-		Obstacles Platform4 = GenericPlatform.translate(pipelength,(gameHeight-2*pipelength)/2);
+		Obstacles Platform4 = Platform3.translate(gameWidth/5-20,-gameHeight/3+ gameHeight/2);
 		obstacleList.add(Platform4);
 	
-		
-		//this one's number is correct
-		Obstacles Platform5= Platform4.translate(gameWidth*2/5, 0);
+		Obstacles Platform5= Platform3.translate(0, -gameHeight/3+ gameHeight/2 + gameHeight/8 );
 		obstacleList.add(Platform5);
 		
-	
 		
 		//should be platform 6
-		Obstacles Platform6= Platform5.translate(gameWidth*2/5-pipelength, 0);
+		Obstacles Platform6= Platform2.translate(gameWidth*2/5, 0);
 		obstacleList.add(Platform6);
 		
+		Obstacles Platform7= Platform6.translate(0, gameHeight/2);
+		obstacleList.add(Platform7);
 		
+		ArrayList<LineObject> pipeBLeftPerim= new ArrayList<LineObject>();
+		LineObject top1= new LineObject(0,0, 10,10);
+		LineObject left1= new LineObject(0,0, 0,30);
+		LineObject bottom1= new LineObject(0,30,30,30);
+		LineObject right1= new LineObject(30,30,30,20);
+		LineObject top2= new LineObject(30,20,20,20);
+		LineObject right2= new LineObject(20,20,10,10);
 		
+		pipeBLeftPerim.add(top1);
+		pipeBLeftPerim.add(left1);
+		pipeBLeftPerim.add(bottom1);
+		pipeBLeftPerim.add(right1);
+		pipeBLeftPerim.add(top2);
+		pipeBLeftPerim.add(right2);
 		
+		Obstacles pipeOne= new Obstacles(pipeBLeftPerim);
+		PipeConnector pipeBLeft= new PipeConnector(pipeOne, 0, gameHeight-40 );
+		
+		pipeConnectors.add(pipeBLeft.getImage());
 		
 		
 		
@@ -193,6 +201,13 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		g.setFont(f);
 		g.drawString("Press 'Z' to fire darts at those white targets!", gameWidth / 17, gameHeight/10);
 		
+		if(pipeConnectors!=null)
+		{
+			for(int i=0; i< pipeConnectors.size(); i++)
+			{
+				g.drawImage(pipeConnectors.get(i), null, 500, 500);
+			}
+		}
 		if(getSwitchList()!=null)
 		{
 			for(int i= 0; i< getSwitchList().size(); i++)
@@ -599,7 +614,7 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		// hit, while playing this level, instead of by position. Makes more sense to me,
 		// hope that's ok.
 		
-		Switch sgeneric = (s.translate(2,2));
+		Switch sgeneric = new Switch((s.translate(2,2)).getOutlines());
 
 		switches.add(sgeneric);
 		
