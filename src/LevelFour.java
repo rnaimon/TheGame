@@ -83,93 +83,48 @@ public class LevelFour extends Level {
 		obstacleList.add(Platform1);
 		
 		
-		ArrayList<LineObject> platform2perimeter= new ArrayList<LineObject>();
-		LineObject platformTwoTop= new LineObject(0, gameHeight-2*gameHeight/5 - 40, gameWidth/6, gameHeight-2*gameHeight/5 - 40);
-		LineObject platformTwoSideL= new LineObject(0,gameHeight-2*gameHeight/5 - 40, 0, gameHeight-2*gameHeight/5 + 20 - 40);
-		LineObject platformTwoBottom= new LineObject(0, gameHeight-2*gameHeight/5 + 20 - 40, gameWidth/6, gameHeight-2*gameHeight/5 + 20- 40);
-		LineObject platformTwoSideR= new LineObject(gameWidth/6, gameHeight-2*gameHeight/5 - 40, gameWidth/6, gameHeight-2*gameHeight/5 + 20- 40);
+	//	Obstacles Platform2 = Platform1.translate(350, 0);
+	//	obstacleList.add(Platform2);
 		
-		platform2perimeter.add(platformTwoTop);
-		platform2perimeter.add(platformTwoSideR);
-		platform2perimeter.add(platformTwoBottom);
-		platform2perimeter.add(platformTwoSideL);
-		
-		Obstacles Platform2= new Obstacles(platform2perimeter);
-		obstacleList.add(Platform2);
-		
-		ArrayList<LineObject> platform3perimeter= new ArrayList<LineObject>();
-		LineObject platform3Top= new LineObject(0,super.getGameHeight()-super.getGameHeight()/5, gameWidth/8, super.getGameHeight()-super.getGameHeight()/5);
-		LineObject platform3SideL= new LineObject(0,super.getGameHeight()-super.getGameHeight()/5, 0, super.getGameHeight()-super.getGameHeight()/5 + 20);
-		LineObject platform3Bottom= new LineObject(0, super.getGameHeight()-super.getGameHeight()/5 + 20, gameWidth/8, super.getGameHeight()-super.getGameHeight()/5 + 20);
-		LineObject platform3SideR= new LineObject(gameWidth/8, super.getGameHeight()-super.getGameHeight()/5, gameWidth/8, super.getGameHeight()-super.getGameHeight()/5 + 20);
-		
-		platform3perimeter.add(platform3Top);
-		platform3perimeter.add(platform3SideR);
-		platform3perimeter.add(platform3Bottom);
-		platform3perimeter.add(platform3SideL);
-		
-		Obstacles Platform3= new Obstacles(platform3perimeter);
-		
-		
+		Obstacles Platform3 = Platform1.translate(700, 0);
 		obstacleList.add(Platform3);
 		
+	//	Obstacles Platform4 = Platform1.translate(0, 70);
+	//	obstacleList.add(Platform4);
 		
-		
-		
-		
-		
-		//Now for the platforms on the right side
-		
-		// should be #4, now is
-		ArrayList<LineObject> platform4perimeter= new ArrayList<LineObject>();
-		LineObject platformFourTop= new LineObject(gameWidth-(gameWidth/5), gameHeight-4*gameHeight/5, gameWidth, gameHeight-4*gameHeight/5);
-		LineObject platformFourSideL= new LineObject(gameWidth-(gameWidth/5),gameHeight-4*gameHeight/5, gameWidth-(gameWidth/5), gameHeight-4*gameHeight/5 + 20);
-		LineObject platformFourBottom= new LineObject(gameWidth-(gameWidth/5), gameHeight-4*gameHeight/5 + 20, gameWidth, gameHeight-4*gameHeight/5 + 20);
-		LineObject platformFourSideR= new LineObject(gameWidth,gameHeight-4*gameHeight/5, gameWidth, gameHeight-4*gameHeight/5 + 20);
-		
-		platform4perimeter.add(platformFourTop);
-		platform4perimeter.add(platformFourSideR);
-		platform4perimeter.add(platformFourBottom);
-		platform4perimeter.add(platformFourSideL);
-		
-		Obstacles Platform4= new Obstacles(platform4perimeter);
-		obstacleList.add(Platform4);
-	
-		
-		//this one's number is correct
-		ArrayList<LineObject> platform5perimeter= new ArrayList<LineObject>();
-		LineObject platformFiveTop= new LineObject(gameWidth-(gameWidth/5), gameHeight-3*gameHeight/5, gameWidth, gameHeight-3*gameHeight/5);
-		LineObject platformFiveSideL= new LineObject(gameWidth-(gameWidth/5), gameHeight-3*gameHeight/5, gameWidth-(gameWidth/5), gameHeight-3*gameHeight/5 + 20);
-		LineObject platformFiveBottom= new LineObject(gameWidth-(gameWidth/5), gameHeight-3*gameHeight/5 + 20, gameWidth, gameHeight-3*gameHeight/5 + 20);
-		LineObject platformFiveSideR= new LineObject(gameWidth,gameHeight-3*gameHeight/5, gameWidth, gameHeight-3*gameHeight/5 + 20);
-		
-		platform5perimeter.add(platformFiveTop);
-		platform5perimeter.add(platformFiveSideR);
-		platform5perimeter.add(platformFiveBottom);
-		platform5perimeter.add(platformFiveSideL);
-		
-		Obstacles Platform5= new Obstacles(platform5perimeter);
+		Obstacles Platform5 = Platform1.translate(350, 70);
 		obstacleList.add(Platform5);
 		
-	
+	//	Obstacles Platform6 = Platform1.translate(700, 70);
+	//	obstacleList.add(Platform6);
 		
-		//should be platform 6
-		ArrayList<LineObject> platform6perimeter= new ArrayList<LineObject>();
-		LineObject platformSixTop= new LineObject(gameWidth-(gameWidth/4), gameHeight-2*gameHeight/5, gameWidth, gameHeight-2*gameHeight/5);
-		LineObject platformSixSideL= new LineObject(gameWidth-(gameWidth/4),gameHeight-2*gameHeight/5, gameWidth-(gameWidth/4), gameHeight-2*gameHeight/5 + 20);
-		LineObject platformSixBottom= new LineObject(gameWidth-(gameWidth/4), gameHeight-2*gameHeight/5 + 20, gameWidth, gameHeight-2*gameHeight/5 + 20);
-		LineObject platformSixSideR= new LineObject(gameWidth, gameHeight-2*gameHeight/5, gameWidth, gameHeight-2*gameHeight/5 + 20);
+		Obstacles Platform7 = Platform1.translate(0, 140);
+		obstacleList.add(Platform7);
 		
-		platform6perimeter.add(platformSixTop);
-		platform6perimeter.add(platformSixSideR);
-		platform6perimeter.add(platformSixBottom);
-		platform6perimeter.add(platformSixSideL);
-			
-		Obstacles Platform6= new Obstacles(platform6perimeter);
-		obstacleList.add(Platform6);
+//		Obstacles Platform8 = Platform1.translate(350, 140);
+//		obstacleList.add(Platform8);
 		
+		Obstacles Platform9 = Platform1.translate(700, 140);
+		obstacleList.add(Platform9);	
 		
+//		Obstacles Platform10 = Platform1.translate(0, 210);
+//		obstacleList.add(Platform10);
 		
+		Obstacles Platform11 = Platform1.translate(350, 210);
+		obstacleList.add(Platform11);
+		
+//		Obstacles Platform12 = Platform1.translate(700, 210);
+//		obstacleList.add(Platform12);
+		
+		Obstacles Platform13 = Platform1.translate(0, 280);
+		obstacleList.add(Platform13);
+		
+//		Obstacles Platform14 = Platform1.translate(350, 280);
+//		obstacleList.add(Platform14);
+		
+		Obstacles Platform15 = Platform1.translate(700, 280);
+		obstacleList.add(Platform15);
+
 		return obstacleList;
 
 	}
@@ -232,11 +187,14 @@ public class LevelFour extends Level {
 		int x= 500;
 		int y=50;
 		
+		int gameHeight = super.getGameHeight();
+		int gameWidth = super.getGameWidth();
+		
 		// end goal switch is always first
-		LineObject Switch1Top= new LineObject(250 + 2*x - y,super.getGameHeight()/6 - 2*y , 250+2*x, super.getGameHeight()/6 - 2*y);
-		LineObject Switch1SideL= new LineObject(250 + 2*x - y, super.getGameHeight()/6 - 2* y, 2*x+ 250 - y, super.getGameHeight()/6 - y);
-		LineObject Switch1Bottom= new LineObject(250 + 2*x - y,super.getGameHeight()/6 - y, 250+2*x, super.getGameHeight()/6 - y);
-		LineObject Switch1SideR= new LineObject(250+2*x,super.getGameHeight()/6 - 2*y, 250+2*x, super.getGameHeight()/6 - y);
+		LineObject Switch1Top= new LineObject(250 + 2*x - y, gameHeight - gameHeight/8, 250+2*x, gameHeight - gameHeight/8);
+		LineObject Switch1SideL= new LineObject(250 + 2*x - y, gameHeight - gameHeight/8, 2*x+ 250 - y, gameHeight - gameHeight/8 + 50);
+		LineObject Switch1Bottom= new LineObject(250 + 2*x - y,gameHeight - gameHeight/8 + 50, 250+2*x, gameHeight - gameHeight/8 + 50);
+		LineObject Switch1SideR= new LineObject(250+2*x,gameHeight - gameHeight/8, 250+2*x, gameHeight - gameHeight/8 + 50);
 		
 		switch1.add(Switch1Top);
 		switch1.add(Switch1SideR);
@@ -265,6 +223,42 @@ public class LevelFour extends Level {
 		g.setFont(f);
 		g.drawString("Press 'Z' to fire plasma at those anti-virus enemies!", gameWidth / 17, gameHeight/10);
 	
+		
+		if(getObstacleList()!=null)
+		{
+			for(int i= 0; i<getObstacleList().size(); i++)
+			{
+				/*
+				int[] vertx= new int[thingsInLevel.get(i).getVertices().size()];
+				int[] verty= new int[thingsInLevel.get(i).getVertices().size()];
+				for(int j=0; j< thingsInLevel.get(i).getVertices().size(); j++)
+				{
+					vertx[j]=(int)(thingsInLevel.get(i).getVertices().get(j).getXCoord());
+					verty[j]=(int)(thingsInLevel.get(i).getVertices().get(j).getYCoord());
+				}
+				g.fillPolygon(vertx, verty, thingsInLevel.get(i).getVertices().size());
+				*/
+				g.setColor(Color.magenta);
+				Polygon p= new Polygon();
+				for(int j=0; j<getObstacleList().get(i).getVertices().size(); j++)
+				{
+					p.addPoint(getObstacleList().get(i).getVertices().get(j).getXCoord(), getObstacleList().get(i).getVertices().get(j).getYCoord());
+				}
+				if(p!=null)
+				{
+					g.drawPolygon(p);
+				}
+			}
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+		
 		if(getSwitchList()!=null)
 		{
 			for(int i= 0; i< getSwitchList().size(); i++)
@@ -311,8 +305,14 @@ public class LevelFour extends Level {
 					Enemy e = enemies.get(j);
 					
 				//	double dxf= p.getTopX()+ p.getWidth() + p.getSpeedX();
-					double dCenter = Math.sqrt(Math.pow(e.getCentX()-p.getCentX(), 2) + Math.pow(e.getCentY()-p.getCentY(), 2));
-					if (e.getRadius()+p.getRadius() >= dCenter) {
+					double centerXP = p.getCentX() + p.getRadius()/2;
+					double centerYP = p.getCentY() + p.getRadius()/2;
+					
+					double centerXE = e.getCentX() + e.getRadius()/2;
+					double centerYE = e.getCentY() + e.getRadius()/2;
+					
+					double dCenter = Math.sqrt(Math.pow(centerXE - centerXP, 2) + Math.pow(centerYE - centerYP, 2));
+					if (e.getRadius()/2+p.getRadius()/2 >= dCenter) {
 						
 						hit=true;
 						numHit=j;
@@ -361,10 +361,9 @@ public class LevelFour extends Level {
 					g.setColor(Color.black);
 					g.drawOval((int)enemies.get(x).getCentX(), (int)enemies.get(x).getCentY(), (int)enemies.get(x).getRadius(), (int)enemies.get(x).getRadius());
 				}
-				if (enemies.size() < 10) {
+				if (enemies.size() < 8) {
 					setUpEnemies();
 				}
-				//setUpEnemies();
 		
 		}
 			
@@ -401,9 +400,13 @@ public class LevelFour extends Level {
 			Enemy e = enemies.get(x);
 			System.out.println("here");
 
+			if(e.getCentX() + e.getRadius() < 0)
+				e.setAlive(false);
+			
 			if (e.getAlive() == false) {
 				System.out.println("here1");
-
+				enemies.remove(x);
+				x--;
 				//get rid of enemy
 			}
 			else if (enemyTouching(e, player)) {
@@ -443,14 +446,24 @@ public class LevelFour extends Level {
 	
 	public boolean enemyTouching(Enemy e, Player p) {
 		
-		double dCenter = Math.sqrt(Math.pow(e.getCentX()-p.getCentX(), 2) + Math.pow(e.getCentY()-p.getCentY(), 2));
-		System.out.println(e.getCentX() + " " + e.getCentY() + " " + p.getCentX() + " " + p.getCentY());
-		System.out.println(dCenter + " distance from centers");
 		
-		System.out.println(e.getRadius()+p.getRadius() + " is radius addition");
+	//	Math.sqrt(Math.pow(e.getCentX() - p.getCentX(), 2) + Math.pow(e.getCentY() - p.getCentY(), 2));
 		
-		if (e.getRadius()+p.getRadius() >= dCenter) {
-			System.out.println("touching");
+		double centerXP = p.getCentX() + p.getRadius()/2;
+		double centerYP = p.getCentY() + p.getRadius()/2;
+		
+		double centerXE = e.getCentX() + e.getRadius()/2;
+		double centerYE = e.getCentY() + e.getRadius()/2;
+		
+	//	System.out.println(centerXP + " is the center x of player and radius is " + p.getRadius()/2);
+		double dCenter = Math.sqrt(Math.pow(centerXE - centerXP, 2) + Math.pow(centerYE - centerYP, 2));
+	//	System.out.println(e.getCentX() + " " + e.getCentY() + " " + p.getCentX() + " " + p.getCentY());
+	//	System.out.println(dCenter + " distance from centers");
+		
+	//	System.out.println(e.getRadius()+p.getRadius() + " is radius addition");
+		
+		if (e.getRadius()/2+p.getRadius()/2 > dCenter) {
+	//		System.out.println("touching");
 			return true;
 		}
 		return false;

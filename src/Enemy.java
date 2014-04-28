@@ -146,8 +146,8 @@ public class Enemy implements EnemyInterface {
 		double pLocY = p.getCentY();
 		
 		int amountH = (int)(Math.random()*(5));
-		if (centx < pLocX)
-			amountH = 0-amountH;
+	//	if (centx < pLocX)
+	//		amountH = 0-amountH;
 		
 		int amountY = (int)(Math.random()*(2));
 		if (centy < pLocY) 
