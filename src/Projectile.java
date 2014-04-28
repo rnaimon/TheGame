@@ -21,6 +21,11 @@ public class Projectile implements ProjectileInterface {
 	private Color color;
 	private char orientation;
 	
+	private boolean isRectangle;
+	private double radius;
+	private double centx;
+	private double centy;
+	
 	private ArrayList<LineObject> outline;
 	private ArrayList<Vertex> vertices;
 	
@@ -35,6 +40,7 @@ public class Projectile implements ProjectileInterface {
 		speed_X = 5;
 		speed_Y = 5;
 		color=new Color(1f, 0f, 0f);
+		isRectangle = true;
 	}
 	
 	/***
@@ -46,7 +52,7 @@ public class Projectile implements ProjectileInterface {
 	 * @param sX is the speed constant in the x direction
 	 * @param sY is the speed constant in the y direction
 	 */
-	public Projectile(double x, double y, double w, double h, double sX, double sY, char o) {
+	public Projectile(double x, double y, double w, double h, double sX, double sY, char o, Boolean r) {
 		top_x = x;
 		top_y = y;
 		width = w;
@@ -54,11 +60,20 @@ public class Projectile implements ProjectileInterface {
 		speed_X = sX;
 		speed_Y = sY;
 		orientation=o;
-		LineObject top = new LineObject((int)x, (int)y, (int)(x+width), (int)y);
-		LineObject sideL = new LineObject((int)x, (int)y, (int)x, (int)(y+height));
-		LineObject bottom = new LineObject((int)x, (int)(y + height), (int)(x+width), (int)(y+height));
-		LineObject sideR = new LineObject((int)(x+width), (int)y, (int)(x+width), (int)(y+height));
+		isRectangle = r;
 		
+		if (isRectangle == false) {
+			radius = 5;
+			centx = x;
+			centy = y;
+			
+		}
+		else {
+			LineObject top = new LineObject((int)x, (int)y, (int)(x+width), (int)y);
+			LineObject sideL = new LineObject((int)x, (int)y, (int)x, (int)(y+height));
+			LineObject bottom = new LineObject((int)x, (int)(y + height), (int)(x+width), (int)(y+height));
+			LineObject sideR = new LineObject((int)(x+width), (int)y, (int)(x+width), (int)(y+height));
+		}
 		
 	}
 	public char getOrientation()
@@ -131,14 +146,8 @@ public class Projectile implements ProjectileInterface {
 	public double getSpeedY() {
 		return speed_Y;
 	}
-	public double getHeight() {
-		return height;
-	}
-
-	public void draw(Graphics2D g)
-	{
-		g.fillRect((int)getTopX(), (int)getTopY(), (int)width, (int)height);
-	}
+	
+	
 	/**
 	 * This method sets the x-component of the speed of the projectile
 	 * @param x is the x-component of the speed
@@ -147,6 +156,63 @@ public class Projectile implements ProjectileInterface {
 		speed_X=x;
 		
 	}
+	
+	/***
+	 * This method returns the height of the projectile.
+	 * @return the height variable
+	 */
+	public double getHeight() {
+		return height;
+	}
+
+	/***
+	 * This method returns the radius of the projectile if it's a circle.
+	 * @return the radius variable
+	 */
+	public double getRadius() {
+		return radius;
+	}
+	
+	/***
+	 * This method returns the center x-coord if the projectile is a circle.
+	 * @return the center x-coordinate
+	 */
+	public double getCentX() {
+		return centx;
+	}
+	
+	/***
+	 * This method returns the center y-coord if the projectile is a circle.
+	 * @return the center y-coordinate
+	 */
+	public double getCentY() {
+		return centy;
+	}
+	
+	/***
+	 * This method sets the center x-coord if the projectile is a circle.
+	 */
+	public void setCentX(double x) {
+		centx = x;
+	}
+	
+	/***
+	 * This method sets the center y-coord if the projectile is a circle.
+	 */
+	public void setCentY(double y) {
+		centy = y;
+	}
+	
+	
+	
+	public void draw(Graphics2D g)
+	{
+		if (isRectangle)
+			g.fillRect((int)getTopX(), (int)getTopY(), (int)width, (int)height);
+		else
+			g.fillOval((int)centx, (int)centy, (int)radius, (int)radius);
+	}
+
 	
 	/**
 	 * This method sets the y-component of the speed of the projectile
@@ -172,17 +238,7 @@ public class Projectile implements ProjectileInterface {
 		color=c;
 		
 	}
-	
-	/***
-	 * This method causes the projectile to disappear once it hits something.
-	 */
-	public void selfDestruct() {
-		speed_X = 0;
-		speed_Y = 0;
-		top_x = -100;
-		top_y = -100;
-		width = 0;
-	}
+
 	
 	
 }

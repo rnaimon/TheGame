@@ -172,7 +172,7 @@ public class LevelThree extends Level implements LevelTwoInterface {
 	public void function() {
 		
 	//changed projectile speed to be faster (5th input)
-		Projectile dart = new Projectile(player.getCentX() + player.getRadius(), player.getCentY(), 7, 4, 8, 1.5, player.getOrientation());
+		Projectile dart = new Projectile(player.getCentX() + player.getRadius(), player.getCentY(), 7, 4, 8, 1.5, player.getOrientation(), true);
 		darts.add(dart);
 	}
 	
@@ -719,6 +719,7 @@ public class LevelThree extends Level implements LevelTwoInterface {
 	 * @param switch1 is the Switch object that will change its contact status if hit
 	 * by a dart
 	 */
+	/*
 	 public void isProjectileTouchingSwitch(Projectile dart, Switch switch1) {
 	 
 		 
@@ -732,6 +733,6 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		}
 		
 	}
-	
+	*/
 	
 }

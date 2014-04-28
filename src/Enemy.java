@@ -42,6 +42,13 @@ public class Enemy implements EnemyInterface {
 	}
 	
 	/***
+	 * This method sets the boolean variable of whether the enemy is alive or not.
+	 */
+	public void setAlive(boolean a) {
+		isAlive = a;
+	}
+	
+	/***
 	 * This method returns the center x-coordinate of the Enemy.
 	 */
 	public double getCentX() {
@@ -138,11 +145,11 @@ public class Enemy implements EnemyInterface {
 		double pLocX = p.getCentX();
 		double pLocY = p.getCentY();
 		
-		int amountH = (int)(Math.random()*(1 + 1));
+		int amountH = (int)(Math.random()*(5));
 		if (centx < pLocX)
 			amountH = 0-amountH;
 		
-		int amountY = (int)(Math.random()*(1+1));
+		int amountY = (int)(Math.random()*(2));
 		if (centy < pLocY) 
 			amountY = 0 - amountY;
 		

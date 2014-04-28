@@ -14,8 +14,8 @@ public class LevelFour extends Level {
 	private boolean reset;
 	private Player player;
 	private int WALL_SIZE=3;
-//	private Item dartgun;
-//	private ArrayList<Projectile> darts;
+	private Item plasmaGun;
+	private ArrayList<Projectile> plasma;
 	ArrayList<Switch> switchList;
 	private boolean levelComplete;
 	private ArrayList<Enemy> enemies;
@@ -42,9 +42,9 @@ public class LevelFour extends Level {
 		enemies = new ArrayList<Enemy>();
 		setUpEnemies();
 		
-//		dartgun = new Item(Color.GREEN, "Darts", "Dude, press Z and hit the bullseye.");
-//		darts= new ArrayList<Projectile>();
-//		player.setItem(dartgun);
+		plasmaGun = new Item(Color.LIGHT_GRAY, "Plasma Gun", "Dude, press Z and hit the anti-virus.");
+		plasma = new ArrayList<Projectile>();
+		player.setItem(plasmaGun);
 		
 		
 	}
@@ -183,6 +183,18 @@ public class LevelFour extends Level {
 	}
 	
 	/***
+	 * This method contains code to allow the level-specific Item to have a certain 
+	 * function, if one were to exist. In this case, it's plasma.
+	 */
+	public void function() {
+		
+	//changed projectile speed to be faster (5th input)
+		Projectile shot = new Projectile(player.getCentX() + player.getRadius(), player.getCentY(), 7, 4, 8, 1.5, player.getOrientation(), false);
+		plasma.add(shot);
+	}
+	
+	
+	/***
 	 * Checks whether the level is complete, based on whether the switch at the 
 	 * end of the level has been touched.
 	 * @return whether the level is complete or not
@@ -271,15 +283,90 @@ public class LevelFour extends Level {
 			}	
 		}
 		
-		if (enemies != null) {
-			manageEnemies();
-			g.setColor(Color.red);
-		//	System.out.println(enemies.size());
-			for (int x = 0; x < enemies.size(); x++) {
-				g.fillOval((int)enemies.get(x).getCentX(), (int)enemies.get(x).getCentY(), (int)enemies.get(x).getRadius(), (int)enemies.get(x).getRadius());
+		
+		if(plasma!=null)
+		{
+			for(int i=0; i< plasma.size(); i++)
+			{
+				Projectile p= plasma.get(i);
+				/*
+				ArrayList<Switch> nearbySwitches= new ArrayList<Switch>();
+				for(int j= 0; j<getSwitchList().size(); j++)
+				{
+					double dyi= d.getTopY();
+					double dyf= d.getTopY()+ d.getHeight();
+					LineObject side= getSwitchList().get(j).getOutlines().get(1);
+					if((dyi>side.getV1().getYCoord() && dyi<side.getV2().getYCoord()) ||
+							(dyf>side.getV2().getYCoord() && dyf<side.getV1().getYCoord()))
+					{
+						nearbySwitches.add(getSwitchList().get(j));
+					}
+				}
+				*/
+				boolean hit= false;
+				int numHit=0;
+				
+				for(int j= 0; j<enemies.size(); j++)
+				{
+					Enemy e = enemies.get(j);
+					
+				//	double dxf= p.getTopX()+ p.getWidth() + p.getSpeedX();
+					double dCenter = Math.sqrt(Math.pow(e.getCentX()-p.getCentX(), 2) + Math.pow(e.getCentY()-p.getCentY(), 2));
+					if (e.getRadius()+p.getRadius() >= dCenter) {
+						
+						hit=true;
+						numHit=j;
+						break;
+						
+					}
+					
+				}
+				if(hit==true)
+				{
+					
+					plasma.remove(i);
+					i--;
+					enemies.get(numHit).setAlive(false);
+					//hiddenRamps=fixObstacles();
+					
+				}
+				else
+				{
+					if(p.getOrientation()=='r')
+					{
+						p.setCentX(p.getCentX()+p.getSpeedX());
+					}
+					else if(p.getOrientation()=='l')
+					{
+						p.setCentX(p.getCentX()-p.getSpeedX());
+					}
+					g.setColor(Color.white);
+					p.draw(g);
+				}
+				
 			}
+		}
+		
+		
+		
+		if(enemies != null) {
+			manageEnemies();
+			if (shouldReset() == false) {
 			
-			
+				
+				//System.out.println(enemies.size());
+				for (int x = 0; x < enemies.size(); x++) {
+					g.setColor(Color.red);
+					g.fillOval((int)enemies.get(x).getCentX(), (int)enemies.get(x).getCentY(), (int)enemies.get(x).getRadius(), (int)enemies.get(x).getRadius());
+					g.setColor(Color.black);
+					g.drawOval((int)enemies.get(x).getCentX(), (int)enemies.get(x).getCentY(), (int)enemies.get(x).getRadius(), (int)enemies.get(x).getRadius());
+				}
+				if (enemies.size() < 10) {
+					setUpEnemies();
+				}
+				//setUpEnemies();
+		
+		}
 			
 		}
 		
@@ -321,7 +408,7 @@ public class LevelFour extends Level {
 			}
 			else if (enemyTouching(e, player)) {
 				System.out.println("here2");
-				shouldReset();
+				reset = true;
 			}
 			else {
 				System.out.println("here3");
@@ -340,9 +427,12 @@ public class LevelFour extends Level {
 	 */
 	public void createEnemy() {
 		
-		double r = (Math.random()*270 + 30);
+		double r = (Math.random()*170 + 30);
 		int x = super.getGameWidth() - 100;
-		int y = 0 + 100;
+		
+		int y = (int)(Math.random()*super.getGameHeight());
+		
+		//int y = 0 + 100;
 		
 		Enemy e = new Enemy(r, x, y);
 		
@@ -353,9 +443,14 @@ public class LevelFour extends Level {
 	
 	public boolean enemyTouching(Enemy e, Player p) {
 		
-		int dCenter = (int)Math.sqrt(Math.pow(e.getCentX()-p.getCentX(), 2) + Math.pow(e.getCentY()-p.getCentY(), 2));
+		double dCenter = Math.sqrt(Math.pow(e.getCentX()-p.getCentX(), 2) + Math.pow(e.getCentY()-p.getCentY(), 2));
+		System.out.println(e.getCentX() + " " + e.getCentY() + " " + p.getCentX() + " " + p.getCentY());
+		System.out.println(dCenter + " distance from centers");
 		
-		if (e.getRadius()+p.getRadius() <= dCenter) {
+		System.out.println(e.getRadius()+p.getRadius() + " is radius addition");
+		
+		if (e.getRadius()+p.getRadius() >= dCenter) {
+			System.out.println("touching");
 			return true;
 		}
 		return false;

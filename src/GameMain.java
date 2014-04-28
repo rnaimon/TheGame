@@ -578,6 +578,9 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 	 * @param switch1 is the Switch object that will change its contact status if hit
 	 * by a dart
 	 */
+	
+	/*
+	
 	 public void isProjectileTouchingSwitch(Projectile dart, Switch switch1) {
 	 
 		if(((dart.getTopX()+dart.getWidth()) >= switch1.getOutlines().get(0).getV2().getXCoord()) && dart.getSpeedX()>0) {
@@ -590,6 +593,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 		}
 		
 	}
+	*/
 	
 	
 	
