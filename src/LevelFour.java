@@ -80,29 +80,29 @@ public class LevelFour extends Level {
 		platform1perimeter.add(platform1SideL);
 		
 		Obstacles Platform1= new Obstacles(platform1perimeter);
-		obstacleList.add(Platform1);
+	//	obstacleList.add(Platform1);
 		
 		
-	//	Obstacles Platform2 = Platform1.translate(350, 0);
-	//	obstacleList.add(Platform2);
+		Obstacles Platform2 = Platform1.translate(350, 0);
+		obstacleList.add(Platform2);
 		
 		Obstacles Platform3 = Platform1.translate(700, 0);
 		obstacleList.add(Platform3);
 		
-	//	Obstacles Platform4 = Platform1.translate(0, 70);
-	//	obstacleList.add(Platform4);
+		Obstacles Platform4 = Platform1.translate(0, 70);
+		obstacleList.add(Platform4);
 		
-		Obstacles Platform5 = Platform1.translate(350, 70);
-		obstacleList.add(Platform5);
+	//	Obstacles Platform5 = Platform1.translate(350, 70);
+	//	obstacleList.add(Platform5);
 		
-	//	Obstacles Platform6 = Platform1.translate(700, 70);
-	//	obstacleList.add(Platform6);
+		Obstacles Platform6 = Platform1.translate(700, 70);
+		obstacleList.add(Platform6);
 		
-		Obstacles Platform7 = Platform1.translate(0, 140);
-		obstacleList.add(Platform7);
+	//	Obstacles Platform7 = Platform1.translate(0, 140);
+	//	obstacleList.add(Platform7);
 		
-//		Obstacles Platform8 = Platform1.translate(350, 140);
-//		obstacleList.add(Platform8);
+		Obstacles Platform8 = Platform1.translate(350, 140);
+		obstacleList.add(Platform8);
 		
 		Obstacles Platform9 = Platform1.translate(700, 140);
 		obstacleList.add(Platform9);	
@@ -110,8 +110,8 @@ public class LevelFour extends Level {
 //		Obstacles Platform10 = Platform1.translate(0, 210);
 //		obstacleList.add(Platform10);
 		
-		Obstacles Platform11 = Platform1.translate(350, 210);
-		obstacleList.add(Platform11);
+//		Obstacles Platform11 = Platform1.translate(350, 210);
+//		obstacleList.add(Platform11);
 		
 //		Obstacles Platform12 = Platform1.translate(700, 210);
 //		obstacleList.add(Platform12);
@@ -124,6 +124,18 @@ public class LevelFour extends Level {
 		
 		Obstacles Platform15 = Platform1.translate(700, 280);
 		obstacleList.add(Platform15);
+		
+//		Obstacles Platform16 = Platform1.translate(0, 350);
+//		obstacleList.add(Platform16);
+		
+		Obstacles Platform17 = Platform1.translate(0, 420);
+		obstacleList.add(Platform17);		
+		
+		Obstacles Platform18 = Platform1.translate(700, 420);
+		obstacleList.add(Platform18);
+		
+		Obstacles Platform19 = Platform1.translate(350, 350);
+		obstacleList.add(Platform19);
 
 		return obstacleList;
 
