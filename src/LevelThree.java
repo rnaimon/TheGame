@@ -2,7 +2,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
-import java.awt.Polygon;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -38,7 +38,7 @@ public class LevelThree extends Level implements LevelTwoInterface {
 	ArrayList<Switch> switchList;
 	private boolean levelComplete;
 	private ArrayList<Obstacles> hiddenRamps;
-	private ArrayList<BufferedImage> pipeConnectors;
+	private ArrayList<PipeConnector> pipeConnectors;
 	
 	
 	/***
@@ -55,7 +55,7 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		player.setCentY(0);
 		setLevelNumber(2);
 		reset=false;
-		pipeConnectors= new ArrayList<BufferedImage>();
+		pipeConnectors= new ArrayList<PipeConnector>();
 		switchList= setUpSwitches();
 		setObstacleList(setUpEnvironment());
 		player.setPlatforms(getObstacleList());
@@ -129,6 +129,7 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		Obstacles Platform7= Platform6.translate(0, gameHeight/2);
 		obstacleList.add(Platform7);
 		
+		
 		ArrayList<LineObject> pipeBLeftPerim= new ArrayList<LineObject>();
 		LineObject top1= new LineObject(0,0, 10,10);
 		LineObject left1= new LineObject(0,0, 0,30);
@@ -147,7 +148,7 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		Obstacles pipeOne= new Obstacles(pipeBLeftPerim);
 		PipeConnector pipeBLeft= new PipeConnector(pipeOne, 0, gameHeight-40 );
 		
-		pipeConnectors.add(pipeBLeft.getImage());
+		pipeConnectors.add(pipeBLeft);
 		
 		
 		
@@ -205,7 +206,10 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		{
 			for(int i=0; i< pipeConnectors.size(); i++)
 			{
-				g.drawImage(pipeConnectors.get(i), null, 500, 500);
+				g.setColor(Color.cyan);
+				//g.drawImage(pipeConnectors.get(i),null, 500, 500);
+				//System.out.println(pipeConnectors.get(i).getShape());
+				g.fillPolygon(pipeConnectors.get(i).getShape());
 			}
 		}
 		if(getSwitchList()!=null)
