@@ -11,8 +11,9 @@ import java.util.*;
 public class PipeConnector extends Item{
 	private Polygon shape;
 	private BufferedImage img;
-	private int centx;
-	private int centy;
+	private ArrayList<Vertex> vertices;
+	private int startx;
+	private int starty;
 	/***
 	 * This is the constructor without passed-in variables.
 	 */
@@ -23,12 +24,13 @@ public class PipeConnector extends Item{
 		Graphics2D g=(Graphics2D)(img.getGraphics());
 		
 		shape=new Polygon();
-		ArrayList<Vertex> v= new ArrayList<Vertex>();
-		for(int i=0; i<v.size(); i++)
+		vertices= o.getVertices();
+		for(int i=0; i<vertices.size(); i++)
 		{
-			shape.addPoint(v.get(i).getXCoord(), v.get(i).getYCoord());
+			shape.addPoint(vertices.get(i).getXCoord(), vertices.get(i).getYCoord());
 		}
 		g.setColor(Color.cyan);
+		setColor(Color.cyan);
 		g.drawPolygon(shape);
 		
 	}
@@ -43,6 +45,38 @@ public class PipeConnector extends Item{
 	 */
 	public Polygon getShape() {
 		return shape;
+	}
+	public ArrayList<Vertex> getVertices()
+	{
+		return vertices;
+	}
+	public void changeSize(int x)
+	{
+		img=new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
+		shape=new Polygon();
+		for(int i=0; i<vertices.size(); i++)
+		{
+			shape.addPoint(vertices.get(i).getXCoord()*x, vertices.get(i).getYCoord()*x);
+		}
+		Graphics2D g=(Graphics2D)(img.getGraphics());
+		g.setColor(Color.cyan);
+		g.fillPolygon(shape);
+	}
+	public int getStartX()
+	{
+		return startx;
+	}
+	public int getStartY()
+	{
+		return starty;
+	}
+	public void setStartX(int x)
+	{
+		startx=x;
+	}
+	public void setStartY(int y)
+	{
+		starty=y;
 	}
 	
 	

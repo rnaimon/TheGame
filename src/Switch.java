@@ -1,3 +1,4 @@
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 
@@ -62,7 +63,18 @@ public class Switch extends Obstacles {
 		return contacted;
 	}
 	 
-	
+	public void drawSwitch(Graphics2D g)
+	{
+		int[] vertx= new int[getVertices().size()];
+		int[] verty= new int[getVertices().size()];
+		for(int j=0; j< getVertices().size(); j++)
+		{
+			vertx[j]=(int)(getVertices().get(j).getXCoord());
+			verty[j]=(int)(getVertices().get(j).getYCoord());
+		}
+		
+		g.fillPolygon(vertx, verty, (getVertices().size()));
+	}
 	
 	
 	
