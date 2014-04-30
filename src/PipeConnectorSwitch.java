@@ -25,7 +25,7 @@ public class PipeConnectorSwitch extends Switch {
 	 */
 	public PipeConnectorSwitch(ArrayList<LineObject> o, PipeConnector p) {
 		super(o);
-		symbol=p;
+		symbol=new PipeConnector(p.getPerimeter(),0,0);
 	}
 	
 	public PipeConnector getSymbol()
@@ -51,10 +51,11 @@ public class PipeConnectorSwitch extends Switch {
 		g.fillPolygon(vertx, verty, (getVertices().size()));
 		int length= vertx[0]- vertx[1];
 		if(contacted)
-			g.setColor(symbol.getColor());
+			symbol.setColor(Color.cyan);
 		else
-			g.setColor(Color.BLACK);
-		g.drawImage(symbol.getImage(),null, length/2, length/2);
+			symbol.setColor(Color.magenta);
+		symbol.reDraw();
+		g.drawImage(symbol.getImage(),null, vertx[0] + length/2, verty[0] + 20);
 	
 	}
 	

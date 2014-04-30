@@ -14,11 +14,13 @@ public class PipeConnector extends Item{
 	private ArrayList<Vertex> vertices;
 	private int startx;
 	private int starty;
+	private Obstacles perimeter;
 	/***
 	 * This is the constructor without passed-in variables.
 	 */
 	public PipeConnector(Obstacles o, int startx, int starty) 
 	{
+		perimeter=o;
 		img=new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
 		
 		Graphics2D g=(Graphics2D)(img.getGraphics());
@@ -29,12 +31,16 @@ public class PipeConnector extends Item{
 		{
 			shape.addPoint(vertices.get(i).getXCoord(), vertices.get(i).getYCoord());
 		}
-		g.setColor(Color.cyan);
+		
 		setColor(Color.cyan);
+		g.setColor(getColor());
 		g.drawPolygon(shape);
 		
 	}
-	
+	public Obstacles getPerimeter()
+	{
+		return perimeter;
+	}
 	
 	public BufferedImage getImage()
 	{
@@ -49,6 +55,13 @@ public class PipeConnector extends Item{
 	public ArrayList<Vertex> getVertices()
 	{
 		return vertices;
+	}
+	public void reDraw()
+	{
+		img=new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g=(Graphics2D)(img.getGraphics());
+		g.setColor(getColor());
+		g.drawPolygon(shape);
 	}
 	public void changeSize(int x)
 	{

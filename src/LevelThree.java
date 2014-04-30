@@ -55,11 +55,14 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		player.setCentX(0);
 		player.setCentY(0);
 		setLevelNumber(2);
+		
 		reset=false;
 		pipeConnectors= new ArrayList<PipeConnector>();
 		pipeSwitches= new ArrayList<PipeConnectorSwitch>();
-		switchList= setUpSwitches();
+		
 		setObstacleList(setUpEnvironment());
+		switchList= setUpSwitches();
+		
 		player.setPlatforms(getObstacleList());
 		levelComplete=false;
 		dartgun = new Item(Color.GREEN, "Darts", "Dude, press Z and hit the bullseye.");
@@ -148,7 +151,7 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		pipeBLeftPerim.add(right2);
 		
 		Obstacles pipeOne= new Obstacles(pipeBLeftPerim);
-		PipeConnector pipeBLeft= new PipeConnector(pipeOne, 0, gameHeight-40 );
+		PipeConnector pipeBLeft= new PipeConnector(pipeOne, gameWidth/2, gameHeight/2);
 		
 		pipeConnectors.add(pipeBLeft);
 		
@@ -212,6 +215,14 @@ public class LevelThree extends Level implements LevelTwoInterface {
 			{
 				g.setColor(Color.cyan);
 				g.drawImage(pipeConnectors.get(i).getImage(),null, 500, 500);
+			}
+		}
+		if(pipeSwitches!=null)
+		{
+			for(int i= 0; i< getPipeSwitchList().size(); i++)
+			{
+				g.setColor(Color.white);
+				getPipeSwitchList().get(i).drawSwitch(g);
 			}
 		}
 		if(getSwitchList()!=null)
@@ -509,7 +520,10 @@ public class LevelThree extends Level implements LevelTwoInterface {
 	{
 		return switchList;
 	}
-	
+	public ArrayList<PipeConnectorSwitch> getPipeSwitchList()
+	{
+		return pipeSwitches;
+	}
 	public ArrayList<Switch> setUpSwitches() {
 		
 		
@@ -553,13 +567,13 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		//New note: I'm ordering the switches in the order they should ideally be 
 		// hit, while playing this level, instead of by position. Makes more sense to me,
 		// hope that's ok.
-		/*
+		
 		if(pipeConnectors!=null)
 		{
 			PipeConnectorSwitch pBLSwitch= new PipeConnectorSwitch((sgeneric.translate(0,gameHeight-20-50)).getOutlines(), pipeConnectors.get(0));
 			pipeSwitches.add(pBLSwitch);
 		}
-		*/
+		
 	// new switch, actual switch 3 if numbered correctly
 		
 		ArrayList<LineObject> switch3 = new ArrayList<LineObject>();
@@ -642,52 +656,11 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		
 		
 		
-		// new switch
-		/*
-		ArrayList<LineObject> switch7 = new ArrayList<LineObject>();
-
-				
-		LineObject Switch7Top= new LineObject(250 + 2*x - y,super.getGameHeight()/2 - y , 250+2*x, super.getGameHeight()/2 - y);
-		LineObject Switch7SideL= new LineObject(250 + 2*x - y, super.getGameHeight()/2 -  y, 2*x+ 250 - y, super.getGameHeight()/2);
-		LineObject Switch7Bottom= new LineObject(250 + 2*x - y,super.getGameHeight()/2, 250+2*x, super.getGameHeight()/2);
-		LineObject Switch7SideR= new LineObject(250+2*x,super.getGameHeight()/2 - y, 250+2*x, super.getGameHeight()/2);
-				
-		switch7.add(Switch7Top);
-		switch7.add(Switch7SideR);
-		switch7.add(Switch7Bottom);
-		switch7.add(Switch7SideL);
-
-		Switch s7 = new Switch(switch7);
-
-		switches.add(s7);
-		*/
 		return switches;
 	}
 	
 	
 	
-	/***
-	 * This method determines whether a projectile, which is an element that appears
-	 * multiple times in the game, is touching a switch, also an element that appears
-	 * throughout the game. 
-	 * @param dart is the Projectile object that is going to possibly hit a switch
-	 * @param switch1 is the Switch object that will change its contact status if hit
-	 * by a dart
-	 */
-	/*
-	 public void isProjectileTouchingSwitch(Projectile dart, Switch switch1) {
-	 
-		 
-		if(((dart.getTopX()+dart.getWidth()) >= switch1.getOutlines().get(0).getV2().getXCoord()) && dart.getSpeedX()>0) {
-			switch1.changeContactStatus();
-			dart.selfDestruct();
-		}
-		else if (((dart.getTopX()) <= switch1.getOutlines().get(0).getV1().getXCoord()) && dart.getSpeedX()<0) {
-			switch1.changeContactStatus();
-			dart.selfDestruct();
-		}
-		
-	}
-	*/
+	
 	
 }
