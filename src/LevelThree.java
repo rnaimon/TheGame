@@ -151,7 +151,7 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		pipeBLeftPerim.add(right2);
 		
 		Obstacles pipeOne= new Obstacles(pipeBLeftPerim);
-		PipeConnector pipeBLeft= new PipeConnector(pipeOne, gameWidth/2, gameHeight/2);
+		PipeConnector pipeBLeft= new PipeConnector(pipeOne, gameWidth/2, gameHeight-20);
 		
 		pipeConnectors.add(pipeBLeft);
 		
@@ -186,10 +186,71 @@ public class LevelThree extends Level implements LevelTwoInterface {
 	 */
 	public void function() 
 	{
-		
-	//changed projectile speed to be faster (5th input)
-		Projectile dart = new Projectile(player.getCentX() + player.getRadius(), player.getCentY(), 7, 4, 8, 1.5, player.getOrientation(), true);
-		darts.add(dart);
+		if(player.getItem()==null)
+		{
+			boolean nearItem= false;
+			for(int i= 0; i< pipeConnectors.size(); i++)
+			{
+				PipeConnector p= pipeConnectors.get(i);
+				double d1= (p.getStartX()-player.getCentX());
+				double d2=(p.getStartY()-player.getCentY());
+				double distance= Math.sqrt(d1*d1 + d2*d2);
+				if(distance<3*player.getRadius())
+				{
+					player.setItem(p);
+					pipeConnectors.remove(p);
+					nearItem=true;
+					break;
+				}
+			}
+			if(nearItem==false)
+			{
+				for(int i= 0; i< pipeSwitches.size(); i++)
+				{
+					PipeConnectorSwitch p= pipeSwitches.get(i);
+					double d1= (p.getCentX()-player.getCentX());
+					double d2=(p.getCentY()-player.getCentY());
+					double distance= Math.sqrt(d1*d1 + d2*d2);
+					if(distance<2*player.getRadius())
+					{
+						if(p.getContacted())
+						{
+							player.setItem(p.getSymbol());
+							p.changeContactStatus();
+							break;
+						}
+					}
+				}
+			}
+		}
+		else
+		{
+			for(int i= 0; i< pipeSwitches.size(); i++)
+			{
+				PipeConnectorSwitch p= pipeSwitches.get(i);
+				double d1= (p.getCentX()-player.getCentX());
+				double d2=(p.getCentY()-player.getCentY());
+				double distance= Math.sqrt(d1*d1 + d2*d2);
+				if(distance<2*player.getRadius())
+				{
+					if(((PipeConnector)(player.getItem())).equals(p.getSymbol()))
+					{
+						p.changeContactStatus();
+						player.usedItem();
+					}
+				}
+				else
+				{
+					pipeConnectors.add((PipeConnector)(player.getItem()));
+					pipeConnectors.get(pipeConnectors.size()-1).setStartX((int)(player.getCentX()));
+					pipeConnectors.get(pipeConnectors.size()-1).setStartY((int)(player.getCentY()));
+					player.usedItem();
+					
+				}
+					break;
+				
+			}
+		}
 	}
 	
 	
@@ -214,7 +275,7 @@ public class LevelThree extends Level implements LevelTwoInterface {
 			for(int i=0; i< pipeConnectors.size(); i++)
 			{
 				g.setColor(Color.cyan);
-				g.drawImage(pipeConnectors.get(i).getImage(),null, 500, 500);
+				g.drawImage(pipeConnectors.get(i).getImage(),null, pipeConnectors.get(i).getStartX(), pipeConnectors.get(i).getStartY());
 			}
 		}
 		if(pipeSwitches!=null)
@@ -567,12 +628,8 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		//New note: I'm ordering the switches in the order they should ideally be 
 		// hit, while playing this level, instead of by position. Makes more sense to me,
 		// hope that's ok.
-		
-		if(pipeConnectors!=null)
-		{
 			PipeConnectorSwitch pBLSwitch= new PipeConnectorSwitch((sgeneric.translate(0,gameHeight-20-50)).getOutlines(), pipeConnectors.get(0));
 			pipeSwitches.add(pBLSwitch);
-		}
 		
 	// new switch, actual switch 3 if numbered correctly
 		

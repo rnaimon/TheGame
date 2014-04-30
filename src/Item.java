@@ -108,7 +108,7 @@ public class Item implements ItemInterface {
 	}
 
 	public void setColor(Color c) {
-		// TODO Auto-generated method stub
+		color=c;
 		
 	}
 

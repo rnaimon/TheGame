@@ -18,7 +18,7 @@ public class PipeConnector extends Item{
 	/***
 	 * This is the constructor without passed-in variables.
 	 */
-	public PipeConnector(Obstacles o, int startx, int starty) 
+	public PipeConnector(Obstacles o, int x, int y) 
 	{
 		perimeter=o;
 		img=new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
@@ -31,10 +31,11 @@ public class PipeConnector extends Item{
 		{
 			shape.addPoint(vertices.get(i).getXCoord(), vertices.get(i).getYCoord());
 		}
-		
+		setStartX(x);
+		setStartY(y);
 		setColor(Color.cyan);
 		g.setColor(getColor());
-		g.drawPolygon(shape);
+		g.fillPolygon(shape);
 		
 	}
 	public Obstacles getPerimeter()
@@ -46,9 +47,6 @@ public class PipeConnector extends Item{
 	{
 		return img;
 	}
-	/***
-	 * This method returns the top left x-coordinate.
-	 */
 	public Polygon getShape() {
 		return shape;
 	}
@@ -61,7 +59,7 @@ public class PipeConnector extends Item{
 		img=new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g=(Graphics2D)(img.getGraphics());
 		g.setColor(getColor());
-		g.drawPolygon(shape);
+		g.fillPolygon(shape);
 	}
 	public void changeSize(int x)
 	{
@@ -90,6 +88,28 @@ public class PipeConnector extends Item{
 	public void setStartY(int y)
 	{
 		starty=y;
+	}
+	public boolean equals(PipeConnector p2)
+	{
+		ArrayList<Vertex> v2= p2.getVertices();
+		if(getVertices().size()!= v2.size())
+		{
+			return false;
+		}
+		else
+		{
+			for(int i=0; i<v2.size(); i++)
+			{
+				if(v2.get(i).getXCoord()!=getVertices().get(i).getXCoord()
+						&& v2.get(i).getYCoord()!=getVertices().get(i).getYCoord())
+				{
+					
+					
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 	
 	
