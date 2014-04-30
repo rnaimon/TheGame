@@ -177,14 +177,14 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 		player = new Player(30, 10, 0, new Color(0, 0, 200));
 		
 		levelList= new ArrayList<Object>();
-		//LevelFour lv4= new LevelFour(player, getWidth(), getHeight());
+		LevelFour lv4= new LevelFour(player, getWidth(), getHeight());
 		LevelThree lv3= new LevelThree(player, getWidth(), getHeight());
 		LevelTwo lv2= new LevelTwo(player, getWidth(), getHeight());
 		LevelOne lv1=new LevelOne(player, getWidth(), getHeight());
 		levelList.add(lv1);
 		levelList.add(lv2);
 		levelList.add(lv3);
-		//levelList.add(lv4);
+		levelList.add(lv4);
 		if(levelList.get(0)!=null)
 			currentLevel= (LevelThree)(levelList.get(2));
 		start();
@@ -200,12 +200,6 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 		gameState = STATE_PLAYING;
 		
 		player.setSpeedX(5);
-		
-		
-		// will eventually have an actual location relevant to the game
-		//player.setCentX((int) (getWidth() / 2 - player.getRadius() / 2)); 
-	
-		//player.setCentY(getHeight() - 40);
 
 	}
 

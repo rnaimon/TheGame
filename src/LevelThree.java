@@ -543,8 +543,8 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		switch1.add(Switch1SideL);
 
 		Switch sgeneric = new Switch(switch1);
-		
-		switches.add(sgeneric);
+		Switch Switcher1= new Switch(sgeneric.translate(1000, gameHeight-50).getOutlines());
+		switches.add(Switcher1);
 		
 		
 		// This level has a bunch of switches, so here they are, after the end goal.
@@ -553,10 +553,13 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		//New note: I'm ordering the switches in the order they should ideally be 
 		// hit, while playing this level, instead of by position. Makes more sense to me,
 		// hope that's ok.
-		
-		
-		PipeConnectorSwitch pBLSwitch= new PipeConnectorSwitch((sgeneric.translate(0,gameHeight-20-50)).getOutlines(), pipeConnectors.get(0));
-		pipeSwitches.add(pBLSwitch);
+		/*
+		if(pipeConnectors!=null)
+		{
+			PipeConnectorSwitch pBLSwitch= new PipeConnectorSwitch((sgeneric.translate(0,gameHeight-20-50)).getOutlines(), pipeConnectors.get(0));
+			pipeSwitches.add(pBLSwitch);
+		}
+		*/
 	// new switch, actual switch 3 if numbered correctly
 		
 		ArrayList<LineObject> switch3 = new ArrayList<LineObject>();
