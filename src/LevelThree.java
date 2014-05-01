@@ -215,7 +215,8 @@ public class LevelThree extends Level implements LevelTwoInterface {
 					{
 						if(p.getContacted())
 						{
-							player.setItem(p.getSymbol());
+							PipeConnector pitem= new PipeConnector(p.getSymbol().getPerimeter(),0,0);
+							player.setItem(pitem);
 							p.changeContactStatus();
 							break;
 						}
