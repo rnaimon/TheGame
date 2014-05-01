@@ -1,9 +1,11 @@
+import java.awt.Color;
 import java.util.ArrayList;
 
 public class Obstacles
 {
 	private ArrayList<LineObject> outlines;
 	private ArrayList<Vertex> vertices;
+	private Color color;
 	
 	/**
 	 * Constructor for the Obstacles class
@@ -56,6 +58,15 @@ public class Obstacles
 		
 	}
 	
+	public Color getColor()
+	{
+		return color;
+	}
+	
+	public void setColor(Color c)
+	{
+		color=c;
+	}
 	/**
 	 * This method returns the lines that make up the obstacle
 	 * @return outlines

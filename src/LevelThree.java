@@ -36,6 +36,7 @@ public class LevelThree extends Level implements LevelTwoInterface {
 	private Item dartgun;
 	private ArrayList<Projectile> darts;
 	ArrayList<Switch> switchList;
+	ArrayList<Pipe> pipeList;
 	private boolean levelComplete;
 	private ArrayList<Obstacles> hiddenRamps;
 	private ArrayList<PipeConnector> pipeConnectors;
@@ -59,7 +60,7 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		reset=false;
 		pipeConnectors= new ArrayList<PipeConnector>();
 		pipeSwitches= new ArrayList<PipeConnectorSwitch>();
-		
+		pipeList= new ArrayList<Pipe>();
 		setObstacleList(setUpEnvironment());
 		switchList= setUpSwitches();
 		
@@ -254,7 +255,10 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		}
 	}
 	
-	
+	public ArrayList<Pipe> getPipeList()
+	{
+		return pipeList;
+	}
 	/***
 	 * 
 	 */
@@ -277,6 +281,18 @@ public class LevelThree extends Level implements LevelTwoInterface {
 			{
 				g.setColor(Color.cyan);
 				g.drawImage(pipeConnectors.get(i).getImage(),null, pipeConnectors.get(i).getStartX(), pipeConnectors.get(i).getStartY());
+			}
+		}
+		if(pipeList!=null)
+		{
+			for(int i=0; i< pipeList.size(); i++)
+			{
+				getPipeList().get(i).checkFull();
+				getPipeList().get(i).drawSwitch(g);
+				if(getPipeList().get(i).getColor().equals(Color.cyan))
+				{
+			
+				}
 			}
 		}
 		if(pipeSwitches!=null)
@@ -631,6 +647,9 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		// hope that's ok.
 			PipeConnectorSwitch pBLSwitch= new PipeConnectorSwitch((sgeneric.translate(0,gameHeight-20-50)).getOutlines(), pipeConnectors.get(0));
 			pipeSwitches.add(pBLSwitch);
+			
+		Pipe p1= new Pipe(pBLSwitch.translate(50,0).getOutlines());
+		p1.getPipeSwitches().add(pBLSwitch);
 		
 	// new switch, actual switch 3 if numbered correctly
 		
