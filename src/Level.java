@@ -47,6 +47,25 @@ public class Level implements LevelInterface
 	{
 		
 	}
+	
+	/***
+	 * method to determine if the level should reset
+	 * @return the boolean of whether the level needs to be reset
+	 */
+	public boolean shouldReset() {
+		return reset;
+	}
+	
+	
+	/***
+	 * method to determine if the level should reset
+	 * @return the boolean of whether the level needs to be reset
+	 */
+	public void setReset(boolean r) {
+		reset = r;
+	}
+	
+	
 	public int getLevelNumber() {
 		// TODO Auto-generated method stub
 		return levelNum;

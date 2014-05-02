@@ -141,13 +141,16 @@ public class LevelFour extends Level {
 
 	}
 	
+	
 	/***
 	 * method to determine if the level should reset
 	 * @return the boolean of whether the level needs to be reset
 	 */
+	/*
 	public boolean shouldReset() {
 		return reset;
 	}
+	*/
 	
 	/***
 	 * This method contains code to allow the level-specific Item to have a certain 

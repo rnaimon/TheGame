@@ -186,7 +186,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 		levelList.add(lv3);
 		levelList.add(lv4);
 		if(levelList.get(0)!=null)
-			currentLevel= (LevelThree)(levelList.get(2));
+			currentLevel= (LevelOne)(levelList.get(0));
 		start();
 
 	}
@@ -260,8 +260,32 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 					{
 						if(((Level)(currentLevel)).getLevelNumber()==1)
 							currentLevel=new LevelOne(player, getWidth(), getHeight());
-						else
+						else if(((Level)(currentLevel)).getLevelNumber()==2)
 							currentLevel=new LevelTwo(player, getWidth(), getHeight());
+						else if(((Level)(currentLevel)).getLevelNumber()==3)
+							currentLevel=new LevelThree(player, getWidth(), getHeight());
+						else 
+							currentLevel=new LevelFour(player, getWidth(), getHeight());
+						
+						
+						
+						player.setCentX(0);
+						player.setCentY(0);
+						player.setSpeedY(0);
+					}
+					
+					if (((Level)(currentLevel)).shouldReset() == true) {
+						if(((Level)(currentLevel)).getLevelNumber()==1)
+							currentLevel=new LevelOne(player, getWidth(), getHeight());
+						else if(((Level)(currentLevel)).getLevelNumber()==2)
+							currentLevel=new LevelTwo(player, getWidth(), getHeight());
+						else if(((Level)(currentLevel)).getLevelNumber()==3)
+							currentLevel=new LevelThree(player, getWidth(), getHeight());
+						else 
+							currentLevel=new LevelFour(player, getWidth(), getHeight());
+						
+						
+						
 						player.setCentX(0);
 						player.setCentY(0);
 						player.setSpeedY(0);
