@@ -1,4 +1,9 @@
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 // Rebecca Naimon
 
@@ -21,6 +26,7 @@ public class Enemy implements EnemyInterface {
 	
 	private Color color = new Color(255, 0, 0);
 	
+	private BufferedImage bg;
 	
 	private boolean isAlive = true;
 	
@@ -31,6 +37,57 @@ public class Enemy implements EnemyInterface {
 		centy=y;
 		speed_x=4;
 		speed_y=4;
+		
+
+		
+		if ((int)radius < 50) {
+			try {
+				System.out.println("< 50");
+				bg = ImageIO.read(new File("enemy_face-50.png"));
+
+			}
+			catch (IOException ex) {
+				System.out.println("Nope.");
+			}
+		
+		}
+		else if ((int)radius < 100) {
+			
+			try {
+				System.out.println("< 100");
+				bg = ImageIO.read(new File("enemy_face-100.png"));
+
+			}
+			catch (IOException ex) {
+				System.out.println("Nope.");
+			}
+			
+		}
+		else if ((int)radius < 150) {
+			try {
+				System.out.println("< 150");
+				bg = ImageIO.read(new File("enemy_face-150.png"));
+
+			}
+			catch (IOException ex) {
+				System.out.println("Nope.");
+			}
+		}
+		else {
+		
+			try {
+				System.out.println("< 200");
+				bg = ImageIO.read(new File("enemy_face-200.png"));
+
+			}
+			catch (IOException ex) {
+				System.out.println("Nope.");
+			}
+			
+		}
+		
+		
+		
 	}
 	
 	/***
@@ -126,15 +183,29 @@ public class Enemy implements EnemyInterface {
 		return radius;
 	}
 	
-	
+	/***
+	 * Getter for the face image for the enemy.
+	 * @return the BufferedImage of the face.
+	 */
+	public BufferedImage getFace() {
+		return bg;	
+	}
+		
 	/***
 	 * This method draws the Enemy object on the canvas. Currently, it's a rectangle, and should 
 	 * probably be a circle.
 	 */
 	public void draw(Graphics2D g) {
+		
 		g.setColor(color);
 		g.fillOval((int)centx, (int)centy, (int)radius, (int)radius);
 		
+		if (bg != null) {
+			System.out.println("in here now");
+			g.drawImage(bg, (int)centx, (int)centy, null);
+		}
+		
+
 	}
 	
 	/***

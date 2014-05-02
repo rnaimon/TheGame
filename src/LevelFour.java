@@ -372,6 +372,9 @@ public class LevelFour extends Level {
 					g.fillOval((int)enemies.get(x).getCentX(), (int)enemies.get(x).getCentY(), (int)enemies.get(x).getRadius(), (int)enemies.get(x).getRadius());
 					g.setColor(Color.black);
 					g.drawOval((int)enemies.get(x).getCentX(), (int)enemies.get(x).getCentY(), (int)enemies.get(x).getRadius(), (int)enemies.get(x).getRadius());
+
+					g.drawImage(enemies.get(x).getFace(), (int)enemies.get(x).getCentX(), (int)enemies.get(x).getCentY(), null);
+				
 				}
 				if (enemies.size() < 8) {
 					setUpEnemies();
