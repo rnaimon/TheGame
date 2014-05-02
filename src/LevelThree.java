@@ -41,6 +41,8 @@ public class LevelThree extends Level implements LevelTwoInterface {
 	private ArrayList<Obstacles> hiddenRamps;
 	private ArrayList<PipeConnector> pipeConnectors;
 	private ArrayList<PipeConnectorSwitch> pipeSwitches;
+	private ArrayList<Obstacles> filledPipes;
+	private int timer;
 	
 	
 	/***
@@ -55,11 +57,13 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		player=p;
 		player.setCentX(0);
 		player.setCentY(0);
+		timer=0;
 		setLevelNumber(2);
 		
 		reset=false;
 		pipeConnectors= new ArrayList<PipeConnector>();
 		pipeSwitches= new ArrayList<PipeConnectorSwitch>();
+		filledPipes= new ArrayList<Obstacles>();
 		pipeList= new ArrayList<Pipe>();
 		setObstacleList(setUpEnvironment());
 		switchList= setUpSwitches();
@@ -134,6 +138,30 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		
 		Obstacles Platform7= Platform6.translate(0, gameHeight/2);
 		obstacleList.add(Platform7);
+		ArrayList<LineObject> switch1 = new ArrayList<LineObject>();
+		
+		int x= 500;
+		int y=50;
+		// end goal switch is always first
+		LineObject Switch1Top= new LineObject(0,0 , 50, 0);
+		LineObject Switch1SideL= new LineObject(0, 0, 0, 50);
+		LineObject Switch1Bottom= new LineObject(0,50, 50, 50);
+		LineObject Switch1SideR= new LineObject(50,50, 50, 0);
+		
+		switch1.add(Switch1Top);
+		switch1.add(Switch1SideR);
+		switch1.add(Switch1Bottom);
+		switch1.add(Switch1SideL);
+
+		Switch sgeneric = new Switch(switch1);
+		
+		
+		// This level has a bunch of switches, so here they are, after the end goal.
+		// There should be six extra switches in this level, making seven total.
+		
+		//New note: I'm ordering the switches in the order they should ideally be 
+		// hit, while playing this level, instead of by position. Makes more sense to me,
+		// hope that's ok.
 		
 		
 		ArrayList<LineObject> pipeBLeftPerim= new ArrayList<LineObject>();
@@ -156,7 +184,15 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		
 		pipeConnectors.add(pipeBLeft);
 		
+		PipeConnectorSwitch pBLSwitch= new PipeConnectorSwitch((sgeneric.translate(0,gameHeight-20-50)).getOutlines(), pipeConnectors.get(0));
+		//PipeConnectorSwitch pBL2= new PipeConnectorSwitch((sgeneric.translate(500,gameHeight-20-50)).getOutlines(), pipeConnectors.get(0));
+		pipeSwitches.add(pBLSwitch);
+		//pipeSwitches.add(pBL2);
+			
+		Pipe p1= new Pipe(pBLSwitch.translate(50,0).getOutlines());
+		p1.getPipeSwitches().add(pBLSwitch);
 		
+		pipeList.add(p1);
 		
 		
 		/*
@@ -266,7 +302,7 @@ public class LevelThree extends Level implements LevelTwoInterface {
 	public void draw(Graphics2D g) 
 	{
 		
-		
+		timer++;
 		int gameHeight = super.getGameHeight();
 		int gameWidth = super.getGameWidth();
 		
@@ -280,27 +316,58 @@ public class LevelThree extends Level implements LevelTwoInterface {
 			for(int i=0; i< pipeConnectors.size(); i++)
 			{
 				g.setColor(Color.cyan);
-				g.drawImage(pipeConnectors.get(i).getImage(),null, pipeConnectors.get(i).getStartX(), pipeConnectors.get(i).getStartY());
+				g.drawImage(pipeConnectors.get(i).getImage(), null, pipeConnectors.get(i).getStartX(), pipeConnectors.get(i).getStartY());
 			}
 		}
+		
 		if(pipeList!=null)
 		{
+			filledPipes= new ArrayList<Obstacles>();
 			for(int i=0; i< pipeList.size(); i++)
 			{
-				getPipeList().get(i).checkFull();
-				getPipeList().get(i).drawSwitch(g);
-				if(getPipeList().get(i).getColor().equals(Color.cyan))
+				
+				if(getPipeList().get(i).getStartFill()==false)
 				{
-			
+					getPipeList().get(i).checkFull();
+					if(getPipeList().get(i).getColor().equals(Color.cyan))
+					{
+						getPipeList().get(i).setTimeStarted(timer);
+					}
 				}
+				else
+				{
+					getPipeList().get(i).checkFull();
+					Pipe p= getPipeList().get(i);
+					ArrayList<LineObject> fillperimeter= new ArrayList<LineObject>();
+					LineObject pbot= p.getOutlines().get(2);
+					double height= 1000*Math.abs((p.getTimeStarted()-timer))/300*p.getHeight();
+					System.out.println(height);
+					LineObject ptop= new LineObject(pbot.getV1().getXCoord(), (int)(pbot.getV1().getYCoord()- height%(p.getHeight()/1000)),pbot.getV1().getXCoord() + p.getWidth(),(int)(pbot.getV1().getYCoord()- height%(p.getHeight()/1000)));
+					LineObject pleft= new LineObject(ptop.getV1().getXCoord(),ptop.getV1().getYCoord(),pbot.getV1().getXCoord(),pbot.getV1().getYCoord());
+					LineObject pright= new LineObject(ptop.getV2().getXCoord(),ptop.getV2().getYCoord(),pbot.getV2().getXCoord(),pbot.getV2().getYCoord());
+					
+					fillperimeter.add(ptop);
+					fillperimeter.add(pleft);
+					fillperimeter.add(pbot);
+					fillperimeter.add(pright);
+					
+					Obstacles filledPortion= new Obstacles(fillperimeter);
+					filledPipes.add(filledPortion);
+				}
+				
+				getPipeList().get(i).drawSwitch(g);
+				
 			}
 		}
+		
 		if(pipeSwitches!=null)
 		{
 			for(int i= 0; i< getPipeSwitchList().size(); i++)
 			{
 				g.setColor(Color.white);
+				
 				getPipeSwitchList().get(i).drawSwitch(g);
+				
 			}
 		}
 		if(getSwitchList()!=null)
@@ -313,86 +380,13 @@ public class LevelThree extends Level implements LevelTwoInterface {
 				getSwitchList().get(i).drawSwitch(g);
 			}
 		}
-		if(darts!=null)
-		{
-			for(int i=0; i< darts.size(); i++)
-			{
-				Projectile d= darts.get(i);
-				ArrayList<Switch> nearbySwitches= new ArrayList<Switch>();
-				for(int j= 0; j<getSwitchList().size(); j++)
-				{
-					double dyi= d.getTopY();
-					double dyf= d.getTopY()+ d.getHeight();
-					LineObject side= getSwitchList().get(j).getOutlines().get(1);
-					if((dyi>side.getV1().getYCoord() && dyi<side.getV2().getYCoord()) ||
-							(dyf>side.getV2().getYCoord() && dyf<side.getV1().getYCoord()))
-					{
-						nearbySwitches.add(getSwitchList().get(j));
-					}
-				}
-				boolean hit= false;
-				int numHit=0;
-				
-				for(int j= 0; j<nearbySwitches.size(); j++)
-				{
-					double dxf= d.getTopX()+ d.getWidth() + d.getSpeedX();
-					LineObject side1= nearbySwitches.get(j).getOutlines().get(1);
-					LineObject side2= nearbySwitches.get(j).getOutlines().get(3);
-					if((dxf>side2.getV1().getXCoord() && dxf<side1.getV1().getXCoord()))
-					{
-						
-						hit=true;
-						numHit=j;
-						break;
-						
-					}
-				}
-				if(hit==true)
-				{
-					
-					darts.remove(i);
-					i--;
-					nearbySwitches.get(numHit).changeContactStatus();
-					hiddenRamps=fixObstacles();
-					
-				}
-				else
-				{
-					if(d.getOrientation()=='r')
-					{
-						d.setTopX(d.getTopX()+d.getSpeedX());
-					}
-					else if(d.getOrientation()=='l')
-					{
-						d.setTopX(d.getTopX()-d.getSpeedX());
-					}
-					d.draw(g);
-				}
-				
-			}
-		}
-		player.setHiddenPlatforms(hiddenRamps);
-		if(hiddenRamps!=null)
-		{
-			for(int i= 0; i<hiddenRamps.size(); i++)
-			{
-				g.setColor(Color.magenta);
-				Polygon p= new Polygon();
-				for(int j=0; j<hiddenRamps.get(i).getVertices().size(); j++)
-				{
-					p.addPoint(hiddenRamps.get(i).getVertices().get(j).getXCoord(), hiddenRamps.get(i).getVertices().get(j).getYCoord());
-				}
-				if(p!=null)
-				{
-					g.drawPolygon(p);
-				}
-			}
-		}
+		ArrayList<Obstacles> totalObs= new ArrayList<Obstacles>();
 		if(getObstacleList()!=null)
 		{
 			for(int i= 0; i<getObstacleList().size(); i++)
 			{
 				g.setColor(Color.magenta);
+				totalObs.add(getObstacleList().get(i));
 				Polygon p= new Polygon();
 				for(int j=0; j<getObstacleList().get(i).getVertices().size(); j++)
 				{
@@ -405,6 +399,25 @@ public class LevelThree extends Level implements LevelTwoInterface {
 			}
 			
 		}
+		if(filledPipes!=null)
+		{
+			for(int i=0; i< filledPipes.size(); i++)
+			{
+				totalObs.add(filledPipes.get(i));
+				g.setColor(Color.cyan);
+				Polygon p= new Polygon();
+				for(int j=0; j<filledPipes.get(i).getVertices().size(); j++)
+				{
+					p.addPoint(filledPipes.get(i).getVertices().get(j).getXCoord(), filledPipes.get(i).getVertices().get(j).getYCoord());
+				}
+				if(p!=null)
+				{
+					g.drawPolygon(p);
+				}
+				
+			}
+		}
+		player.setPlatforms(totalObs);
 		
 	}
 	
@@ -645,11 +658,15 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		//New note: I'm ordering the switches in the order they should ideally be 
 		// hit, while playing this level, instead of by position. Makes more sense to me,
 		// hope that's ok.
+		/*
 			PipeConnectorSwitch pBLSwitch= new PipeConnectorSwitch((sgeneric.translate(0,gameHeight-20-50)).getOutlines(), pipeConnectors.get(0));
 			pipeSwitches.add(pBLSwitch);
 			
 		Pipe p1= new Pipe(pBLSwitch.translate(50,0).getOutlines());
 		p1.getPipeSwitches().add(pBLSwitch);
+		
+		pipeList.add(p1);
+		*/
 		
 	// new switch, actual switch 3 if numbered correctly
 		
@@ -669,67 +686,6 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		Switch s3 = new Switch(switch3);
 
 		switches.add(s3);
-		
-		
-	// new switch, should be #4
-		
-		ArrayList<LineObject> switch4 = new ArrayList<LineObject>();
-
-				
-		LineObject Switch4Top= new LineObject(250 + 2*x - y,super.getGameHeight()/2, 250+2*x, super.getGameHeight()/2);
-		LineObject Switch4SideL= new LineObject(250 + 2*x - y, super.getGameHeight()/2 , 2*x+ 250 - y, super.getGameHeight()/2 - y);
-		LineObject Switch4Bottom= new LineObject(250 + 2*x - y,super.getGameHeight()/2 - y, 250+2*x, super.getGameHeight()/2 - y);
-		LineObject Switch4SideR= new LineObject(250+2*x,super.getGameHeight()/2, 250+2*x, super.getGameHeight()/2 - y);
-				
-		switch4.add(Switch4Top);
-		switch4.add(Switch4SideR);
-		switch4.add(Switch4Bottom);
-		switch4.add(Switch4SideL);
-
-		Switch s4 = new Switch(switch4);
-
-		switches.add(s4);
-			
-		
-	
-		// new switch, should be #5
-		
-		ArrayList<LineObject> switch5 = new ArrayList<LineObject>();
-
-				
-		LineObject Switch5Top= new LineObject(20,super.getGameHeight()/2 +125, y+20, super.getGameHeight()/2 +125);
-		LineObject Switch5SideL= new LineObject(20, super.getGameHeight()/2 +125, 20, super.getGameHeight()/2 +175);
-		LineObject Switch5Bottom= new LineObject(20,super.getGameHeight()/2 +175, y+20, super.getGameHeight()/2 +175);
-		LineObject Switch5SideR= new LineObject(y+20,super.getGameHeight()/2 +125, y+20, super.getGameHeight()/2 +175);
-		
-		switch5.add(Switch5Top);
-		switch5.add(Switch5SideR);
-		switch5.add(Switch5Bottom);
-		switch5.add(Switch5SideL);
-
-		Switch s5 = new Switch(switch5);
-
-		switches.add(s5);
-		
-		
-		// new switch, should be #6
-		
-		ArrayList<LineObject> switch6 = new ArrayList<LineObject>();
-
-		
-		LineObject Switch6Top= new LineObject(20,super.getGameHeight()/2 - y +20, y+20, super.getGameHeight()/2 - y +20);
-		LineObject Switch6SideL= new LineObject(20, super.getGameHeight()/2 -  y +20, 20, super.getGameHeight()/2 +20);
-		LineObject Switch6Bottom= new LineObject(20,super.getGameHeight()/2 +20, y+20, super.getGameHeight()/2 +20);
-		LineObject Switch6SideR= new LineObject(y+20,super.getGameHeight()/2 - y +20, y+20, super.getGameHeight()/2 +20);
-		
-		switch6.add(Switch6Top);
-		switch6.add(Switch6SideR);
-		switch6.add(Switch6Bottom);
-		switch6.add(Switch6SideL);
-
-		Switch s6 = new Switch(switch6);
-
-		switches.add(s6);
 		
 		
 		

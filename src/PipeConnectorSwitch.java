@@ -62,10 +62,13 @@ public class PipeConnectorSwitch extends Switch {
 		if(getContacted())
 		{
 			symbol.setColor(Color.cyan);
-			System.out.println("here");
+			
 		}
 		else
+		{
+			//System.out.println("here");
 			symbol.setColor(Color.magenta);
+		}
 		symbol.reDraw();
 		symbol.setStartX(vertx[0] + length/3);
 		symbol.setStartY(verty[0]);
