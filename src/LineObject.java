@@ -49,6 +49,38 @@ public class LineObject
 		constant=100*v1.getYCoord()-slope*v1.getXCoord();
  
 	}
+	public LineObject(Vertex v1, Vertex v2)
+	{
+		Vertices= new ArrayList<Vertex>();
+		Vertices.add(v1);
+		Vertices.add(v2);
+		int x= v1.getXCoord();
+		int y= v1.getYCoord();
+		int x2= v2.getXCoord();
+		int y2= v2.getYCoord();
+		if(x==x2)
+		{
+			orientation='v';
+		}
+		else if(y==y2)
+		{
+			orientation='h';
+		}
+		else
+		{
+			orientation='c';
+		}
+		
+		if(orientation=='h' || orientation=='c')
+		{
+			slope=100*(v2.getYCoord()-v1.getYCoord())/(v2.getXCoord()-v1.getXCoord());
+		}
+		else
+		{
+			slope=0;
+		}
+		constant=100*v1.getYCoord()-slope*v1.getXCoord();
+	}
 
 	/**
 	 * Retrieves the first vertex of the line

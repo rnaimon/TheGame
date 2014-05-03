@@ -1,7 +1,3 @@
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics2D;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -57,6 +53,7 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		player=p;
 		player.setCentX(0);
 		player.setCentY(0);
+		player.setHiddenPlatforms(null);
 		timer=0;
 		setLevelNumber(2);
 		
@@ -195,6 +192,8 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		pipeList.add(p1);
 		
 		
+		
+		
 		/*
 		 * The following are the obstacles for the pipeline
 		 * 
@@ -248,7 +247,7 @@ public class LevelThree extends Level implements LevelTwoInterface {
 					double d1= (p.getCentX()-player.getCentX());
 					double d2=(p.getCentY()-player.getCentY());
 					double distance= Math.sqrt(d1*d1 + d2*d2);
-					if(distance<2*player.getRadius())
+					if(distance<3*player.getRadius())
 					{
 						if(p.getContacted())
 						{
@@ -269,7 +268,7 @@ public class LevelThree extends Level implements LevelTwoInterface {
 				double d1= (p.getCentX()-player.getCentX());
 				double d2=(p.getCentY()-player.getCentY());
 				double distance= Math.sqrt(d1*d1 + d2*d2);
-				if(distance<2*player.getRadius())
+				if(distance<3*player.getRadius())
 				{
 					if(((PipeConnector)(player.getItem())).equals(p.getSymbol()))
 					{
@@ -309,7 +308,7 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		//FontMetrics fm = g.getFontMetrics();
 		Font f = new Font("Arial", Font.PLAIN, 20);
 		g.setFont(f);
-		g.drawString("Press 'Z' to fire darts at those white targets!", gameWidth / 17, gameHeight/10);
+		g.drawString("Press 'Z' to Pick up and drop water pipe connectors! Fill the network to move ahead!", gameWidth / 17, gameHeight/10);
 		
 		if(pipeConnectors!=null)
 		{
@@ -340,16 +339,18 @@ public class LevelThree extends Level implements LevelTwoInterface {
 					Pipe p= getPipeList().get(i);
 					ArrayList<LineObject> fillperimeter= new ArrayList<LineObject>();
 					LineObject pbot= p.getOutlines().get(2);
-					double height= 1000*Math.abs((p.getTimeStarted()-timer))/300*p.getHeight();
-					System.out.println(height);
-					LineObject ptop= new LineObject(pbot.getV1().getXCoord(), (int)(pbot.getV1().getYCoord()- height%(p.getHeight()/1000)),pbot.getV1().getXCoord() + p.getWidth(),(int)(pbot.getV1().getYCoord()- height%(p.getHeight()/1000)));
+					double height= 1000*Math.abs(p.getTimeStarted()-timer)*2/300*p.getHeight();
+					if(height/1000>=p.getHeight())
+						height=p.getHeight()*1000;
+					System.out.println(height/1000);
+					LineObject ptop= new LineObject(pbot.getV1().getXCoord(), (int)(pbot.getV1().getYCoord() - height/1000), pbot.getV1().getXCoord() + p.getWidth(),(int)(pbot.getV1().getYCoord()- height/1000));
 					LineObject pleft= new LineObject(ptop.getV1().getXCoord(),ptop.getV1().getYCoord(),pbot.getV1().getXCoord(),pbot.getV1().getYCoord());
 					LineObject pright= new LineObject(ptop.getV2().getXCoord(),ptop.getV2().getYCoord(),pbot.getV2().getXCoord(),pbot.getV2().getYCoord());
 					
 					fillperimeter.add(ptop);
-					fillperimeter.add(pleft);
-					fillperimeter.add(pbot);
 					fillperimeter.add(pright);
+					fillperimeter.add(pbot);
+					fillperimeter.add(pleft);
 					
 					Obstacles filledPortion= new Obstacles(fillperimeter);
 					filledPipes.add(filledPortion);
@@ -370,17 +371,29 @@ public class LevelThree extends Level implements LevelTwoInterface {
 				
 			}
 		}
-		if(getSwitchList()!=null)
+		ArrayList<Obstacles> totalObs= new ArrayList<Obstacles>();
+		if(getPipeSwitchList()!=null)
 		{
-			for(int i= 0; i< getSwitchList().size(); i++)
+			for(int i= 0; i< getPipeSwitchList().size(); i++)
 			{
+				totalObs.add(getPipeSwitchList().get(i));
+				g.setColor(new Color(0,0,0,0));
+				Polygon p= new Polygon();
+				for(int j=0; j<getPipeSwitchList().get(i).getVertices().size(); j++)
+				{
+					p.addPoint(getPipeSwitchList().get(i).getVertices().get(j).getXCoord(), getPipeSwitchList().get(i).getVertices().get(j).getYCoord());
+				}
+				if(p!=null)
+				{
+					g.fillPolygon(p);
+				}
 				g.setColor(Color.green);
 				if(i!=0)
 					g.setColor(Color.white);
 				getSwitchList().get(i).drawSwitch(g);
 			}
 		}
-		ArrayList<Obstacles> totalObs= new ArrayList<Obstacles>();
+		
 		if(getObstacleList()!=null)
 		{
 			for(int i= 0; i<getObstacleList().size(); i++)
@@ -412,7 +425,7 @@ public class LevelThree extends Level implements LevelTwoInterface {
 				}
 				if(p!=null)
 				{
-					g.drawPolygon(p);
+					g.fillPolygon(p);
 				}
 				
 			}
@@ -691,7 +704,23 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		
 		return switches;
 	}
-	
+	public ArrayList<LineObject> getPerimeter(PipeConnectorSwitch p1, PipeConnectorSwitch p2)
+	{
+		ArrayList<LineObject> perimeter= new ArrayList<LineObject>();
+		int tx1= p1.getVertices().get(0).getXCoord();
+		int tx2= p2.getVertices().get(0).getXCoord();
+		LineObject top= new LineObject( p1.getVertices().get(0),  p2.getVertices().get(0));
+		LineObject bottom= new LineObject(p1.getVertices().get(2), p2.getVertices().get(2));
+		LineObject left= p1.getOutlines().get(3);
+		LineObject right= p2.getOutlines().get(1);
+		
+		perimeter.add(top);
+		perimeter.add(right);
+		perimeter.add(bottom);
+		perimeter.add(left);
+		
+		return perimeter;
+	}
 	
 	
 	
