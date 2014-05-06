@@ -51,6 +51,8 @@ public class LevelThree extends Level implements LevelTwoInterface {
 	{
 		super(p, width, height);
 		player=p;
+		if(player.getItem()!=null)
+			player.usedItem();
 		player.setCentX(0);
 		player.setCentY(0);
 		player.setHiddenPlatforms(null);
@@ -67,9 +69,6 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		
 		player.setPlatforms(getObstacleList());
 		levelComplete=false;
-		dartgun = new Item(Color.GREEN, "Darts", "Dude, press Z and hit the bullseye.");
-		darts= new ArrayList<Projectile>();
-		player.setItem(dartgun);
 		setLevelNumber(3);
 	}
 
@@ -191,7 +190,28 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		
 		pipeList.add(p1);
 		
+		ArrayList<LineObject> pipeTUpPerimeter= new ArrayList<LineObject>();
+		top1= new LineObject(0,20,10,20);
+		left1= new LineObject(10,20,10,0);
+		top2= new LineObject(left1.getV2(), new Vertex(20,0));
+		right1= new LineObject(top2.getV2(), new Vertex(20,20));
+		LineObject top3= new LineObject(right1.getV2(), new Vertex(30,20));
+		right2= new LineObject(top3.getV2(), new Vertex(30,30));
+		bottom1= new LineObject(right2.getV2(), new Vertex(0,30));
+		LineObject left2= new LineObject(bottom1.getV2(), top1.getV1());
 		
+		pipeTUpPerimeter.add(top1);
+		pipeTUpPerimeter.add(left1);
+		pipeTUpPerimeter.add(top2);
+		pipeTUpPerimeter.add(right1);
+		pipeTUpPerimeter.add(top3);
+		pipeTUpPerimeter.add(right2);
+		pipeTUpPerimeter.add(bottom1);
+		pipeTUpPerimeter.add(left2);
+		
+		Obstacles pipeTUp= new Obstacles(pipeTUpPerimeter);
+		PipeConnector pipeTUpp= new PipeConnector(pipeTUp, gameWidth/2, gameHeight-20);
+		pipeConnectors.add(pipeTUpp);
 		
 		
 		/*
