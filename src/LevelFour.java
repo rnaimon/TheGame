@@ -417,23 +417,19 @@ public class LevelFour extends Level {
 			
 			
 			Enemy e = enemies.get(x);
-			System.out.println("here");
 
 			if(e.getCentX() + e.getRadius() < 0)
 				e.setAlive(false);
 			
 			if (e.getAlive() == false) {
-				System.out.println("here1");
 				enemies.remove(x);
 				x--;
 				//get rid of enemy
 			}
 			else if (enemyTouching(e, player)) {
-				System.out.println("here to reset");
 				reset = true;
 			}
 			else {
-				System.out.println("here3");
 				e.doMove(player);
 				
 			}

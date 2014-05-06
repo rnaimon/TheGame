@@ -226,43 +226,52 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 		case STATE_PLAYING:
 				if(((Level)(currentLevel)).checkComplete()==true)
 				{
-					if(((Level)(currentLevel)).getLevelNumber()==1)
+					int now= ((Level)(currentLevel)).getLevelNumber();
+					switch(now)
 					{
-						currentLevel= levelList.get(1);
-						player.setCentX(0);
-						player.setCentY(0);
-						player.setSpeedY(0);
-					}
-					else if(((Level)(currentLevel)).getLevelNumber()==2)
-						{
+						case 1:
+								currentLevel= levelList.get(1);
+								player.setCentX(0);
+								player.setCentY(0);
+								player.setSpeedY(0);
+								break;
+						case 2:
+							player= new Player(30, 10, 0, new Color(0, 0, 200));
+							levelList.set(2, new LevelThree(player, getWidth(), getHeight()));
+							currentLevel= levelList.get(3);
 							currentLevel= levelList.get(2);
 							player.setCentX(0);
 							player.setCentY(0);
 							player.setSpeedY(0);
-						}
-					else if(((Level)(currentLevel)).getLevelNumber()==3)
-					{
-						currentLevel= levelList.get(3);
-						player.setCentX(0);
-						player.setCentY(0);
-						player.setSpeedY(0);
+							break;
+							
+						case 3:
+							player= new Player(30, 10, 0, new Color(0, 0, 200));
+							levelList.set(3, new LevelFour(player, getWidth(), getHeight()));
+							currentLevel= levelList.get(3);
+							player.setCentX(0);
+							player.setCentY(0);
+							player.setSpeedY(0);
+							break;
+							
+						case 4:
+							currentLevel= levelList.get(4);
+							player.setCentX(0);
+							player.setCentY(0);
+							player.setSpeedY(0);
+							break;
+							
+						case 5:
+							currentLevel= levelList.get(1);
+							player.setCentX(0);
+							player.setCentY(0);
+							player.setSpeedY(0);
+							break;
+							
+						default:
+									gameState= STATE_DONE;
+									break;
 					}
-					else if(((Level)(currentLevel)).getLevelNumber()==4)
-					{
-						currentLevel= levelList.get(4);
-						player.setCentX(0);
-						player.setCentY(0);
-						player.setSpeedY(0);
-					}
-					else if(((Level)(currentLevel)).getLevelNumber()==5)
-					{
-						currentLevel= levelList.get(5);
-						player.setCentX(0);
-						player.setCentY(0);
-						player.setSpeedY(0);
-					}
-						else
-							gameState= STATE_DONE;
 					
 				}
 					if((player.getCentY() + player.getRadius()+ player.getSpeedY())>= getHeight())
