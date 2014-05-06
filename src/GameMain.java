@@ -177,6 +177,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 		player = new Player(30, 10, 0, new Color(0, 0, 200));
 		
 		levelList= new ArrayList<Object>();
+		LevelFive lv5 = new LevelFive(player, getWidth(), getHeight());
 		LevelFour lv4= new LevelFour(player, getWidth(), getHeight());
 		LevelThree lv3= new LevelThree(player, getWidth(), getHeight());
 		LevelTwo lv2= new LevelTwo(player, getWidth(), getHeight());
@@ -185,8 +186,9 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 		levelList.add(lv2);
 		levelList.add(lv3);
 		levelList.add(lv4);
+		levelList.add(lv5);
 		if(levelList.get(0)!=null)
-			currentLevel= (LevelThree)(levelList.get(2));
+			currentLevel= (LevelOne)(levelList.get(0));
 		start();
 
 	}
@@ -252,6 +254,13 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 						player.setCentY(0);
 						player.setSpeedY(0);
 					}
+					else if(((Level)(currentLevel)).getLevelNumber()==5)
+					{
+						currentLevel= levelList.get(5);
+						player.setCentX(0);
+						player.setCentY(0);
+						player.setSpeedY(0);
+					}
 						else
 							gameState= STATE_DONE;
 					
@@ -264,8 +273,10 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 							currentLevel=new LevelTwo(player, getWidth(), getHeight());
 						else if(((Level)(currentLevel)).getLevelNumber()==3)
 							currentLevel=new LevelThree(player, getWidth(), getHeight());
-						else 
+						else if(((Level)(currentLevel)).getLevelNumber()==4) 
 							currentLevel=new LevelFour(player, getWidth(), getHeight());
+						else if(((Level)(currentLevel)).getLevelNumber()==5) 
+							currentLevel=new LevelFive(player, getWidth(), getHeight());
 						
 						
 						
@@ -283,7 +294,8 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 							currentLevel=new LevelThree(player, getWidth(), getHeight());
 						else if(((Level)(currentLevel)).getLevelNumber()==4) 
 							currentLevel=new LevelFour(player, getWidth(), getHeight());
-						
+						else if(((Level)(currentLevel)).getLevelNumber()==5) 
+							currentLevel=new LevelFive(player, getWidth(), getHeight());
 						
 						
 						player.setCentX(0);

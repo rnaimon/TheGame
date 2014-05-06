@@ -1,5 +1,10 @@
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 /***
  * This is the Player class, which controls the player character and all of its aspects.
@@ -21,6 +26,8 @@ public class Player implements PlayerInterface
 	private char orientation;
 	private ArrayList<Obstacles> levelPlatforms;
 	private ArrayList<Obstacles> hiddenPlatforms;
+	
+	private BufferedImage bg;
 	
 	/***
 	 * This is a constructor for Player without variables.
@@ -49,6 +56,19 @@ public class Player implements PlayerInterface
 		speed_y=0;
 		isGrounded=true;
 		orientation='r';
+		
+		
+		try {
+			System.out.println("nice sphere");
+			bg = ImageIO.read(new File("blue-sphere-sized.png"));
+
+		}
+		catch (IOException ex) {
+			System.out.println("Nope. Player image doesn't work.");
+		}
+	
+		
+		
 	}
 	/**
 	 * This method retrieves the X-Coordinate of the center of the circle shaped avatar.
@@ -141,7 +161,18 @@ public class Player implements PlayerInterface
 	 */
 	public void draw(Graphics2D g){
 		g.setColor(color); //inside
-		g.fillOval((int)centx, (int)centy, (int)radius, (int)radius);
+		
+		
+	//	g.fillOval((int)centx, (int)centy, (int)radius, (int)radius);
+		
+		if (bg != null) {
+			System.out.println("in here now BG player");
+			g.drawImage(bg, (int)centx, (int)centy, null);
+		}
+		
+		
+		
+		
 		if(current_item!=null)
 		{
 			g.setColor(current_item.getColor());
