@@ -146,11 +146,11 @@ public class LevelFour extends Level {
 	 * method to determine if the level should reset
 	 * @return the boolean of whether the level needs to be reset
 	 */
-	/*
+	
 	public boolean shouldReset() {
 		return reset;
 	}
-	*/
+	
 	
 	/***
 	 * This method contains code to allow the level-specific Item to have a certain 
@@ -415,6 +415,7 @@ public class LevelFour extends Level {
 		
 		for (int x = 0; x < numEnemies; x++) {
 			
+			
 			Enemy e = enemies.get(x);
 			System.out.println("here");
 
@@ -428,7 +429,7 @@ public class LevelFour extends Level {
 				//get rid of enemy
 			}
 			else if (enemyTouching(e, player)) {
-				System.out.println("here2");
+				System.out.println("here to reset");
 				reset = true;
 			}
 			else {
@@ -481,13 +482,11 @@ public class LevelFour extends Level {
 	//	System.out.println(e.getRadius()+p.getRadius() + " is radius addition");
 		
 		if (e.getRadius()/2+p.getRadius()/2 > dCenter) {
-	//		System.out.println("touching");
+			System.out.println("touching");
 			return true;
 		}
 		return false;
-		
-		//PROBLEM IN HERE
-		
+			
 	}
 	
 	
