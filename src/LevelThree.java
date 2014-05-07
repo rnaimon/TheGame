@@ -159,12 +159,46 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		// hit, while playing this level, instead of by position. Makes more sense to me,
 		// hope that's ok.
 		
+		ArrayList<LineObject> faux= new ArrayList<LineObject>();
+		LineObject f1= new LineObject(0,0,1,1);
+		faux.add(f1);
+		Obstacles fauxObs= new Obstacles(faux);
+		PipeConnector fauxp= new PipeConnector(fauxObs, 0,0);
+		PipeConnectorSwitch watersource= new PipeConnectorSwitch((sgeneric.translate(0,0)).getOutlines(), fauxp, Color.cyan);
+		pipeSwitches.add(watersource);
+		
+		if(watersource.getContacted()==false)
+			watersource.changeContactStatus();
+		
+		ArrayList<LineObject> pipeDownPerim= new ArrayList<LineObject>();
+		LineObject top1= new LineObject(0,0,15,0);
+		LineObject left1= new LineObject(0,0,0,30);
+		LineObject bottom1= new LineObject(0,30,15,30);
+		LineObject right1= new LineObject(bottom1.getV2(),top1.getV1());
+		
+		pipeDownPerim.add(top1);
+		pipeDownPerim.add(right1);
+		pipeDownPerim.add(bottom1);
+		pipeDownPerim.add(left1);
+		
+		Obstacles pipeC= new Obstacles(pipeDownPerim);
+		PipeConnector pipeDown= new PipeConnector(pipeC,gameWidth/5, gameHeight/3);
+		pipeConnectors.add(pipeDown);
+		
+		PipeConnectorSwitch pipeDownSwitch= new PipeConnectorSwitch((sgeneric.translate(0,gameHeight/2)).getOutlines(), pipeConnectors.get(0));
+		pipeSwitches.add(pipeDownSwitch);
+		
+		Pipe p0= new Pipe(watersource, pipeDownSwitch);
+		p0.getPipeSwitches().add(watersource);
+		p0.getPipeSwitches().add(pipeDownSwitch);
+		pipeList.add(p0);
+		
 		
 		ArrayList<LineObject> pipeBLeftPerim= new ArrayList<LineObject>();
-		LineObject top1= new LineObject(10,0, 0,0);
-		LineObject left1= new LineObject(top1.getV1().getXCoord(),top1.getV1().getYCoord(), 0,30);
-		LineObject bottom1= new LineObject(0,30,30,30);
-		LineObject right1= new LineObject(30,30,30,20);
+		top1= new LineObject(10,0, 0,0);
+		left1= new LineObject(top1.getV1().getXCoord(),top1.getV1().getYCoord(), 0,30);
+		bottom1= new LineObject(0,30,30,30);
+		right1= new LineObject(30,30,30,20);
 		LineObject top2= new LineObject(10,20,30,20);
 		LineObject right2= new LineObject(10,20,10,0);
 		
@@ -175,16 +209,15 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		pipeBLeftPerim.add(top2);
 		pipeBLeftPerim.add(right2);
 		
-		Obstacles pipeOne= new Obstacles(pipeBLeftPerim);
-		PipeConnector pipeBLeft= new PipeConnector(pipeOne, gameWidth/2, gameHeight-20);
+		pipeC= new Obstacles(pipeBLeftPerim);
+		PipeConnector pipeBLeft= new PipeConnector(pipeC, gameWidth/2, gameHeight-20);
 		
 		pipeConnectors.add(pipeBLeft);
 		
-		PipeConnectorSwitch pBLSwitch= new PipeConnectorSwitch((sgeneric.translate(0,gameHeight-20-50)).getOutlines(), pipeConnectors.get(0));
-		//PipeConnectorSwitch pBL2= new PipeConnectorSwitch((sgeneric.translate(500,gameHeight-20-50)).getOutlines(), pipeConnectors.get(0));
+		PipeConnectorSwitch pBLSwitch= new PipeConnectorSwitch((sgeneric.translate(0,gameHeight-20-50)).getOutlines(), pipeConnectors.get(1));
 		pipeSwitches.add(pBLSwitch);
-		//pipeSwitches.add(pBL2);
 			
+		
 		Pipe p1= new Pipe(pBLSwitch.translate(50,0).getOutlines());
 		p1.getPipeSwitches().add(pBLSwitch);
 		
@@ -273,15 +306,19 @@ public class LevelThree extends Level implements LevelTwoInterface {
 						{
 							PipeConnector pitem= new PipeConnector(p.getSymbol().getPerimeter(),0,0);
 							player.setItem(pitem);
-							p.changeContactStatus();
+							pipeSwitches.get(i).changeContactStatus();
 							break;
 						}
 					}
 				}
 			}
 		}
+		
 		else
 		{
+			boolean closeToSwitch=false;
+			PipeConnectorSwitch s= pipeSwitches.get(0);
+			
 			for(int i= 0; i< pipeSwitches.size(); i++)
 			{
 				PipeConnectorSwitch p= pipeSwitches.get(i);
@@ -290,22 +327,29 @@ public class LevelThree extends Level implements LevelTwoInterface {
 				double distance= Math.sqrt(d1*d1 + d2*d2);
 				if(distance<3*player.getRadius())
 				{
-					if(((PipeConnector)(player.getItem())).equals(p.getSymbol()))
+					closeToSwitch=true;
+					s=pipeSwitches.get(i);
+					break;
+				}
+				
+			}
+			if(closeToSwitch==true)
+			{
+				if(s!=null)
+				{
+					if(((PipeConnector)(player.getItem())).equals(s.getSymbol()))
 					{
-						p.changeContactStatus();
+						s.changeContactStatus();
 						player.usedItem();
 					}
 				}
-				else
-				{
-					pipeConnectors.add((PipeConnector)(player.getItem()));
-					pipeConnectors.get(pipeConnectors.size()-1).setStartX((int)(player.getCentX()));
-					pipeConnectors.get(pipeConnectors.size()-1).setStartY((int)(player.getCentY()));
-					player.usedItem();
-					
-				}
-					break;
-				
+			}
+			else
+			{
+				pipeConnectors.add((PipeConnector)(player.getItem()));
+				pipeConnectors.get(pipeConnectors.size()-1).setStartX((int)(player.getCentX()));
+				pipeConnectors.get(pipeConnectors.size()-1).setStartY((int)(player.getCentY()));
+				player.usedItem();
 			}
 		}
 	}
@@ -362,7 +406,6 @@ public class LevelThree extends Level implements LevelTwoInterface {
 					double height= 1000*Math.abs(p.getTimeStarted()-timer)*2/300*p.getHeight();
 					if(height/1000>=p.getHeight())
 						height=p.getHeight()*1000;
-					System.out.println(height/1000);
 					LineObject ptop= new LineObject(pbot.getV1().getXCoord(), (int)(pbot.getV1().getYCoord() - height/1000), pbot.getV1().getXCoord() + p.getWidth(),(int)(pbot.getV1().getYCoord()- height/1000));
 					LineObject pleft= new LineObject(ptop.getV1().getXCoord(),ptop.getV1().getYCoord(),pbot.getV1().getXCoord(),pbot.getV1().getYCoord());
 					LineObject pright= new LineObject(ptop.getV2().getXCoord(),ptop.getV2().getYCoord(),pbot.getV2().getXCoord(),pbot.getV2().getYCoord());
@@ -410,7 +453,7 @@ public class LevelThree extends Level implements LevelTwoInterface {
 				g.setColor(Color.green);
 				if(i!=0)
 					g.setColor(Color.white);
-				getSwitchList().get(i).drawSwitch(g);
+				getPipeSwitchList().get(i).drawSwitch(g);
 			}
 		}
 		

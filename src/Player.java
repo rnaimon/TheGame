@@ -166,7 +166,7 @@ public class Player implements PlayerInterface
 	//	g.fillOval((int)centx, (int)centy, (int)radius, (int)radius);
 		
 		if (bg != null) {
-			System.out.println("in here now BG player");
+			//System.out.println("in here now BG player");
 			g.drawImage(bg, (int)centx, (int)centy, null);
 		}
 		

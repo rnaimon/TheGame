@@ -17,6 +17,7 @@ public class PipeConnectorSwitch extends Switch {
 	private double centY;
 	private boolean inactive;
 	private PipeConnector symbol;
+	private boolean setToFill;
 	
 	/***
 	 * This constructor sets the default contacted value to false and instantiates
@@ -35,8 +36,33 @@ public class PipeConnectorSwitch extends Switch {
 		}
 		centX=Math.abs(vertx[1]- vertx[0]) + vertx[0];
 		centY=Math.abs(verty[1]- verty[0]) + verty[0];
+		setColor(Color.white);
+	}
+	public PipeConnectorSwitch(ArrayList<LineObject> o, PipeConnector p, Color c) {
+		super(o);
+		symbol=new PipeConnector(p.getPerimeter(),0,0);
+		int[] vertx= new int[getVertices().size()];
+		int[] verty= new int[getVertices().size()];
+		for(int j=0; j< getVertices().size(); j++)
+		{
+			vertx[j]=(int)(getVertices().get(j).getXCoord());
+			verty[j]=(int)(getVertices().get(j).getYCoord());
+		}
+		centX=Math.abs(vertx[1]- vertx[0]) + vertx[0];
+		centY=Math.abs(verty[1]- verty[0]) + verty[0];
+		setColor(c);
+		setToFill=true;
 	}
 	
+	public boolean getSetToFill()
+	{
+		return setToFill;
+	}
+	
+	public void setSetToFill(boolean b)
+	{
+		setToFill=b;
+	}
 	public PipeConnector getSymbol()
 	{
 		return symbol;
@@ -57,23 +83,24 @@ public class PipeConnectorSwitch extends Switch {
 			vertx[j]=(int)(getVertices().get(j).getXCoord());
 			verty[j]=(int)(getVertices().get(j).getYCoord());
 		}
+		g.setColor(getColor());
 		g.fillPolygon(vertx, verty, (getVertices().size()));
 		int length= Math.abs(vertx[1]- vertx[0]);
-		if(getContacted())
+		if(symbol!=null)
 		{
-			symbol.setColor(Color.cyan);
-			
+			if(getContacted())
+			{
+				symbol.setColor(Color.cyan);
+			}
+			else
+			{
+				symbol.setColor(Color.magenta);
+			}
+			symbol.reDraw();
+			symbol.setStartX(vertx[0] + length/3);
+			symbol.setStartY(verty[0]);
+			g.drawImage(symbol.getImage(),null, symbol.getStartX(), symbol.getStartY());
 		}
-		else
-		{
-			//System.out.println("here");
-			symbol.setColor(Color.magenta);
-		}
-		symbol.reDraw();
-		symbol.setStartX(vertx[0] + length/3);
-		symbol.setStartY(verty[0]);
-		g.drawImage(symbol.getImage(),null, symbol.getStartX(), symbol.getStartY());
-	
 	}
 	
 	 

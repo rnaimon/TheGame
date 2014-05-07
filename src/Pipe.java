@@ -26,7 +26,37 @@ public class Pipe extends Switch
 		width= Math.abs(vertx[0]-vertx[1]);
 		height= Math.abs(verty[1]-verty[2]);
 	}
-	
+	public Pipe(PipeConnectorSwitch s1, PipeConnectorSwitch s2)
+	{
+		super(createPerimeter( s1, s2));
+		
+		pipeSwitches=new ArrayList<PipeConnectorSwitch>();
+		startFill=false;
+		timeStarted=0;
+		int[] vertx= new int[getVertices().size()];
+		int[] verty= new int[getVertices().size()];
+		for(int j=0; j< getVertices().size(); j++)
+		{
+			vertx[j]=(int)(getVertices().get(j).getXCoord());
+			verty[j]=(int)(getVertices().get(j).getYCoord());
+		}
+		width= Math.abs(vertx[0]-vertx[1]);
+		height= Math.abs(verty[1]-verty[2]);
+	}
+	public static ArrayList<LineObject> createPerimeter(PipeConnectorSwitch s1, PipeConnectorSwitch s2)
+	{
+		ArrayList<LineObject> perim= new ArrayList<LineObject>();
+		LineObject top= new LineObject(s1.getOutlines().get(0).getV1(),s2.getOutlines().get(0).getV1());
+		LineObject bottom= new LineObject(s1.getOutlines().get(2).getV2(),s2.getOutlines().get(2).getV2());
+		LineObject left= new LineObject(top.getV1(),bottom.getV1());
+		LineObject right= new LineObject(top.getV2(),bottom.getV2());
+		
+		perim.add(top);
+		perim.add(right);
+		perim.add(bottom);
+		perim.add(left);
+		return perim;
+	}
 	public ArrayList<PipeConnectorSwitch> getPipeSwitches()
 	{
 		return pipeSwitches;

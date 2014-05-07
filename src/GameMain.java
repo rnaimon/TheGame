@@ -188,7 +188,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 		levelList.add(lv4);
 		levelList.add(lv5);
 		if(levelList.get(0)!=null)
-			currentLevel= (LevelOne)(levelList.get(0));
+			currentLevel= (LevelThree)(levelList.get(2));
 		start();
 
 	}
