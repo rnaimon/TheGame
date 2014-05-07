@@ -216,12 +216,6 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		PipeConnectorSwitch pBLSwitch= new PipeConnectorSwitch((sgeneric.translate(0,gameHeight-20-50)).getOutlines(), pipeConnectors.get(1));
 		pipeSwitches.add(pBLSwitch);
 			
-		
-		Pipe p1= new Pipe(pBLSwitch.translate(50,0).getOutlines());
-		p1.getPipeSwitches().add(pBLSwitch);
-		
-		pipeList.add(p1);
-		
 		Pipe p2= new Pipe(pipeDownSwitch,pBLSwitch);
 		p2.getPipeSwitches().add(pipeDownSwitch);
 		p2.getPipeSwitches().add(pBLSwitch);
@@ -250,6 +244,16 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		Obstacles pipeTUp= new Obstacles(pipeTUpPerimeter);
 		PipeConnector pipeTUpp= new PipeConnector(pipeTUp, gameWidth/2, gameHeight-20);
 		pipeConnectors.add(pipeTUpp);
+		
+		PipeConnectorSwitch pTUpSwitch = new PipeConnectorSwitch((sgeneric.translate(gameWidth/5*2,gameHeight-20-50)).getOutlines(), pipeTUpp);
+		pipeSwitches.add(pTUpSwitch);
+		
+		Pipe p1= new Pipe(pBLSwitch, pTUpSwitch);
+		p1.getPipeSwitches().add(pBLSwitch);
+		p1.getPipeSwitches().add(pTUpSwitch);
+		
+		pipeList.add(p1);
+		
 		
 		
 		/*
