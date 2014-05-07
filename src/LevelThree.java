@@ -406,6 +406,7 @@ public class LevelThree extends Level implements LevelTwoInterface {
 					double height= 1000*Math.abs(p.getTimeStarted()-timer)*2/300*p.getHeight();
 					if(height/1000>=p.getHeight())
 						height=p.getHeight()*1000;
+					
 					LineObject ptop= new LineObject(pbot.getV1().getXCoord(), (int)(pbot.getV1().getYCoord() - height/1000), pbot.getV1().getXCoord() + p.getWidth(),(int)(pbot.getV1().getYCoord()- height/1000));
 					LineObject pleft= new LineObject(ptop.getV1().getXCoord(),ptop.getV1().getYCoord(),pbot.getV1().getXCoord(),pbot.getV1().getYCoord());
 					LineObject pright= new LineObject(ptop.getV2().getXCoord(),ptop.getV2().getYCoord(),pbot.getV2().getXCoord(),pbot.getV2().getYCoord());
@@ -420,6 +421,8 @@ public class LevelThree extends Level implements LevelTwoInterface {
 				}
 				
 				getPipeList().get(i).drawSwitch(g);
+				g.setColor(Color.green);
+				getSwitchList().get(0).drawSwitch(g);
 				
 			}
 		}
@@ -475,10 +478,18 @@ public class LevelThree extends Level implements LevelTwoInterface {
 			}
 			
 		}
+		
 		if(filledPipes!=null)
 		{
+			
 			for(int i=0; i< filledPipes.size(); i++)
 			{
+				double d1= filledPipes.get(i).getVertices().get(0).getXCoord();
+				double d2= filledPipes.get(i).getVertices().get(0).getYCoord();
+				double d3= filledPipes.get(i).getVertices().get(2).getXCoord();
+				double d4= filledPipes.get(i).getVertices().get(2).getYCoord();
+
+				System.out.println("(" + d1 + ":" + d2 + ") : (" + d3 + ":" + d4 + ")");
 				totalObs.add(filledPipes.get(i));
 				g.setColor(Color.cyan);
 				Polygon p= new Polygon();

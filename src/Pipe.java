@@ -46,15 +46,60 @@ public class Pipe extends Switch
 	public static ArrayList<LineObject> createPerimeter(PipeConnectorSwitch s1, PipeConnectorSwitch s2)
 	{
 		ArrayList<LineObject> perim= new ArrayList<LineObject>();
+		int s1tx=s1.getOutlines().get(0).getV1().getXCoord();
+		int s2tx= s2.getOutlines().get(0).getV1().getXCoord();
+		int s1ty=s1.getOutlines().get(0).getV1().getYCoord();
+		int s2ty= s2.getOutlines().get(0).getV1().getYCoord();
 		LineObject top= new LineObject(s1.getOutlines().get(0).getV1(),s2.getOutlines().get(0).getV1());
 		LineObject bottom= new LineObject(s1.getOutlines().get(2).getV2(),s2.getOutlines().get(2).getV2());
+
+		if(s1tx!=s2tx)
+		{
+			if(s1tx<s2tx)
+			{
+				top= new LineObject(s1.getOutlines().get(0).getV2(),s2.getOutlines().get(0).getV1());
+				bottom= new LineObject(s1.getOutlines().get(2).getV2(),s2.getOutlines().get(2).getV1());
+
+			}
+			else
+			{
+				top= new LineObject(s1.getOutlines().get(0).getV1(),s2.getOutlines().get(0).getV2());
+				bottom= new LineObject(s1.getOutlines().get(2).getV1(),s2.getOutlines().get(2).getV2());
+
+			}
+		}
+		else
+		{
+			if(s1ty<s2ty)
+			{
+				top= new LineObject(s1.getOutlines().get(2).getV1(),s1.getOutlines().get(2).getV2());
+				bottom= new LineObject(s2.getOutlines().get(0).getV1(),s2.getOutlines().get(0).getV2());
+			}
+			else
+			{
+				top= new LineObject(s1.getOutlines().get(0).getV1(),s1.getOutlines().get(0).getV2());
+				bottom= new LineObject(s2.getOutlines().get(2).getV1(),s2.getOutlines().get(2).getV2());
+			}
+		}
 		LineObject left= new LineObject(top.getV1(),bottom.getV1());
 		LineObject right= new LineObject(top.getV2(),bottom.getV2());
 		
-		perim.add(top);
-		perim.add(right);
-		perim.add(bottom);
-		perim.add(left);
+		if(top.getOrientation()=='h')
+		{
+			perim.add(top);
+			perim.add(right);
+			perim.add(bottom);
+			perim.add(left);
+		}
+		else
+		{
+			perim.add(left);
+			perim.add(bottom);
+			perim.add(right);
+			perim.add(top);
+		}
+		
+		
 		return perim;
 	}
 	public ArrayList<PipeConnectorSwitch> getPipeSwitches()
