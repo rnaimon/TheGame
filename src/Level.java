@@ -37,6 +37,7 @@ public class Level implements LevelInterface
 		gameHeight=h;
 		levelComplete=false;
 		reset=false;
+		levelComplete=false;
 	}
 	
 	/*  The following are getters and setters. For more comments, see the 
@@ -67,7 +68,6 @@ public class Level implements LevelInterface
 	
 	
 	public int getLevelNumber() {
-		// TODO Auto-generated method stub
 		return levelNum;
 	}
 	public void setSwitchList(ArrayList<Switch> s){
@@ -79,7 +79,11 @@ public class Level implements LevelInterface
 	}
 	public boolean checkComplete()
 	{
-		return false;
+		return levelComplete;
+	}
+	public void setLevelComplete(boolean b)
+	{
+		levelComplete=b;
 	}
 	public void setLevelNumber(int n) 
 	{
@@ -118,6 +122,10 @@ public class Level implements LevelInterface
 	
 	public int getGameHeight() {
 		return gameHeight;
+	}
+	public boolean getLevelComplete()
+	{
+		return levelComplete;
 	}
 
 	/***

@@ -99,14 +99,19 @@ public class LevelOne extends Level implements LevelOneInterface
 	@Override
 	public boolean checkComplete()
 	{
-		Switch endGoal= getSwitchList().get(0);
-		double d= Math.sqrt((player.getCentX()-endGoal.getCentX())*(player.getCentX()-endGoal.getCentX()) + (player.getCentY()-endGoal.getCentY())*(player.getCentY()-endGoal.getCentY()));
-		if(d<=(player.getRadius()+ 50/2*Math.sqrt(2)))
-		{
+		if(getLevelComplete()==true)
 			return true;
-		}
 		else
-			return false;
+		{
+			Switch endGoal= getSwitchList().get(0);
+			double d= Math.sqrt((player.getCentX()-endGoal.getCentX())*(player.getCentX()-endGoal.getCentX()) + (player.getCentY()-endGoal.getCentY())*(player.getCentY()-endGoal.getCentY()));
+			if(d<=(player.getRadius()+ 50/2*Math.sqrt(2)))
+			{
+				return true;
+			}
+			else
+				return false;
+		}
 	}
 	
 	

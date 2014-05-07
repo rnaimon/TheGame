@@ -33,7 +33,6 @@ public class LevelThree extends Level implements LevelTwoInterface {
 	private ArrayList<Projectile> darts;
 	ArrayList<Switch> switchList;
 	ArrayList<Pipe> pipeList;
-	private boolean levelComplete;
 	private ArrayList<Obstacles> hiddenRamps;
 	private ArrayList<PipeConnector> pipeConnectors;
 	private ArrayList<PipeConnectorSwitch> pipeSwitches;
@@ -68,7 +67,6 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		switchList= setUpSwitches();
 		
 		player.setPlatforms(getObstacleList());
-		levelComplete=false;
 		setLevelNumber(3);
 	}
 
@@ -170,6 +168,7 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		if(watersource.getContacted()==false)
 			watersource.changeContactStatus();
 		
+		watersource.setSetToFill(true);
 		ArrayList<LineObject> pipeDownPerim= new ArrayList<LineObject>();
 		LineObject top1= new LineObject(0,0,15,0);
 		LineObject left1= new LineObject(0,0,0,30);
@@ -223,6 +222,12 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		
 		pipeList.add(p1);
 		
+		Pipe p2= new Pipe(pipeDownSwitch,pBLSwitch);
+		p2.getPipeSwitches().add(pipeDownSwitch);
+		p2.getPipeSwitches().add(pBLSwitch);
+		
+		pipeList.add(p2);
+
 		ArrayList<LineObject> pipeTUpPerimeter= new ArrayList<LineObject>();
 		top1= new LineObject(0,20,10,20);
 		left1= new LineObject(10,20,10,0);
@@ -391,7 +396,7 @@ public class LevelThree extends Level implements LevelTwoInterface {
 				
 				if(getPipeList().get(i).getStartFill()==false)
 				{
-					getPipeList().get(i).checkFull();
+					getPipeList().get(i).checkFull(pipeSwitches);
 					if(getPipeList().get(i).getColor().equals(Color.cyan))
 					{
 						getPipeList().get(i).setTimeStarted(timer);
@@ -399,7 +404,7 @@ public class LevelThree extends Level implements LevelTwoInterface {
 				}
 				else
 				{
-					getPipeList().get(i).checkFull();
+					getPipeList().get(i).checkFull(pipeSwitches);
 					Pipe p= getPipeList().get(i);
 					ArrayList<LineObject> fillperimeter= new ArrayList<LineObject>();
 					LineObject pbot= p.getOutlines().get(2);
@@ -484,12 +489,6 @@ public class LevelThree extends Level implements LevelTwoInterface {
 			
 			for(int i=0; i< filledPipes.size(); i++)
 			{
-				double d1= filledPipes.get(i).getVertices().get(0).getXCoord();
-				double d2= filledPipes.get(i).getVertices().get(0).getYCoord();
-				double d3= filledPipes.get(i).getVertices().get(2).getXCoord();
-				double d4= filledPipes.get(i).getVertices().get(2).getYCoord();
-
-				System.out.println("(" + d1 + ":" + d2 + ") : (" + d3 + ":" + d4 + ")");
 				totalObs.add(filledPipes.get(i));
 				g.setColor(Color.cyan);
 				Polygon p= new Polygon();
@@ -678,16 +677,24 @@ public class LevelThree extends Level implements LevelTwoInterface {
 	 * end of the level has been touched.
 	 * @return whether the level is complete or not
 	 */
+	@Override
 	public boolean checkComplete()
 	{
-		Switch endGoal= switchList.get(0);
-		double d= Math.sqrt((player.getCentX()-endGoal.getCentX())*(player.getCentX()-endGoal.getCentX()) + (player.getCentY()-endGoal.getCentY())*(player.getCentY()-endGoal.getCentY()));
-		if(d<=(player.getRadius()+ 50/2*Math.sqrt(2)))
+		if(getLevelComplete()==true)
 		{
 			return true;
 		}
 		else
-			return false;
+		{
+			Switch endGoal= switchList.get(0);
+			double d= Math.sqrt((player.getCentX()-endGoal.getCentX())*(player.getCentX()-endGoal.getCentX()) + (player.getCentY()-endGoal.getCentY())*(player.getCentY()-endGoal.getCentY()));
+			if(d<=(player.getRadius()+ 50/2*Math.sqrt(2)))
+			{
+				return true;
+			}
+			else
+				return false;
+		}
 	}
 	
 	/***

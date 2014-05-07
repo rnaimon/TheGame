@@ -188,7 +188,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 		levelList.add(lv4);
 		levelList.add(lv5);
 		if(levelList.get(0)!=null)
-			currentLevel= (LevelOne)(levelList.get(0));
+			currentLevel= (LevelThree)(levelList.get(2));
 		start();
 
 	}
@@ -230,28 +230,20 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 					switch(now)
 					{
 						case 1:
+								player= new Player(30, 10, 0, new Color(0, 0, 200));
+								levelList.set(1, new LevelTwo(player, getWidth(), getHeight()));
 								currentLevel= levelList.get(1);
-								player.setCentX(0);
-								player.setCentY(0);
-								player.setSpeedY(0);
 								break;
 						case 2:
 							player= new Player(30, 10, 0, new Color(0, 0, 200));
 							levelList.set(2, new LevelThree(player, getWidth(), getHeight()));
-							currentLevel= levelList.get(3);
 							currentLevel= levelList.get(2);
-							player.setCentX(0);
-							player.setCentY(0);
-							player.setSpeedY(0);
 							break;
 							
 						case 3:
 							player= new Player(30, 10, 0, new Color(0, 0, 200));
 							levelList.set(3, new LevelFour(player, getWidth(), getHeight()));
 							currentLevel= levelList.get(3);
-							player.setCentX(0);
-							player.setCentY(0);
-							player.setSpeedY(0);
 							break;
 							
 						case 4:
@@ -579,6 +571,12 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 				if(key == KeyEvent.VK_Z)
 				{
 					function=true;
+				}
+				if(key == KeyEvent.VK_R)
+				{
+					int n= ((Level)currentLevel).getLevelNumber();
+					((Level)currentLevel).setLevelNumber(n-1);
+					((Level)currentLevel).setLevelComplete(true);
 				}
 			}//end KeyPressed
 		});

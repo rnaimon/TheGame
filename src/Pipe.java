@@ -121,25 +121,71 @@ public class Pipe extends Switch
 		pipeSwitches=p;
 	}
 	
-	public void checkFull()
+	public void checkFull(ArrayList<PipeConnectorSwitch> ps)
 	{
-		boolean full=true;
-		for(int i=0; i< pipeSwitches.size(); i++)
+		ArrayList<PipeConnectorSwitch> k= new ArrayList<PipeConnectorSwitch>();
+		for(int i=0; i< ps.size(); i++)
 		{
-			if(pipeSwitches.get(i).getContacted()==false)
+			for(int j=0;j< pipeSwitches.size(); j++)
+			{
+				if(ps.get(i).equals(pipeSwitches.get(j)))
+					k.add(ps.get(i));
+			}
+		}
+		boolean full=true;
+		for(int i=0; i< k.size(); i++)
+		{
+			if(k.get(i).getContacted()==false)
 				full=false;
 		}
 		if(full==true)
 		{
-			setColor(Color.cyan);
-			startFill=true;
+			for(int i=0; i< k.size(); i++)
+			{
+				if(k.get(i).getSetToFill()==true)
+				{
+					//System.out.print(k.get(i) + " : ");
+					setColor(Color.cyan);
+					startFill=true;
+				}
+			}
+			//System.out.println();
+			if(getColor().equals(Color.cyan))
+			{
+				for(int i=0; i< k.size(); i++)
+				{
+					k.get(i).setSetToFill(true);
+				}
+			}
+			else
+				setColor(new Color(50,50,50));
+			
+			
 		}
 		else
 		{
 			setColor(new Color(50,50,50));
+			ArrayList<LineObject> faux= new ArrayList<LineObject>();
+			LineObject f1= new LineObject(0,0,1,1);
+			faux.add(f1);
+			Obstacles fauxObs= new Obstacles(faux);
+			PipeConnector fauxp= new PipeConnector(fauxObs, 0,0);
+			for(int i=0; i< k.size(); i++)
+			{
+				if(!(k.get(i).getSymbol().equals(fauxp)))
+				{
+					if(k.get(i).getContacted()==false)
+					{
+						//System.out.println("here");
+						k.get(i).setSetToFill(false);
+					}
+				}
+			}
 			startFill=false;
 			timeStarted=0;
 		}
+		
+			
 	}
 	public boolean getStartFill()
 	{
