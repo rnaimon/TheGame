@@ -18,7 +18,7 @@ public class LevelFive extends Level {
 	private ArrayList<Rectangle> water = new ArrayList<Rectangle>();
 	private int timer;
 	private int amountWater;
-	
+	private int breath;
 	
 	/***
 	 * This is level five, which features the player trying to get above the rising water in the set amount of 
@@ -41,6 +41,7 @@ public class LevelFive extends Level {
 		player.setPlatforms(getObstacleList());
 		levelComplete=false;
 		
+		breath = 4000;
 
 		for (int y = height; y > 0; y=y-2) {
 			
@@ -236,7 +237,7 @@ public class LevelFive extends Level {
 		//FontMetrics fm = g.getFontMetrics();
 		Font f = new Font("Arial", Font.PLAIN, 20);
 		g.setFont(f);
-		g.drawString("Don't let the water touch you! Get to higher ground.", gameWidth / 17, gameHeight/10);
+		g.drawString("Don't let the water drown you! Get to higher ground.", gameWidth / 17, gameHeight/10);
 	
 		
 		if(getObstacleList()!=null)
@@ -278,6 +279,30 @@ public class LevelFive extends Level {
 		}
 		
 		
+		if(touchingWater()) {
+			Font f2 = new Font("Arial", Font.PLAIN, 50);
+			g.setFont(f2);
+			g.setColor(Color.red);
+			int countdown = breath/1000;
+		//	System.out.println("touching water and countdown is " + countdown + " and breath is " + breath);
+
+			
+			String countString = "" + countdown;
+			if (countdown >= 0 && countdown <=3)
+				g.drawString(countString, (int)player.getCentX(), (int)(player.getCentY() - 25));
+			
+			if (countdown < 0) {
+				System.out.println("out of breath");
+				reset = true;
+			}
+			
+			
+			breath = breath - 40;
+			
+		}
+		else
+			breath = 4000;
+		
 		
 		
 		
@@ -306,11 +331,34 @@ public class LevelFive extends Level {
 			
 	}
 	
-	
+	/***
+	 * This method manages the amount of water that should be filling up the level.
+	 */
 	public void manageWater() {
 		if (timer/5 == ((double)timer)/5.0) {
 			amountWater++;
 		}
+	}
+	
+	/***
+	 * This method determines whether the player is in the water
+	 * @param p is the Player
+	 * @return whether or not the player is in the water
+	 */
+	public boolean touchingWater() {
+		
+	//	int pX = (int)player.getCentX();
+		int pY = (int)player.getCentY();
+		int pY2 = super.getGameHeight() - pY;
+		
+		int pWater = amountWater *2;
+		System.out.println(pWater + " pWater " + pY2 + " is pY2");
+		
+		if (pY2 - player.getRadius() < pWater) {
+			return true;
+		}
+		return false;
+		
 	}
 		
 		
