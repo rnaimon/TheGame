@@ -252,6 +252,36 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		
 		pipeList.add(p1);
 		
+		ArrayList<LineObject> pipeTRightPerim= new ArrayList<LineObject>();
+		top1= new LineObject(0,0,10,0);
+		right1= new LineObject(top1.getV2(), new Vertex(10,10));
+		top2= new LineObject(right1.getV2(), new Vertex(30,10));
+		right2= new LineObject(top2.getV2(), new Vertex(30,20));
+		bottom1= new LineObject(right2.getV2(), new Vertex(10,20));
+		LineObject right3= new LineObject(bottom1.getV2(), new Vertex(10,30));
+		LineObject bottom2= new LineObject(right3.getV2(), new Vertex(0,30));
+		left1= new LineObject(bottom2.getV2(), top1.getV1());
+		
+		pipeTRightPerim.add(top1);
+		pipeTRightPerim.add(right1);
+		pipeTRightPerim.add(top2);
+		pipeTRightPerim.add(right2);
+		pipeTRightPerim.add(bottom1);
+		pipeTRightPerim.add(right3);
+		pipeTRightPerim.add(bottom2);
+		pipeTRightPerim.add(left1);
+		Obstacles ptr= new Obstacles(pipeTRightPerim);
+		
+		PipeConnector pTRight= new PipeConnector(ptr, gameWidth/5+ 50, gameHeight/3);
+		pipeConnectors.add(pTRight);
+		PipeConnectorSwitch pTRightSwitch= new PipeConnectorSwitch((sgeneric.translate(gameWidth/5*2 + gameWidth/12,gameHeight/2)).getOutlines(), pTRight);
+		pipeSwitches.add(pTRightSwitch);
+		
+		p1= new Pipe(pTUpSwitch,pTRightSwitch);
+		p1.getPipeSwitches().add(pTUpSwitch);
+		p1.getPipeSwitches().add(pTRightSwitch);
+		pipeList.add(p1);
+		
 		
 		
 		/*
