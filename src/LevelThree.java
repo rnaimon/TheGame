@@ -167,6 +167,10 @@ public class LevelThree extends Level implements LevelTwoInterface {
 			watersource.changeContactStatus();
 		
 		watersource.setSetToFill(true);
+		//System.out.println(watersource.isConnectedToSource());
+		watersource.setWaterSource(true);
+		//System.out.println(watersource.isConnectedToSource());
+		
 		ArrayList<LineObject> pipeDownPerim= new ArrayList<LineObject>();
 		LineObject top1= new LineObject(0,0,15,0);
 		LineObject left1= new LineObject(0,0,0,30);
@@ -189,6 +193,8 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		p0.getPipeSwitches().add(watersource);
 		p0.getPipeSwitches().add(pipeDownSwitch);
 		pipeList.add(p0);
+		watersource.getPipes().add(pipeList.get(0));
+		pipeDownSwitch.getPipes().add(pipeList.get(0));
 		
 		
 		ArrayList<LineObject> pipeBLeftPerim= new ArrayList<LineObject>();
@@ -217,7 +223,8 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		Pipe p2= new Pipe(pipeDownSwitch,pBLSwitch);
 		p2.getPipeSwitches().add(pipeDownSwitch);
 		p2.getPipeSwitches().add(pBLSwitch);
-		
+		pipeDownSwitch.getPipes().add(p2);
+		pBLSwitch.getPipes().add(p2);
 		pipeList.add(p2);
 
 		ArrayList<LineObject> pipeTUpPerimeter= new ArrayList<LineObject>();
@@ -249,7 +256,8 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		Pipe p1= new Pipe(pBLSwitch, pTUpSwitch);
 		p1.getPipeSwitches().add(pBLSwitch);
 		p1.getPipeSwitches().add(pTUpSwitch);
-		
+		pBLSwitch.getPipes().add(p1);
+		pTUpSwitch.getPipes().add(p1);
 		pipeList.add(p1);
 		
 		ArrayList<LineObject> pipeTRightPerim= new ArrayList<LineObject>();
@@ -274,14 +282,57 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		
 		PipeConnector pTRight= new PipeConnector(ptr, gameWidth/5+ 50, gameHeight/3);
 		pipeConnectors.add(pTRight);
+		
 		PipeConnectorSwitch pTRightSwitch= new PipeConnectorSwitch((sgeneric.translate(gameWidth/5*2 + gameWidth/12,gameHeight/2)).getOutlines(), pTRight);
 		pipeSwitches.add(pTRightSwitch);
 		
 		p1= new Pipe(pTRightSwitch,pTUpSwitch);
 		p1.getPipeSwitches().add(pTRightSwitch);
 		p1.getPipeSwitches().add(pTUpSwitch);
-		
+		pTRightSwitch.getPipes().add(p1);
+		pTUpSwitch.getPipes().add(p1);
 		pipeList.add(p1);
+		
+		ArrayList<LineObject> pTDownPerim= new ArrayList<LineObject>();
+		top1= new LineObject(0,0,30,0);
+		right1= new LineObject(top1.getV2(), new Vertex(30,10));
+		bottom1= new LineObject(right1.getV2(), new Vertex(20,10));
+		right3= new LineObject(bottom1.getV2(), new Vertex(20,30));
+		bottom2 = new LineObject(right3.getV2(), new Vertex(10,30));
+		left1= new LineObject(bottom2.getV2(), new Vertex(10,10));
+		LineObject bottom3= new LineObject(left1.getV2(), new Vertex(0,10));
+		left2= new LineObject(bottom3.getV2(), top1.getV1());
+		
+		pTDownPerim.add(top1);
+		pTDownPerim.add(right1);
+		pTDownPerim.add(bottom1);
+		pTDownPerim.add(right3);
+		pTDownPerim.add(bottom2);
+		pTDownPerim.add(left1);
+		pTDownPerim.add(bottom3);
+		pTDownPerim.add(left2);
+		
+		PipeConnector pTDown= new PipeConnector(new Obstacles(pTDownPerim), gameWidth/5- 50, gameHeight/3);
+		pipeConnectors.add(pTDown);
+		
+		PipeConnectorSwitch pTDownSwitch= new PipeConnectorSwitch((sgeneric.translate(gameWidth/5*2 + gameWidth/12,0)).getOutlines(), pTDown);
+		pipeSwitches.add(pTDownSwitch);
+		
+		p1= new Pipe(pTDownSwitch,pTRightSwitch);
+		p1.getPipeSwitches().add(pTDownSwitch);
+		p1.getPipeSwitches().add(pTRightSwitch);
+		pTDownSwitch.getPipes().add(p1);
+		pTRightSwitch.getPipes().add(p1);
+		pipeList.add(p1);
+		
+		p2= new Pipe(watersource, pTDownSwitch);
+		p2.getPipeSwitches().add(watersource);
+		p2.getPipeSwitches().add(pTDownSwitch);
+		watersource.getPipes().add(p1);
+		pTDownSwitch.getPipes().add(p1);
+		pipeList.add(p2);
+		
+		
 		
 		
 		

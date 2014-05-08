@@ -123,38 +123,44 @@ public class Pipe extends Switch
 	
 	public void checkFull(ArrayList<PipeConnectorSwitch> ps)
 	{
+		
 		ArrayList<PipeConnectorSwitch> k= new ArrayList<PipeConnectorSwitch>();
 		for(int i=0; i< ps.size(); i++)
 		{
+			
 			for(int j=0;j< pipeSwitches.size(); j++)
 			{
 				if(ps.get(i).equals(pipeSwitches.get(j)))
 					k.add(ps.get(i));
 			}
 		}
-		boolean full=true;
+		
+		boolean full=false;
 		for(int i=0; i< k.size(); i++)
 		{
-			if(k.get(i).getContacted()==false)
-				full=false;
+			if(k.get(i).getContacted()==true)
+			{
+				full=true;
+				//System.out.println("here");
+			}
 		}
 		if(full==true)
 		{
+			
 			for(int i=0; i< k.size(); i++)
 			{
-				if(k.get(i).getSetToFill()==true)
+				if(k.get(i).isConnectedToSource()==true)
 				{
-					//System.out.print(k.get(i) + " : ");
 					setColor(Color.cyan);
 					startFill=true;
 				}
 			}
-			//System.out.println();
 			if(getColor().equals(Color.cyan))
 			{
 				for(int i=0; i< k.size(); i++)
 				{
-					k.get(i).setSetToFill(true);
+					if(k.get(i).getContacted()==true)
+						k.get(i).setSetToFill(true);
 				}
 			}
 			else
@@ -176,7 +182,6 @@ public class Pipe extends Switch
 				{
 					if(k.get(i).getContacted()==false)
 					{
-						//System.out.println("here");
 						k.get(i).setSetToFill(false);
 					}
 				}
