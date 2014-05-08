@@ -149,22 +149,33 @@ public class Pipe extends Switch
 			
 			for(int i=0; i< k.size(); i++)
 			{
-				if(k.get(i).isConnectedToSource()==true)
-				{
-					setColor(Color.cyan);
-					startFill=true;
-				}
+				if(k.get(i).getContacted()==true)
+					if(k.get(i).isConnectedToSource()==true)
+					{
+						setColor(Color.cyan);
+						startFill=true;
+					}
 			}
 			if(getColor().equals(Color.cyan))
 			{
 				for(int i=0; i< k.size(); i++)
 				{
 					if(k.get(i).getContacted()==true)
-						k.get(i).setSetToFill(true);
+					{
+						if(!(k.get(i).isConnectedToSource()))
+						{
+							startFill=false;
+							setColor(new Color(50,50,50));
+						}
+					}
+						
 				}
 			}
 			else
+			{
 				setColor(new Color(50,50,50));
+				startFill=false;
+			}
 			
 			
 		}
@@ -180,10 +191,12 @@ public class Pipe extends Switch
 			{
 				if(!(k.get(i).getSymbol().equals(fauxp)))
 				{
-					if(k.get(i).getContacted()==false)
-					{
-						k.get(i).setSetToFill(false);
-					}
+						if(!(k.get(i).isConnectedToSource()))
+						{
+							setColor(new Color(50,50,50));	
+							startFill=false;
+						}
+					
 				}
 			}
 			startFill=false;

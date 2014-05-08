@@ -102,6 +102,8 @@ public class PipeConnectorSwitch extends Switch {
 		}
 		else
 		{
+			if(getContacted()==false)
+				return false;
 			for(int i=0; i<getPipes().size(); i++)
 			{
 				Pipe p= getPipes().get(i);

@@ -74,6 +74,20 @@ public class LevelFive extends Level {
 		 * that will change.
 		 */
 		
+		ArrayList<LineObject> platformbperimeter= new ArrayList<LineObject>();
+		LineObject platform1Topb= new LineObject(0, gameHeight-20, gameWidth, gameHeight-20);
+		LineObject platform1SideLb= new LineObject(0,gameHeight-20, 0, gameHeight);
+		LineObject platform1Bottomb= new LineObject(0, gameHeight, gameWidth, gameHeight);
+		LineObject platform1SideRb= new LineObject(gameWidth, gameHeight-20, gameWidth, gameHeight);
+		
+		platformbperimeter.add(platform1Topb);
+		platformbperimeter.add(platform1SideRb);
+		platformbperimeter.add(platform1Bottomb);
+		platformbperimeter.add(platform1SideLb);
+		
+		Obstacles Platformb1= new Obstacles(platformbperimeter);
+		obstacleList.add(Platformb1);
+		
 		ArrayList<LineObject> platform1perimeter= new ArrayList<LineObject>();
 		LineObject platform1Top= new LineObject(0, gameHeight-4*gameHeight/5, gameWidth/5, gameHeight-4*gameHeight/5);
 		LineObject platform1SideL= new LineObject(0,gameHeight-4*gameHeight/5, 0, gameHeight-4*gameHeight/5 + 20);
