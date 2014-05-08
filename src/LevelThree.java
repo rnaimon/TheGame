@@ -277,9 +277,10 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		PipeConnectorSwitch pTRightSwitch= new PipeConnectorSwitch((sgeneric.translate(gameWidth/5*2 + gameWidth/12,gameHeight/2)).getOutlines(), pTRight);
 		pipeSwitches.add(pTRightSwitch);
 		
-		p1= new Pipe(pTUpSwitch,pTRightSwitch);
-		p1.getPipeSwitches().add(pTUpSwitch);
+		p1= new Pipe(pTRightSwitch,pTUpSwitch);
 		p1.getPipeSwitches().add(pTRightSwitch);
+		p1.getPipeSwitches().add(pTUpSwitch);
+		
 		pipeList.add(p1);
 		
 		
