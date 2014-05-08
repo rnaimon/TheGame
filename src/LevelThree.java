@@ -188,24 +188,12 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		
 		PipeConnectorSwitch pipeDownSwitch= new PipeConnectorSwitch((sgeneric.translate(0,gameHeight/2)).getOutlines(), pipeConnectors.get(0));
 		pipeSwitches.add(pipeDownSwitch);
-		PipeConnectorSwitch pipeDownSwitch2= new PipeConnectorSwitch((sgeneric.translate(0,50)).getOutlines(), pipeConnectors.get(0));
-		pipeSwitches.add(pipeDownSwitch2);
-		if(pipeDownSwitch2.getContacted()==false)
-			pipeDownSwitch2.changeContactStatus();
 		
-		System.out.println(pipeDownSwitch2.getOutlines().size());
-		Pipe p0= new Pipe(watersource, pipeDownSwitch2);
+		Pipe p0= new Pipe(watersource, pipeDownSwitch);
 		p0.getPipeSwitches().add(watersource);
-		p0.getPipeSwitches().add(pipeDownSwitch2);
-		pipeList.add(p0);
-		watersource.getPipes().add(pipeList.get(0));
-		pipeDownSwitch2.getPipes().add(pipeList.get(0));
-		
-		p0= new Pipe(pipeDownSwitch2, pipeDownSwitch);
-		p0.getPipeSwitches().add(pipeDownSwitch2);
 		p0.getPipeSwitches().add(pipeDownSwitch);
 		pipeList.add(p0);
-		pipeDownSwitch2.getPipes().add(p0);
+		watersource.getPipes().add(p0);
 		pipeDownSwitch.getPipes().add(p0);
 		
 		
