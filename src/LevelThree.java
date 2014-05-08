@@ -29,8 +29,6 @@ public class LevelThree extends Level implements LevelTwoInterface {
 	private Player player;
 	private int WALL_SIZE=3;
 	int pipelength=40;
-	private Item dartgun;
-	private ArrayList<Projectile> darts;
 	ArrayList<Switch> switchList;
 	ArrayList<Pipe> pipeList;
 	private ArrayList<Obstacles> hiddenRamps;
@@ -245,7 +243,7 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		PipeConnector pipeTUpp= new PipeConnector(pipeTUp, gameWidth/2, gameHeight-20);
 		pipeConnectors.add(pipeTUpp);
 		
-		PipeConnectorSwitch pTUpSwitch = new PipeConnectorSwitch((sgeneric.translate(gameWidth/5*2,gameHeight-20-50)).getOutlines(), pipeTUpp);
+		PipeConnectorSwitch pTUpSwitch = new PipeConnectorSwitch((sgeneric.translate(gameWidth/5*2 + gameWidth/12,gameHeight-20-50)).getOutlines(), pipeTUpp);
 		pipeSwitches.add(pTUpSwitch);
 		
 		Pipe p1= new Pipe(pBLSwitch, pTUpSwitch);
@@ -614,11 +612,6 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		
 	
 		return hidden;
-	}
-	
-	public ArrayList<Projectile> getDarts()
-	{
-		return darts;
 	}
 	
 	/***
