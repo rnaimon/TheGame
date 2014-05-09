@@ -205,28 +205,42 @@ public class Player implements PlayerInterface
 							nearObstacles.add(l);
 						}
 					}
+					//for(int i=0;i<levelPlat)
 				}
 				
 				boolean throughPlatform=false;
 				double slope=0;
 				double constant=0;
+				boolean vertical=false;
 				for(int i=0; i< nearObstacles.size(); i++)
 				{
-					
-					if((getCentY() + radius - speed_y*2/3)<= (getCentX()*nearObstacles.get(i).getSlope()/100 + nearObstacles.get(i).getConstant()/100+3) 
-							&& (getCentY() + radius + speed_y*2/3)>= (getCentX()*nearObstacles.get(i).getSlope()/100 + nearObstacles.get(i).getConstant()/100-3))
+					if(nearObstacles.get(i).getOrientation()=='c')
 					{
-						throughPlatform=true;
-						slope= nearObstacles.get(i).getSlope();
-						constant= nearObstacles.get(i).getConstant();
-						break;
+						if((getCentY() + radius - speed_y*2/3)<= (getCentX()*nearObstacles.get(i).getSlope()/100 + nearObstacles.get(i).getConstant()/100+3) 
+								&& (getCentY() + radius + speed_y*2/3)>= (getCentX()*nearObstacles.get(i).getSlope()/100 + nearObstacles.get(i).getConstant()/100-3))
+						{
+							throughPlatform=true;
+							slope= nearObstacles.get(i).getSlope();
+							constant= nearObstacles.get(i).getConstant();
+						}
+					}
+					else
+					{
+						if(getCentX()>nearObstacles.get(i).getV1().getXCoord())
+						{
+							if((getCentX() - radius - speed_x)<nearObstacles.get(i).getV1().getXCoord())
+							{
+								vertical=true;
+							}
+									
+						}
 					}
 				}
 				
 				if(throughPlatform==false)
 				{
-					
-					setCentX((getCentX()-speed_x));
+					if(vertical!=true)
+						setCentX((getCentX()-speed_x));
 				}
 				else
 				{
