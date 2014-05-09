@@ -328,9 +328,81 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		p2= new Pipe(watersource, pTDownSwitch);
 		p2.getPipeSwitches().add(watersource);
 		p2.getPipeSwitches().add(pTDownSwitch);
-		watersource.getPipes().add(p1);
-		pTDownSwitch.getPipes().add(p1);
+		watersource.getPipes().add(p2);
+		pTDownSwitch.getPipes().add(p2);
 		pipeList.add(p2);
+		
+		ArrayList<LineObject> pTRCornerperim= new ArrayList<LineObject>();
+		top1= new LineObject(0,0,30,0);
+		right1= new LineObject(top1.getV2(), new Vertex(30,30));
+		bottom1= new LineObject(right1.getV2(), new Vertex(20,30));
+		left1= new LineObject(bottom1.getV2(), new Vertex(20,10));
+		bottom2= new LineObject(left1.getV2(), new Vertex(0,10));
+		left2= new LineObject(bottom2.getV2(), top1.getV1());
+		
+		pTRCornerperim.add(top1);
+		pTRCornerperim.add(right1);
+		pTRCornerperim.add(bottom1);
+		pTRCornerperim.add(left1);
+		pTRCornerperim.add(bottom2);
+		pTRCornerperim.add(left2);
+		
+		PipeConnector pTopRight= new PipeConnector(new Obstacles(pTRCornerperim), gameWidth/5*4, 100);
+		pipeConnectors.add(pTopRight);
+
+		PipeConnectorSwitch pTopRightSwitch= new PipeConnectorSwitch((sgeneric.translate(gameWidth-50,0)).getOutlines(), pTopRight);
+		pipeSwitches.add(pTopRightSwitch);
+		
+		p1= new Pipe(pTDownSwitch,pTopRightSwitch);
+		p1.getPipeSwitches().add(pTDownSwitch);
+		p1.getPipeSwitches().add(pTopRightSwitch);
+		pTDownSwitch.getPipes().add(p1);
+		pTopRightSwitch.getPipes().add(p1);
+		pipeList.add(p1);
+		
+		
+		ArrayList<LineObject> pTLeftperim= new ArrayList<LineObject>();
+		top1= new LineObject(20,0,30,0);
+		right1= new LineObject(top1.getV2(), new Vertex(30,30));
+		bottom1= new LineObject(right1.getV2(), new Vertex(20,30));
+		left1= new LineObject(bottom1.getV2(), new Vertex(20,20));
+		bottom2= new LineObject(left1.getV2(), new Vertex(0,20));
+		left2= new LineObject(bottom2.getV2(), new Vertex(0,10));
+		top2= new LineObject(left2.getV2(), new Vertex(20,10));
+		LineObject left3= new LineObject(top2.getV2(), top1.getV1());
+		
+		pTLeftperim.add(top1);
+		pTLeftperim.add(right1);
+		pTLeftperim.add(bottom1);
+		pTLeftperim.add(left1);
+		pTLeftperim.add(bottom2);
+		pTLeftperim.add(left2);
+		pTLeftperim.add(top2);
+		pTLeftperim.add(left3);
+		
+		PipeConnector pTLeft= new PipeConnector(new Obstacles(pTLeftperim), gameWidth/2 + 20, gameHeight-100);
+		pipeConnectors.add(pTLeft);
+
+		PipeConnectorSwitch pTLeftSwitch= new PipeConnectorSwitch((sgeneric.translate(gameWidth-50,gameHeight/2)).getOutlines(), pTLeft);
+		pipeSwitches.add(pTLeftSwitch);
+		
+		p1= new Pipe(pTopRightSwitch,pTLeftSwitch);
+		p1.getPipeSwitches().add(pTopRightSwitch);
+		p1.getPipeSwitches().add(pTLeftSwitch);
+		pTopRightSwitch.getPipes().add(p1);
+		pTLeftSwitch.getPipes().add(p1);
+		pipeList.add(p1);
+		
+		Pipe p4= new Pipe(pTRightSwitch,pTLeftSwitch);
+		p4.getPipeSwitches().add(pTRightSwitch);
+		p4.getPipeSwitches().add(pTLeftSwitch);
+		pTRightSwitch.getPipes().add(p4);
+		pTLeftSwitch.getPipes().add(p4);
+		pipeList.add(p4);
+		
+		
+		
+		
 		
 		
 		

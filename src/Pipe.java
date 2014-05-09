@@ -141,41 +141,53 @@ public class Pipe extends Switch
 			if(k.get(i).getContacted()==true)
 			{
 				full=true;
-				//System.out.println("here");
 			}
 		}
 		if(full==true)
 		{
 			
-			for(int i=0; i< k.size(); i++)
+			ArrayList<Pipe> p= new ArrayList<Pipe>();
+			p.add(this);
+			ArrayList<PipeConnectorSwitch> dummy=new ArrayList<PipeConnectorSwitch>();
+			for(int i= 0; i< pipeSwitches.size(); i++)
 			{
-				if(k.get(i).getContacted()==true)
-					if(k.get(i).isConnectedToSource()==true)
-					{
-						setColor(Color.cyan);
-						startFill=true;
-					}
+				PipeConnectorSwitch c= new PipeConnectorSwitch(pipeSwitches.get(i).getOutlines(),pipeSwitches.get(i).getSymbol());
+				dummy.add(c);
 			}
-			if(getColor().equals(Color.cyan))
+			if(checkLineage(p,dummy)==true)
 			{
-				for(int i=0; i< k.size(); i++)
-				{
-					if(k.get(i).getContacted()==true)
-					{
-						if(!(k.get(i).isConnectedToSource()))
-						{
-							startFill=false;
-							setColor(new Color(50,50,50));
-						}
-					}
-						
-				}
+				setColor(Color.cyan);
+				startFill=true;
 			}
 			else
 			{
 				setColor(new Color(50,50,50));
 				startFill=false;
 			}
+			/*
+			
+			if(getColor().equals(Color.cyan))
+			{
+				boolean fake=false;
+				for(int i=0; i< k.size(); i++)
+				{
+					if(k.get(i).getContacted()==true)
+					{
+						if((k.get(i).isConnectedToSource()==true))
+						{
+							fake=true;
+						}
+					}
+						
+				}
+				if(fake=false)
+				{
+					setColor(new Color(50,50,50));
+					startFill=false;
+				}
+			}
+			*/
+			
 			
 			
 		}
@@ -191,11 +203,9 @@ public class Pipe extends Switch
 			{
 				if(!(k.get(i).getSymbol().equals(fauxp)))
 				{
-						if(!(k.get(i).isConnectedToSource()))
-						{
 							setColor(new Color(50,50,50));	
 							startFill=false;
-						}
+						
 					
 				}
 			}
@@ -204,6 +214,64 @@ public class Pipe extends Switch
 		}
 		
 			
+	}
+	public boolean checkLineage(ArrayList<Pipe> checkedPipes, ArrayList<PipeConnectorSwitch> checkedSwitches)
+	{
+		for(int i=0; i<checkedPipes.size(); i++)
+		{
+			
+			for(int j=0; j<checkedPipes.get(i).getPipeSwitches().size(); j++)
+			{
+				boolean newSwitch=true;
+				for(int w=0; w<checkedSwitches.size(); w++)
+				{
+					if(checkedPipes.get(i).getPipeSwitches().equals(checkedSwitches.get(j))==true)
+					{
+						newSwitch=false;
+					}
+					
+				}
+				if(newSwitch==true)
+				{
+					checkedSwitches.add(checkedPipes.get(i).getPipeSwitches().get(j));
+				}
+			}
+			
+		}
+		for(int i=0; i<checkedSwitches.size(); i++)
+		{
+			if(checkedSwitches.get(i).isWaterSource()==true)
+				return true;
+		}
+		
+		for(int i=0; i<checkedSwitches.size(); i++)
+		{
+			if(checkedSwitches.get(i).getContacted())
+			{
+				for(int j=0;j<checkedSwitches.get(i).getPipes().size(); j++)
+				{
+					boolean alreadyPiped=false;
+					for(int w=0; w< checkedPipes.size(); w++)
+					{
+						if(checkedSwitches.get(i).getPipes().get(j).equals(checkedPipes.get(w)))
+						{
+							alreadyPiped=true;
+						}
+					}
+					if(alreadyPiped==true)
+					{
+						continue;
+					}
+					else
+					{
+						checkedPipes.add(checkedSwitches.get(i).getPipes().get(j));
+						return checkLineage(checkedPipes, checkedSwitches);
+					}
+				}
+			}
+		}
+		return false;
+	
 	}
 	public boolean getStartFill()
 	{

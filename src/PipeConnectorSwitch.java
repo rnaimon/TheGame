@@ -96,7 +96,6 @@ public class PipeConnectorSwitch extends Switch {
 	{
 		if(isWaterSource==true)
 		{
-			//System.out.println("here");
 			return true;
 			
 		}
@@ -104,35 +103,11 @@ public class PipeConnectorSwitch extends Switch {
 		{
 			if(getContacted()==false)
 				return false;
-			for(int i=0; i<getPipes().size(); i++)
-			{
-				Pipe p= getPipes().get(i);
-				for(int j=0; j<p.getPipeSwitches().size(); j++)
-				{
-					if(p.getPipeSwitches().get(j).equals(this))
-					{
-						if(getContacted()==false)
-							return false;
-						else
-							continue;
-					}
-					else 
-					{
-						if(p.getPipeSwitches().get(j).getContacted()==false)
-						{
-							return false;
-						}
-						else
-						{
-							return p.getPipeSwitches().get(j).isConnectedToSource();
-						}
-					}
-					
-				}
-			}
+			
 		}
 		return false;
 	}
+	
 	@Override
 	public void drawSwitch(Graphics2D g)
 	{
