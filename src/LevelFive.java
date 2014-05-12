@@ -19,6 +19,7 @@ public class LevelFive extends Level {
 	private int timer;
 	private int amountWater;
 	private int breath;
+	private LifePreserver LP1;
 	
 	/***
 	 * This is level five, which features the player trying to get above the rising water in the set amount of 
@@ -40,6 +41,9 @@ public class LevelFive extends Level {
 		setObstacleList(setUpEnvironment());
 		player.setPlatforms(getObstacleList());
 		levelComplete=false;
+		
+		LP1 = new LifePreserver(super.getGameWidth()-200, super.getGameHeight() - amountWater*2, 3);
+
 		
 		breath = 4000;
 
@@ -86,7 +90,8 @@ public class LevelFive extends Level {
 		platformbperimeter.add(platform1SideLb);
 		
 		Obstacles Platformb1= new Obstacles(platformbperimeter);
-		obstacleList.add(Platformb1);
+		
+		//obstacleList.add(Platformb1);
 		
 		ArrayList<LineObject> platform1perimeter= new ArrayList<LineObject>();
 		LineObject platform1Top= new LineObject(0, gameHeight-4*gameHeight/5, gameWidth/5, gameHeight-4*gameHeight/5);
@@ -109,7 +114,7 @@ public class LevelFive extends Level {
 		Obstacles Platform3 = Platform1.translate(700, 0);
 		obstacleList.add(Platform3);
 		
-		Obstacles Platform4 = Platform1.translate(0, 70);
+	//	Obstacles Platform4 = Platform1.translate(0, 70);
 	//	obstacleList.add(Platform4);
 		
 		Obstacles Platform5 = Platform1.translate(350, 70);
@@ -157,6 +162,17 @@ public class LevelFive extends Level {
 		Obstacles Platform19 = Platform1.translate(350, 350);
 		obstacleList.add(Platform19);
 
+		
+		/* The following will eventually turn into a life preserver.*/
+		
+		ArrayList<LineObject> lifePreserver = new ArrayList<LineObject>();
+		LineObject platform1Top= new LineObject(0, gameHeight-4*gameHeight/5, gameWidth/5, gameHeight-4*gameHeight/5);
+		LineObject platform1SideL= new LineObject(0,gameHeight-4*gameHeight/5, 0, gameHeight-4*gameHeight/5 + 20);
+		LineObject platform1Bottom= new LineObject(0, gameHeight-4*gameHeight/5 + 20, gameWidth/5, gameHeight-4*gameHeight/5 + 20);
+		LineObject platform1SideR= new LineObject(gameWidth/5, gameHeight-4*gameHeight/5, gameWidth/5, gameHeight-4*gameHeight/5 + 20);
+		
+		
+		
 		return obstacleList;
 
 	}
@@ -293,6 +309,12 @@ public class LevelFive extends Level {
 		}
 		
 		
+		
+		
+		g.drawImage(LP1.getImage(), (int)LP1.getX(), (int)LP1.getY(), null);
+		LP1.doMove(gameHeight - amountWater*2);
+		
+		
 		if(touchingWater()) {
 			Font f2 = new Font("Arial", Font.PLAIN, 50);
 			g.setFont(f2);
@@ -316,6 +338,8 @@ public class LevelFive extends Level {
 		}
 		else
 			breath = 4000;
+		
+
 		
 		
 		

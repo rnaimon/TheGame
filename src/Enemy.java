@@ -192,8 +192,7 @@ public class Enemy implements EnemyInterface {
 	}
 		
 	/***
-	 * This method draws the Enemy object on the canvas. Currently, it's a rectangle, and should 
-	 * probably be a circle.
+	 * This method draws the Enemy object on the canvas, plus adds the face.
 	 */
 	public void draw(Graphics2D g) {
 		

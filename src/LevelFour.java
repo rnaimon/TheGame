@@ -411,10 +411,12 @@ public class LevelFour extends Level {
 	 */
 	public void manageEnemies() {
 		
-		int numEnemies = enemies.size();
 		
-		for (int x = 0; x < numEnemies; x++) {
-			
+		int numEnemies = enemies.size();
+		int x = 0;
+				
+		do {
+			numEnemies = enemies.size();
 			
 			Enemy e = enemies.get(x);
 
@@ -434,8 +436,10 @@ public class LevelFour extends Level {
 				
 			}
 			
-		}
-
+			x++;
+		} while(x < numEnemies);
+		
+	
 		
 	}
 		
