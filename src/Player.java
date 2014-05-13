@@ -213,16 +213,21 @@ public class Player implements PlayerInterface
 					{
 						LineObject lr= levelPlatforms.get(i).getOutlines().get(1);
 						LineObject lf= levelPlatforms.get(i).getOutlines().get(3);
+						if(lr.getOrientation()!= 'v')
+							System.out.println("OhNo");
 						if(lf.getV1().getXCoord()<lr.getV1().getXCoord())
 						{
-							if(getCentX() + radius <lf.getV1().getXCoord() || getCentX() - radius >lr.getV1().getXCoord())
+							if(getCentX() + radius <=lf.getV1().getXCoord() || getCentX() - radius >= lr.getV1().getXCoord())
 							{
-								if(getCentY() + radius > lf.getV1().getYCoord() && getCentY() - radius < lf.getV2().getYCoord())
-								{
-									System.out.println("here");
-									nearObstacles.add(lf);
-									nearObstacles.add(lr);
-								}
+								//System.out.println("here");
+								//if(lr.getV1().getYCoord()<lr.getV2().getYCoord())
+								//{
+									if(getCentY() >= lf.getV1().getYCoord() && getCentY() <= lf.getV2().getYCoord())
+									{
+										nearObstacles.add(lf);
+										nearObstacles.add(lr);
+									}
+								//}
 							}
 						}	
 						else
@@ -257,9 +262,9 @@ public class Player implements PlayerInterface
 					}
 					else
 					{
-						if(getCentX()>nearObstacles.get(i).getV1().getXCoord())
+						if(getCentX() > nearObstacles.get(i).getV1().getXCoord())
 						{
-							if((getCentX() - radius - speed_x)<nearObstacles.get(i).getV1().getXCoord()-25)
+							if((getCentX() - radius - speed_x*2/3 + 5) <= nearObstacles.get(i).getV1().getXCoord())
 							{
 								vertical=true;
 							}
@@ -271,7 +276,11 @@ public class Player implements PlayerInterface
 				if(throughPlatform==false)
 				{
 					if(vertical!=true)
+					{
+						System.out.println("true");
 						setCentX((getCentX()-speed_x));
+						vertical=false;
+					}
 				}
 				else
 				{
