@@ -177,7 +177,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 		player = new Player(30, 10, 0, new Color(0, 0, 200));
 		
 		levelList= new ArrayList<Object>();
-		LevelFive lv5 = new LevelFive(player, getWidth(), getHeight());
+		//LevelFive lv5 = new LevelFive(player, getWidth(), getHeight());
 		LevelFour lv4= new LevelFour(player, getWidth(), getHeight());
 		LevelThree lv3= new LevelThree(player, getWidth(), getHeight());
 		LevelTwo lv2= new LevelTwo(player, getWidth(), getHeight());
@@ -186,7 +186,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 		levelList.add(lv2);
 		levelList.add(lv3);
 		levelList.add(lv4);
-		levelList.add(lv5);
+		//levelList.add(lv5);
 		if(levelList.get(0)!=null)
 			currentLevel= (LevelThree)(levelList.get(2));
 		start();

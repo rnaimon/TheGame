@@ -205,9 +205,40 @@ public class Player implements PlayerInterface
 							nearObstacles.add(l);
 						}
 					}
-					//for(int i=0;i<levelPlat)
+					
 				}
-				
+				if(levelPlatforms!=null)
+				{
+					for(int i=0;i<levelPlatforms.size();i++)
+					{
+						LineObject lr= levelPlatforms.get(i).getOutlines().get(1);
+						LineObject lf= levelPlatforms.get(i).getOutlines().get(3);
+						if(lf.getV1().getXCoord()<lr.getV1().getXCoord())
+						{
+							if(getCentX() + radius <lf.getV1().getXCoord() || getCentX() - radius >lr.getV1().getXCoord())
+							{
+								if(getCentY() + radius > lf.getV1().getYCoord() && getCentY() - radius < lf.getV2().getYCoord())
+								{
+									System.out.println("here");
+									nearObstacles.add(lf);
+									nearObstacles.add(lr);
+								}
+							}
+						}	
+						else
+						{
+							if(getCentX()<lr.getV1().getXCoord() || getCentX()>lf.getV1().getXCoord())
+							{
+							
+								if(getCentY()>lr.getV1().getYCoord() && getCentY()<lr.getV2().getYCoord())
+								{
+									nearObstacles.add(lf);
+									nearObstacles.add(lr);
+								}
+							}	
+						}
+					}
+				}
 				boolean throughPlatform=false;
 				double slope=0;
 				double constant=0;
@@ -228,7 +259,7 @@ public class Player implements PlayerInterface
 					{
 						if(getCentX()>nearObstacles.get(i).getV1().getXCoord())
 						{
-							if((getCentX() - radius - speed_x)<nearObstacles.get(i).getV1().getXCoord())
+							if((getCentX() - radius - speed_x)<nearObstacles.get(i).getV1().getXCoord()-25)
 							{
 								vertical=true;
 							}
