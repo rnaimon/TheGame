@@ -15,6 +15,7 @@ public class Cage
 	public Cage()
 	{
 		laserGrid= new ArrayList<LineObject>();
+		color= new Color(150, 25,25);
 	}
 	public Color getColor()
 	{

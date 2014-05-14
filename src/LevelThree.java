@@ -151,12 +151,6 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		Switch sgeneric = new Switch(switch1);
 		
 		
-		// This level has a bunch of switches, so here they are, after the end goal.
-		// There should be six extra switches in this level, making seven total.
-		
-		//New note: I'm ordering the switches in the order they should ideally be 
-		// hit, while playing this level, instead of by position. Makes more sense to me,
-		// hope that's ok.
 		
 		ArrayList<LineObject> faux= new ArrayList<LineObject>();
 		LineObject f1= new LineObject(0,0,1,1);
@@ -170,9 +164,7 @@ public class LevelThree extends Level implements LevelTwoInterface {
 			watersource.changeContactStatus();
 		
 		watersource.setSetToFill(true);
-		//System.out.println(watersource.isConnectedToSource());
 		watersource.setWaterSource(true);
-		//System.out.println(watersource.isConnectedToSource());
 		
 		ArrayList<LineObject> pipeDownPerim= new ArrayList<LineObject>();
 		LineObject top1= new LineObject(0,0,15,0);
@@ -216,7 +208,7 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		pipeBLeftPerim.add(right2);
 		
 		pipeC= new Obstacles(pipeBLeftPerim);
-		PipeConnector pipeBLeft= new PipeConnector(pipeC, gameWidth/2, gameHeight-20);
+		PipeConnector pipeBLeft= new PipeConnector(pipeC, gameWidth/5 + 20, gameHeight-pipelength-20);
 		
 		pipeConnectors.add(pipeBLeft);
 		
@@ -536,7 +528,7 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		//FontMetrics fm = g.getFontMetrics();
 		Font f = new Font("Arial", Font.PLAIN, 20);
 		g.setFont(f);
-		g.drawString("Press 'Z' to Pick up and drop water pipe connectors! Fill the network to move ahead!", gameWidth / 17, gameHeight/10);
+		g.drawString("Press 'Z' to Pick up and drop water pipe connectors!  \n Fill the network to remove the lasers and move ahead! \n Press 'r' to reset", gameWidth / 17, gameHeight/10);
 		
 		
 		if(pipeList!=null)
@@ -607,9 +599,6 @@ public class LevelThree extends Level implements LevelTwoInterface {
 				{
 					g.fillPolygon(p);
 				}
-				g.setColor(Color.green);
-				if(i!=0)
-					g.setColor(Color.white);
 				getPipeSwitchList().get(i).drawSwitch(g);
 			}
 		}
@@ -631,10 +620,7 @@ public class LevelThree extends Level implements LevelTwoInterface {
 				getSwitchList().get(i).drawSwitch(g);
 			}
 		}
-		if(getCage().getGrid()!=null)
-		{
-			getCage().draw(g);
-		}
+		
 		
 		if(getObstacleList()!=null)
 		{
@@ -681,6 +667,12 @@ public class LevelThree extends Level implements LevelTwoInterface {
 				g.setColor(Color.cyan);
 				g.drawImage(pipeConnectors.get(i).getImage(), null, pipeConnectors.get(i).getStartX(), pipeConnectors.get(i).getStartY());
 			}
+		}
+		setUpCage();
+		if(getCage().getGrid()!=null)
+		{
+			System.out.println(getCage().getGrid().size());
+			getCage().draw(g);
 		}
 		player.setPlatforms(totalObs);
 		
