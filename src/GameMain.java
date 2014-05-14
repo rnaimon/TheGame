@@ -184,7 +184,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener, MouseList
 		player = new Player(30, 10, 0, new Color(0, 0, 200));
 		
 		levelList= new ArrayList<Object>();
-		//LevelFive lv5 = new LevelFive(player, getWidth(), getHeight());
+		LevelFive lv5 = new LevelFive(player, getWidth(), getHeight());
 		LevelFour lv4= new LevelFour(player, getWidth(), getHeight());
 		LevelThree lv3= new LevelThree(player, getWidth(), getHeight());
 		LevelTwo lv2= new LevelTwo(player, getWidth(), getHeight());
@@ -196,9 +196,9 @@ public class GameMain extends Canvas implements Runnable, KeyListener, MouseList
 		levelList.add(lv2);
 		levelList.add(lv3);
 		levelList.add(lv4);
-		//levelList.add(lv5);
+		levelList.add(lv5);
 		if(levelList.get(0)!=null)
-			currentLevel= (LevelThree)(levelList.get(2));
+			currentLevel= (LevelOne)(levelList.get(0));
 		start();
 
 	}
@@ -238,9 +238,9 @@ public class GameMain extends Canvas implements Runnable, KeyListener, MouseList
 			currentLevel = (Level)menu;
 			drawBoard(g);
 			if(((Level)(currentLevel)).checkComplete()) {
-				System.out.println("menu done YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
+				//System.out.println("menu done YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
 				gameState = STATE_PLAYING;
-				currentLevel = (LevelThree)(levelList.get(2));
+				currentLevel = (LevelOne)(levelList.get(0));
 			}
 			
 		break;
@@ -376,8 +376,10 @@ public class GameMain extends Canvas implements Runnable, KeyListener, MouseList
 				break;
 				//if the game is over because the player won
 		case STATE_DONE:
-			g.setColor(Color.cyan);
-			g.drawString("YOU BEAT THE GAME!!", 200, 100);
+			Font f3 = new Font("Candara", Font.PLAIN, 40);
+			g.setFont(f3);
+			g.setColor(Color.white);
+			g.drawString("You have escaped with your marble intact!", 100, getWidth()/24);
 			break;
 
 		}
