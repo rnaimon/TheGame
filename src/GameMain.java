@@ -17,6 +17,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
@@ -45,7 +46,7 @@ import java.util.*;
  * @author Rebecca Naimon and Michael Katz
  *
  */
-public class GameMain extends Canvas implements Runnable, KeyListener 
+public class GameMain extends Canvas implements Runnable, KeyListener, MouseListener 
 {
 
 	//entities created here
@@ -237,7 +238,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 			currentLevel = (Level)menu;
 			drawBoard(g);
 			if(((Level)(currentLevel)).checkComplete()) {
-				System.out.println("menu done");
+				System.out.println("menu done YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
 				gameState = STATE_PLAYING;
 				currentLevel = (LevelOne)(levelList.get(0));
 			}
@@ -537,7 +538,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 
 	public void mouseClicked(MouseEvent e) {
 		System.out.println("clicked");
-		//clickX = e.getX();
+		((StartMenu)(currentLevel)).setClicks(e.getX(), e.getY());
 		//clickY = e.getY();
 		
 	}

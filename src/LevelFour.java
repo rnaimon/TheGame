@@ -395,7 +395,7 @@ public class LevelFour extends Level {
 	 */
 	public void setUpEnemies() {
 		
-		int numEnemies = (int)(Math.random()*6 + 1);
+		int numEnemies = (int)(Math.random()*4 + 1);
 			
 		for (int x = 0; x < numEnemies; x++) {
 			createEnemy();

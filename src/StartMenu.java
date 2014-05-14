@@ -11,7 +11,7 @@ import javax.swing.*;
 
 
 
-public class StartMenu extends Level implements MouseListener{
+public class StartMenu extends Level {
 	
 	
 	private boolean levelComplete;
@@ -53,6 +53,11 @@ public class StartMenu extends Level implements MouseListener{
 		
 	}
 	
+	public void setClicks(int x, int y) {
+		clickX = x;
+		clickY = y;
+	}
+	
 	public void draw(Graphics2D g) {
 
 		Font f = new Font("Candara", Font.PLAIN, 200);
@@ -64,16 +69,20 @@ public class StartMenu extends Level implements MouseListener{
 		
 		g.drawString(name, width/2 - nameWidth/2, height/3);
 		
-		playRect = new Rectangle(160, 460, 235, 50);
+		playRect = new Rectangle(width/2-100, height/3+200, 235, 50);
 		GradientPaint grayscale = new GradientPaint((float)(playRect.getX()), (float)playRect.getY(), Color.DARK_GRAY, (float)(playRect.getX() + playRect.getWidth()/3*2), ((float)(playRect.getY())), Color.LIGHT_GRAY, true);
 		g.setPaint(grayscale);
 		g.fill(playRect);
+		g.setPaint(null);
+		g.setColor(Color.black);
 		
 		Font f2 = new Font("Candara", Font.PLAIN, 70);
-		g.setFont(f);
-		g.drawString("PLAY", playRect.x, playRect.y);
+		g.setFont(f2);
+		g.setColor(Color.black);
+		g.drawString("PLAY", playRect.x, playRect.y + playRect.height);
 		
 		if(playClicked()) {
+			levelComplete = true;
 			System.out.println("XXXXXXXXXXXXXXXXXXXXXXX");
 		}
 		
@@ -82,12 +91,20 @@ public class StartMenu extends Level implements MouseListener{
 		
 	}
 	
+	public boolean checkComplete() {
+		if(levelComplete == true) 
+			return true;
+		return false;
+			
+	}
+	
 	/***
 	 * Method to determine whether the play button was clicked.
 	 * @return the boolean of whether the button was clicked
 	 */
 	public boolean playClicked() {
-		
+		System.out.println("in play clicked");
+		System.out.println(playRect.x + " is x");
 		if(clickX >= playRect.x && clickX <= playRect.x + playRect.width && clickY >= playRect.y && clickY <= playRect.y + playRect.height) {
 			return true;
 		}
