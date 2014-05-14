@@ -16,6 +16,7 @@ import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
@@ -77,6 +78,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 	// there are two overall states: playing, and done 
 	public static final int STATE_PLAYING = 1; // state values
 	public static final int STATE_DONE = 2;
+	public static final int MENU = 0;
 
 	private int gameState; // current state
 
@@ -87,6 +89,10 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 	private int timer=1;
 	public static final Font SCORE_FONT = new Font("Lucida Console", Font.BOLD
 			& Font.ITALIC, 30);
+	
+	private StartMenu menu; 
+
+	
 	
 	// Loads background images (namely, the player image, for now at least)
 	private static BufferedImage IMAGE_BG = null;
@@ -182,6 +188,9 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 		LevelThree lv3= new LevelThree(player, getWidth(), getHeight());
 		LevelTwo lv2= new LevelTwo(player, getWidth(), getHeight());
 		LevelOne lv1=new LevelOne(player, getWidth(), getHeight());
+		
+		menu = new StartMenu(player, getWidth(), getHeight());
+		
 		levelList.add(lv1);
 		levelList.add(lv2);
 		levelList.add(lv3);
@@ -199,7 +208,8 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 	 * There is much more to be added, namely involving levels.
 	 */
 	public void start() {
-		gameState = STATE_PLAYING;
+		gameState = MENU;
+		//gameState = STATE_PLAYING;
 		
 		player.setSpeedX(5);
 
@@ -223,6 +233,17 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 		
 		switch (gameState) {
 		// if the game is happening, you can move and the game continues
+		case MENU:
+			currentLevel = (Level)menu;
+			drawBoard(g);
+			if(((Level)(currentLevel)).checkComplete()) {
+				System.out.println("menu done");
+				gameState = STATE_PLAYING;
+				currentLevel = (LevelOne)(levelList.get(0));
+			}
+			
+		break;
+		
 		case STATE_PLAYING:
 				if(((Level)(currentLevel)).checkComplete()==true)
 				{
@@ -479,7 +500,8 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 	private void drawSprites(Graphics2D g) {
 
 		// p1.draw(g);
-		player.draw(g);
+		if (((Level)(currentLevel)).getLevelNumber() > 0)
+			player.draw(g);
 /*		for (int i = 0; i < objects.size(); i++) {
 			objects.get(i).draw(g);
 		}
@@ -502,13 +524,49 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 		g.fillRect(0, 0, getWidth(), WALL_SIZE);
 		g.fillRect(0, getHeight() - WALL_SIZE, getWidth(), WALL_SIZE);
 		
-		ArrayList<Obstacles> thingsInLevel= ((Level)(currentLevel)).getObstacleList();
-		player.setPlatforms(thingsInLevel);
-		
-		((Level)(currentLevel)).draw(g);
+		System.out.println(((Level)(currentLevel)).getLevelNumber() + " is level num");
+		if (((Level)(currentLevel)).getLevelNumber() > 0) {
+			ArrayList<Obstacles> thingsInLevel= ((Level)(currentLevel)).getObstacleList();
+			player.setPlatforms(thingsInLevel);
+	
 
+		}
+		((Level)(currentLevel)).draw(g);
+			
 	}
 
+	public void mouseClicked(MouseEvent e) {
+		System.out.println("clicked");
+		//clickX = e.getX();
+		//clickY = e.getY();
+		
+	}
+
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+	
+	
+	
+	
 	// 
 	/***
 	 * Main method that creates the frame, sets the accessories at the top, and allows 
@@ -529,6 +587,8 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 		topPanel.setLayout(new BorderLayout());
 		
 		game.addKeyListener(game);
+		
+		game.addMouseListener(game);
 		
 		// Make sure program ends when window is closed
 		WindowAdapter d = new WindowAdapter() {
@@ -607,31 +667,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener
 	}
 
 	
-	/***
-	 * This method determines whether a projectile, which is an element that appears
-	 * multiple times in the game, is touching a switch, also an element that appears
-	 * throughout the game. 
-	 * @param dart is the Projectile object that is going to possibly hit a switch
-	 * @param switch1 is the Switch object that will change its contact status if hit
-	 * by a dart
-	 */
-	
-	/*
-	
-	 public void isProjectileTouchingSwitch(Projectile dart, Switch switch1) {
-	 
-		if(((dart.getTopX()+dart.getWidth()) >= switch1.getOutlines().get(0).getV2().getXCoord()) && dart.getSpeedX()>0) {
-			switch1.changeContactStatus();
-			dart.selfDestruct();
-		}
-		else if (((dart.getTopX()) <= switch1.getOutlines().get(0).getV1().getXCoord()) && dart.getSpeedX()<0) {
-			switch1.changeContactStatus();
-			dart.selfDestruct();
-		}
-		
-	}
-	*/
-	
+
 	
 	
 }
