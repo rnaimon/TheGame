@@ -52,6 +52,7 @@ public class Player implements PlayerInterface
 		centx=x;
 		centy=y;
 		color=c;
+		//speed_x=Toolkit.getDefaultToolkit().getScreenSize().width*2/300;
 		speed_x=5;
 		speed_y=0;
 		isGrounded=true;
@@ -219,26 +220,21 @@ public class Player implements PlayerInterface
 						{
 							if(getCentX() + radius <=lf.getV1().getXCoord() || getCentX() - radius >= lr.getV1().getXCoord())
 							{
-								//System.out.println("here");
-								//if(lr.getV1().getYCoord()<lr.getV2().getYCoord())
-								//{
 									if(getCentY() >= lf.getV1().getYCoord() && getCentY() <= lf.getV2().getYCoord())
 									{
-										nearObstacles.add(lf);
 										nearObstacles.add(lr);
 									}
-								//}
+								
 							}
 						}	
 						else
 						{
-							if(getCentX()<lr.getV1().getXCoord() || getCentX()>lf.getV1().getXCoord())
+							if(getCentX() + radius< lr.getV1().getXCoord() || getCentX() - radius >lf.getV1().getXCoord())
 							{
 							
-								if(getCentY()>lr.getV1().getYCoord() && getCentY()<lr.getV2().getYCoord())
+								if(getCentY()>=lr.getV1().getYCoord() && getCentY()<=lr.getV2().getYCoord())
 								{
 									nearObstacles.add(lf);
-									nearObstacles.add(lr);
 								}
 							}	
 						}
@@ -262,22 +258,25 @@ public class Player implements PlayerInterface
 					}
 					else
 					{
-						if(getCentX() > nearObstacles.get(i).getV1().getXCoord())
+						if(nearObstacles.get(i).getOrientation()=='v')
 						{
-							if((getCentX() - radius - speed_x*2/3 + 5) <= nearObstacles.get(i).getV1().getXCoord())
+							if(getCentX() - radius/2 >= nearObstacles.get(i).getV1().getXCoord())
 							{
-								vertical=true;
+								if((getCentX() - radius/2 - speed_x) <= nearObstacles.get(i).getV1().getXCoord())
+								{
+									System.out.println("heredkfjsldfjds");
+									vertical=true;
+								}
+										
 							}
-									
 						}
 					}
 				}
 				
 				if(throughPlatform==false)
 				{
-					if(vertical!=true)
+					if(vertical==false)
 					{
-						System.out.println("true");
 						setCentX((getCentX()-speed_x));
 						vertical=false;
 					}
