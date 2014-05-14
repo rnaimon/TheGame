@@ -669,10 +669,13 @@ public class LevelThree extends Level implements LevelTwoInterface {
 			}
 		}
 		setUpCage();
-		if(getCage().getGrid()!=null)
+		if(getCage()!=null)
 		{
-			System.out.println(getCage().getGrid().size());
-			getCage().draw(g);
+			if(getCage().getGrid()!=null)
+			{
+				System.out.println(getCage().getGrid().size());
+				getCage().draw(g);
+			}
 		}
 		player.setPlatforms(totalObs);
 		
@@ -862,10 +865,8 @@ public class LevelThree extends Level implements LevelTwoInterface {
 			}
 			if(there==true)
 			{
-				if(c.getGrid()==null)
-				{
+				if(c==null || c.getGrid()==null)
 					return true;
-				}
 				else
 				{
 					setLevelNumber(getLevelNumber()-1);

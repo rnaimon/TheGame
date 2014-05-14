@@ -35,12 +35,15 @@ public class Cage
 	}
 	public void draw(Graphics2D g)
 	{
-		for(int i=0; i< laserGrid.size(); i++)
+		if(laserGrid!=null)
 		{
-			Vertex v1= laserGrid.get(i).getV1();
-			Vertex v2= laserGrid.get(i).getV2();
-			g.setColor(getColor());
-			g.drawLine(v1.getXCoord(), v1.getYCoord(), v2.getXCoord(), v2.getYCoord());
+			for(int i=0; i< laserGrid.size(); i++)
+			{
+				Vertex v1= laserGrid.get(i).getV1();
+				Vertex v2= laserGrid.get(i).getV2();
+				g.setColor(getColor());
+				g.drawLine(v1.getXCoord(), v1.getYCoord(), v2.getXCoord(), v2.getYCoord());
+			}
 		}
 	}
 	
