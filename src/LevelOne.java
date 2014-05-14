@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.util.ArrayList;
@@ -197,7 +198,12 @@ public class LevelOne extends Level implements LevelOneInterface
 					g.drawPolygon(p);
 				}
 			}
+		
 		}
+		
+		Font f = new Font("Arial", Font.PLAIN, 20);
+		g.setFont(f);
+		g.drawString("You don't have a body. Just a measly marble.", super.getGameWidth() / 17, super.getGameHeight()/10);
 		
 	}
 

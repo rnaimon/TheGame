@@ -379,7 +379,7 @@ public class LevelFour extends Level {
 					g.drawImage(enemies.get(x).getFace(), (int)enemies.get(x).getCentX(), (int)enemies.get(x).getCentY(), null);
 				
 				}
-				if (enemies.size() < 8) {
+				if (enemies.size() < 5) {
 					setUpEnemies();
 				}
 		

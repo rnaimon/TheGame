@@ -161,15 +161,22 @@ public class LevelFive extends Level {
 		
 		Obstacles Platform19 = Platform1.translate(350, 350);
 		obstacleList.add(Platform19);
+		
+		Obstacles Platform20 = Platform1.translate(100, 400);
+		obstacleList.add(Platform20);
+		
+		Obstacles Platform21 = Platform1.translate(100, 350);
+		obstacleList.add(Platform21);
+
 
 		
 		/* The following will eventually turn into a life preserver.*/
 		
 		ArrayList<LineObject> lifePreserver = new ArrayList<LineObject>();
-		LineObject platform1Top= new LineObject(0, gameHeight-4*gameHeight/5, gameWidth/5, gameHeight-4*gameHeight/5);
-		LineObject platform1SideL= new LineObject(0,gameHeight-4*gameHeight/5, 0, gameHeight-4*gameHeight/5 + 20);
-		LineObject platform1Bottom= new LineObject(0, gameHeight-4*gameHeight/5 + 20, gameWidth/5, gameHeight-4*gameHeight/5 + 20);
-		LineObject platform1SideR= new LineObject(gameWidth/5, gameHeight-4*gameHeight/5, gameWidth/5, gameHeight-4*gameHeight/5 + 20);
+		LineObject LPTop= new LineObject(0, gameHeight-4*gameHeight/5, gameWidth/5, gameHeight-4*gameHeight/5);
+		LineObject LPSideL= new LineObject(0,gameHeight-4*gameHeight/5, 0, gameHeight-4*gameHeight/5 + 20);
+		LineObject LPBottom= new LineObject(0, gameHeight-4*gameHeight/5 + 20, gameWidth/5, gameHeight-4*gameHeight/5 + 20);
+		LineObject LPSideR= new LineObject(gameWidth/5, gameHeight-4*gameHeight/5, gameWidth/5, gameHeight-4*gameHeight/5 + 20);
 		
 		
 		

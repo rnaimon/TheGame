@@ -76,10 +76,21 @@ public class StartMenu extends Level {
 		g.setPaint(null);
 		g.setColor(Color.black);
 		
+		
+		
 		Font f2 = new Font("Candara", Font.PLAIN, 70);
 		g.setFont(f2);
 		g.setColor(Color.black);
 		g.drawString("PLAY", playRect.x, playRect.y + playRect.height);
+		
+		Font f3 = new Font("Candara", Font.PLAIN, 40);
+		g.setFont(f3);
+		g.setColor(Color.white);
+		g.drawString("If you play the game, it'll be nearly impossible to get out.", width/20, playRect.y + 220);
+		g.drawString("You'll be trapped. You'll have to find the portal to each new level. ", width/20, playRect.y + 260);
+		g.drawString("Sometimes, they've left items to help you. Use them wisely.", width/20, playRect.y + 300);
+		g.drawString("They don't want you to escape. They don't think you can.", width/20, playRect.y + 340);
+		g.drawString("Do your best to prove them wrong.", width/20, playRect.y + 380);
 		
 		if(playClicked()) {
 			levelComplete = true;
