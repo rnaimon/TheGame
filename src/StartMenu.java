@@ -65,11 +65,16 @@ public class StartMenu extends Level {
 		
 		FontMetrics fm = g.getFontMetrics();
 		int nameWidth = fm.stringWidth(name);
-		
+
 		
 		g.drawString(name, width/2 - nameWidth/2, height/3);
 		
-		playRect = new Rectangle(width/2-100, height/3+200, 235, 50);
+		Font f2 = new Font("Candara", Font.PLAIN, 70);
+		g.setFont(f2);
+		FontMetrics fm2 = g.getFontMetrics();
+		
+		
+		playRect = new Rectangle(width/2-100, height/3+200, 190, fm2.getAscent());
 		GradientPaint grayscale = new GradientPaint((float)(playRect.getX()), (float)playRect.getY(), Color.DARK_GRAY, (float)(playRect.getX() + playRect.getWidth()/3*2), ((float)(playRect.getY())), Color.LIGHT_GRAY, true);
 		g.setPaint(grayscale);
 		g.fill(playRect);
@@ -78,8 +83,7 @@ public class StartMenu extends Level {
 		
 		
 		
-		Font f2 = new Font("Candara", Font.PLAIN, 70);
-		g.setFont(f2);
+	
 		g.setColor(Color.black);
 		g.drawString("PLAY", playRect.x, playRect.y + playRect.height);
 		
