@@ -94,9 +94,9 @@ public class LevelFive extends Level {
 		obstacleList.add(Platformb1);
 		
 		ArrayList<LineObject> platform1perimeter= new ArrayList<LineObject>();
-		LineObject platform1Top= new LineObject(0, gameHeight-4*gameHeight/5, gameWidth/5, gameHeight-4*gameHeight/5);
-		LineObject platform1SideL= new LineObject(0,gameHeight-4*gameHeight/5, 0, gameHeight-4*gameHeight/5 + 20);
-		LineObject platform1Bottom= new LineObject(0, gameHeight-4*gameHeight/5 + 20, gameWidth/5, gameHeight-4*gameHeight/5 + 20);
+		LineObject platform1Top= new LineObject(0, 0, gameWidth/5, 0);
+		LineObject platform1SideL= new LineObject(0,0, 0, 20);
+		LineObject platform1Bottom= new LineObject(0, 20, gameWidth/5, gameHeight-4*gameHeight/5 + 20);
 		LineObject platform1SideR= new LineObject(gameWidth/5, gameHeight-4*gameHeight/5, gameWidth/5, gameHeight-4*gameHeight/5 + 20);
 		
 		platform1perimeter.add(platform1Top);
