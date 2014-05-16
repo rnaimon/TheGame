@@ -239,7 +239,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener, MouseList
 			drawBoard(g);
 			if(((Level)(currentLevel)).checkComplete()) {
 				gameState = STATE_PLAYING;
-				currentLevel = (LevelThree)(levelList.get(2));
+				currentLevel = (LevelOne)(levelList.get(0));
 			}
 			
 		break;
@@ -517,18 +517,27 @@ public class GameMain extends Canvas implements Runnable, KeyListener, MouseList
 	 * platforms in the game (and then draws them).
 	 */
 	private void drawBoard(Graphics2D g) {
-		g.setColor(BG_COL);
-		g.fillRect(0, 0, getWidth(), getHeight());
+	//	g.setColor(BG_COL);
+	//	g.fillRect(0, 0, getWidth(), getHeight());
 		// g.drawImage(IMAGE_BG,0,0,null);
-		g.setColor(Color.black);
-		g.fillRect(0, 0, getWidth(), getHeight());
+	//	g.setColor(Color.black);
+	//	g.fillRect(0, 0, getWidth(), getHeight());
 		// draw top and bottom walls
-		g.setColor(WALL_COL);
-		g.fillRect(0, 0, getWidth(), WALL_SIZE);
-		g.fillRect(0, getHeight() - WALL_SIZE, getWidth(), WALL_SIZE);
+	//	g.setColor(WALL_COL);
+	//	g.fillRect(0, 0, getWidth(), WALL_SIZE);
+	//	g.fillRect(0, getHeight() - WALL_SIZE, getWidth(), WALL_SIZE);
 		
+		System.out.println(currentLevel);
+		System.exit(0);
 		System.out.println(((Level)(currentLevel)).getLevelNumber() + " is level num");
+		
+		
 		if (((Level)(currentLevel)).getLevelNumber() > 0) {
+			//System.out.println("")
+			BufferedImage background = ((Level)(currentLevel)).getBackground();
+			
+			g.drawImage(background, 0, 0, null);
+			
 			ArrayList<Obstacles> thingsInLevel= ((Level)(currentLevel)).getObstacleList();
 			player.setPlatforms(thingsInLevel);
 	

@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 /***
@@ -22,6 +23,7 @@ public class Level implements LevelInterface
 	private boolean reset;
 	private ArrayList<Switch> switchList;
 	private int levelNum;
+	private BufferedImage background;
 	
 	/***
 	 * Constructor for Level.
@@ -48,6 +50,15 @@ public class Level implements LevelInterface
 	{
 		
 	}
+	
+	/***
+	 * Returns the background for the level
+	 * @return the background buffered image
+	 */
+	public BufferedImage getBackground() {
+		return background;
+	}
+	
 	
 	/***
 	 * method to determine if the level should reset

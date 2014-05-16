@@ -3,7 +3,12 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 
 
@@ -19,6 +24,7 @@ public class LevelFour extends Level {
 	ArrayList<Switch> switchList;
 	private boolean levelComplete;
 	private ArrayList<Enemy> enemies;
+	private BufferedImage background;
 	
 	/***
 	 * This is level four, which features the player shooting at anti-virus enemies in order to
@@ -47,9 +53,24 @@ public class LevelFour extends Level {
 		player.setItem(plasmaGun);
 		
 		
+		try {
+			background = ImageIO.read(new File("blue-white-smear.jpg"));
+
+		}
+		catch (IOException ex) {
+			System.out.println("Nope.");
+		}
+		
 	}
 	
 	
+	/***
+	 * Returns the background for the level
+	 * @return the background buffered image
+	 */
+	public BufferedImage getBackground() {
+		return background;
+	}
 	
 	/***
 	 * This method sets up the level environment of Obstacles (like platforms). 

@@ -1,6 +1,10 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 /***
  * Cheat sheet in code for how the switches and platforms should be handled:
@@ -37,6 +41,7 @@ public class LevelThree extends Level implements LevelTwoInterface {
 	private ArrayList<Obstacles> filledPipes;
 	private int timer;
 	private Cage cage;
+	private BufferedImage background;
 	
 	
 	/***
@@ -69,8 +74,24 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		cage= new Cage();
 		setUpCage();
 		setLevelNumber(3);
+		
+		try {
+			background = ImageIO.read(new File("black-background.png"));
+
+		}
+		catch (IOException ex) {
+			System.out.println("Nope.");
+		}
 	}
 
+	/***
+	 * Returns the background for the level
+	 * @return the background buffered image
+	 */
+	public BufferedImage getBackground() {
+		return background;
+	}
+	
 	
 	/***
 	 * This method sets up the level environment of Obstacles (like platforms). 
@@ -530,6 +551,7 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		
 		Font f = new Font("Arial", Font.PLAIN, 20);
 		g.setFont(f);
+		g.setColor(Color.black);
 		String t1="Press 'Z' to Pick up and drop water pipe connectors!";
 		g.drawString(t1, gameWidth / 17, gameHeight/10);
 		double dy= g.getFontMetrics(f).getMaxDescent() + g.getFontMetrics().getHeight();

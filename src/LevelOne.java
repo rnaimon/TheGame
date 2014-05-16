@@ -2,7 +2,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 /***
  * This class is the LevelOne class, a subclass of Level, that sets up the first level
@@ -16,7 +21,7 @@ public class LevelOne extends Level implements LevelOneInterface
 	private boolean reset;
 	private Player player;
 	private int WALL_SIZE=3;
-	
+	private BufferedImage background;
 	
 	
 	/***
@@ -38,7 +43,17 @@ public class LevelOne extends Level implements LevelOneInterface
 		player.setPlatforms(getObstacleList());
 		setSwitchList(setUpEndGoal());
 		player.setItem(null);
-		setLevelNumber(1);
+
+		
+		try {
+			background = ImageIO.read(new File("black-smoke-background.jpg"));
+
+		}
+		catch (IOException ex) {
+			System.out.println("Nope.");
+		}
+
+		
 	}
 
 	/***
@@ -153,11 +168,24 @@ public class LevelOne extends Level implements LevelOneInterface
 	}
 
 	/***
+	 * Returns the background for the level
+	 * @return the background buffered image
+	 */
+	public BufferedImage getBackground() {
+		return background;
+	}
+	
+	
+	/***
 	 * Draws all the objects in the level
 	 */
 	@Override
 	public void draw(Graphics2D g)
 	{
+		
+
+
+		
 		if(getSwitchList()!=null)
 		{
 			for(int i= 0; i< getSwitchList().size(); i++)

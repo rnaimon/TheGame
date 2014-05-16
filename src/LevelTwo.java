@@ -3,7 +3,12 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 /***
  * Cheat sheet in code for how the switches and platforms should be handled:
@@ -36,7 +41,7 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 	ArrayList<Switch> switchList;
 	private boolean levelComplete;
 	private ArrayList<Obstacles> hiddenRamps;
-
+	private BufferedImage background;
 	
 	
 	/***
@@ -61,8 +66,25 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 		darts= new ArrayList<Projectile>();
 		player.setItem(dartgun);
 		setLevelNumber(2);
+		
+		try {
+			background = ImageIO.read(new File("rainbow-lines-background.jpg"));
+
+		}
+		catch (IOException ex) {
+			System.out.println("Nope.");
+		}
+		
 	}
 
+	
+	/***
+	 * Returns the background for the level
+	 * @return the background buffered image
+	 */
+	public BufferedImage getBackground() {
+		return background;
+	}
 	
 	/***
 	 * This method sets up the level environment of Obstacles (like platforms). 
@@ -227,6 +249,7 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 		//FontMetrics fm = g.getFontMetrics();
 		Font f = new Font("Arial", Font.PLAIN, 20);
 		g.setFont(f);
+		g.setColor(Color.white);
 		g.drawString("Press 'Z' to fire darts at those white targets!", gameWidth / 17, gameHeight/10);
 		
 		if(getSwitchList()!=null)
