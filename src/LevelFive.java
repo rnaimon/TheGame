@@ -105,31 +105,32 @@ public class LevelFive extends Level {
 		platform1perimeter.add(platform1SideL);
 		
 		Obstacles Platform1= new Obstacles(platform1perimeter);
-		obstacleList.add(Platform1);
+		//obstacleList.add(Platform1);
 		
 		
-		Obstacles Platform2 = Platform1.translate(gameWidth/5, (int)(gameHeight*((17.0/20.0))));
+		Obstacles Platform2 = Platform1.translate(gameWidth/5, (int)(gameHeight*((18.0/20.0))));
 		obstacleList.add(Platform2);
 		
-		Obstacles Platform3 = Platform2.translate(gameWidth/5, -gameHeight/20);
+		Obstacles Platform3 = Platform2.translate(gameWidth/6 + gameWidth/10, -(int)(gameHeight*((1.0/20.0))));
 		obstacleList.add(Platform3);
-		/*
-	//	Obstacles Platform4 = Platform1.translate(0, 70);
-	//	obstacleList.add(Platform4);
 		
-		Obstacles Platform5 = Platform1.translate(350, 70);
+		
+		Obstacles Platform4 = Platform3.translate(gameWidth/6 + gameWidth/10, -(int)(gameHeight*((1.0/20.0))));
+		obstacleList.add(Platform4);
+		
+		Obstacles Platform5 = Platform4.translate(gameWidth/15, -(int)(gameHeight*((1.0/10.0))));
 		obstacleList.add(Platform5);
 		
-		Obstacles Platform6 = Platform1.translate(700, 70);
+		Obstacles Platform6 = Platform5.translate(-gameWidth/14- gameWidth/6 - gameWidth/11, -(int)(gameHeight*((1.0/10.0))));
 		obstacleList.add(Platform6);
 		
-	//	Obstacles Platform7 = Platform1.translate(0, 140);
-	//	obstacleList.add(Platform7);
+		Obstacles Platform7 = Platform6.translate(- gameWidth/6 - gameWidth/10, -(int)(gameHeight*((1.0/20.0))));
+		obstacleList.add(Platform7);
 		
-		Obstacles Platform8 = Platform1.translate(350, 140);
+		Obstacles Platform8 = Platform7.translate(gameWidth/15, -(int)(gameHeight*((1.0/10.0))));
 		obstacleList.add(Platform8);
 		
-		Obstacles Platform9 = Platform1.translate(700, 140);
+		Obstacles Platform9 = Platform8.translate(gameWidth/6 + gameWidth/10, -(int)(gameHeight*((1.0/20.0))));
 		obstacleList.add(Platform9);	
 		
 //		Obstacles Platform10 = Platform1.translate(0, 210);
@@ -138,17 +139,17 @@ public class LevelFive extends Level {
 //		Obstacles Platform11 = Platform1.translate(350, 210);
 //		obstacleList.add(Platform11);
 		
-		Obstacles Platform12 = Platform1.translate(700, 210);
-		obstacleList.add(Platform12);
+		//Obstacles Platform12 = Platform1.translate(700, 210);
+		//obstacleList.add(Platform12);
 		
 //		Obstacles Platform13 = Platform1.translate(0, 280);
 //		obstacleList.add(Platform13);
 		
-		Obstacles Platform14 = Platform1.translate(350, 280);
-		obstacleList.add(Platform14);
+		//Obstacles Platform14 = Platform1.translate(350, 280);
+		//obstacleList.add(Platform14);
 		
-		Obstacles Platform15 = Platform1.translate(700, 280);
-		obstacleList.add(Platform15);
+		//Obstacles Platform15 = Platform1.translate(700, 280);
+		//obstacleList.add(Platform15);
 		
 //		Obstacles Platform16 = Platform1.translate(0, 350);
 //		obstacleList.add(Platform16);
@@ -156,19 +157,19 @@ public class LevelFive extends Level {
 //		Obstacles Platform17 = Platform1.translate(0, 420);
 //		obstacleList.add(Platform17);		
 		
-		Obstacles Platform18 = Platform1.translate(700, 420);
-		obstacleList.add(Platform18);
+		//Obstacles Platform18 = Platform1.translate(700, 420);
+		//obstacleList.add(Platform18);
 		
-		Obstacles Platform19 = Platform1.translate(350, 350);
-		obstacleList.add(Platform19);
+		//Obstacles Platform19 = Platform1.translate(350, 350);
+		//obstacleList.add(Platform19);
 		
-		Obstacles Platform20 = Platform1.translate(100, 400);
-		obstacleList.add(Platform20);
+		//Obstacles Platform20 = Platform1.translate(100, 400);
+		//obstacleList.add(Platform20);
 		
-		Obstacles Platform21 = Platform1.translate(100, 350);
-		obstacleList.add(Platform21);
+		//Obstacles Platform21 = Platform1.translate(100, 350);
+		//obstacleList.add(Platform21);
 
-*/
+
 		
 		/* The following will eventually turn into a life preserver.*/
 		
@@ -211,14 +212,21 @@ public class LevelFive extends Level {
 	 */
 	public boolean checkComplete()
 	{
-		Switch endGoal= switchList.get(0);
-		double d= Math.sqrt((player.getCentX()-endGoal.getCentX())*(player.getCentX()-endGoal.getCentX()) + (player.getCentY()-endGoal.getCentY())*(player.getCentY()-endGoal.getCentY()));
-		if(d<=(player.getRadius()+ 50/2*Math.sqrt(2)))
+		if(getLevelComplete()==true)
 		{
 			return true;
 		}
 		else
-			return false;
+		{
+			Switch endGoal= switchList.get(0);
+			double d= Math.sqrt((player.getCentX()-endGoal.getCentX())*(player.getCentX()-endGoal.getCentX()) + (player.getCentY()-endGoal.getCentY())*(player.getCentY()-endGoal.getCentY()));
+			if(d<=(player.getRadius()+ 50/2*Math.sqrt(2)))
+			{
+				return true;
+			}
+			else
+				return false;
+		}
 	}
 	
 	 /***
