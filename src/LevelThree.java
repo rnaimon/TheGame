@@ -527,10 +527,16 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		int gameHeight = super.getGameHeight();
 		int gameWidth = super.getGameWidth();
 		
-		//FontMetrics fm = g.getFontMetrics();
+		
 		Font f = new Font("Arial", Font.PLAIN, 20);
 		g.setFont(f);
-		g.drawString("Press 'Z' to Pick up and drop water pipe connectors!  \n Fill the network to remove the lasers and move ahead! \n Press 'r' to reset", gameWidth / 17, gameHeight/10);
+		String t1="Press 'Z' to Pick up and drop water pipe connectors!";
+		g.drawString(t1, gameWidth / 17, gameHeight/10);
+		double dy= g.getFontMetrics(f).getMaxDescent() + g.getFontMetrics().getHeight();
+		String t="Fill the network to remove the lasers and move ahead!";
+		g.drawString(t, gameWidth/17, (int)(gameHeight/10 + dy));
+		String t2= "Press 'r' to reset";
+		g.drawString(t2, gameWidth/17, (int)(gameHeight/10 + 2*dy));
 		
 		
 		if(pipeList!=null)

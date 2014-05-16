@@ -239,7 +239,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener, MouseList
 			drawBoard(g);
 			if(((Level)(currentLevel)).checkComplete()) {
 				gameState = STATE_PLAYING;
-				currentLevel = (LevelOne)(levelList.get(0));
+				currentLevel = (LevelThree)(levelList.get(2));
 			}
 			
 		break;
