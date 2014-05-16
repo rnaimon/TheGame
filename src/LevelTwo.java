@@ -208,7 +208,7 @@ public class LevelTwo extends Level implements LevelTwoInterface {
 	public void function() {
 		
 	//changed projectile speed to be faster (5th input)
-		Projectile dart = new Projectile(player.getCentX() + player.getRadius(), player.getCentY(), 7, 4, 8, 1.5, player.getOrientation(), true);
+		Projectile dart = new Projectile(player.getCentX() + player.getRadius(), player.getCentY(), 7, 4, 15, 1.5, player.getOrientation(), true);
 		darts.add(dart);
 	}
 	

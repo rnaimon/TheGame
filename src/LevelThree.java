@@ -157,7 +157,7 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		faux.add(f1);
 		Obstacles fauxObs= new Obstacles(faux);
 		PipeConnector fauxp= new PipeConnector(fauxObs, 0,0);
-		PipeConnectorSwitch watersource= new PipeConnectorSwitch((sgeneric.translate(0,0)).getOutlines(), fauxp, Color.cyan);
+		PipeConnectorSwitch watersource= new PipeConnectorSwitch((sgeneric.translate(0,0)).getOutlines(), fauxp, new Color(0, 200, 250, 100));
 		pipeSwitches.add(watersource);
 		
 		if(watersource.getContacted()==false)
@@ -433,39 +433,41 @@ public class LevelThree extends Level implements LevelTwoInterface {
 	{
 		if(player.getItem()==null)
 		{
-			boolean nearItem= false;
-			for(int i= 0; i< pipeConnectors.size(); i++)
+			boolean nearSwitch= false;
+			for(int i= 0; i< pipeSwitches.size(); i++)
 			{
-				PipeConnector p= pipeConnectors.get(i);
-				double d1= (p.getStartX()-player.getCentX());
-				double d2=(p.getStartY()-player.getCentY());
+				PipeConnectorSwitch p= pipeSwitches.get(i);
+				double d1= (p.getCentX()-player.getCentX());
+				double d2=(p.getCentY()-player.getCentY());
 				double distance= Math.sqrt(d1*d1 + d2*d2);
 				if(distance<3*player.getRadius())
 				{
-					player.setItem(p);
-					pipeConnectors.remove(p);
-					nearItem=true;
-					break;
+					if(p.getContacted())
+					{
+						PipeConnector pitem= new PipeConnector(p.getSymbol().getPerimeter(),0,0);
+						player.setItem(pitem);
+						pipeSwitches.get(i).changeContactStatus();
+						nearSwitch=true;
+						break;
+					}
 				}
 			}
-			if(nearItem==false)
+			if(nearSwitch==false)
 			{
-				for(int i= 0; i< pipeSwitches.size(); i++)
+				for(int i= 0; i< pipeConnectors.size(); i++)
 				{
-					PipeConnectorSwitch p= pipeSwitches.get(i);
-					double d1= (p.getCentX()-player.getCentX());
-					double d2=(p.getCentY()-player.getCentY());
+					PipeConnector p= pipeConnectors.get(i);
+					double d1= (p.getStartX()-player.getCentX());
+					double d2=(p.getStartY()-player.getCentY());
 					double distance= Math.sqrt(d1*d1 + d2*d2);
 					if(distance<3*player.getRadius())
 					{
-						if(p.getContacted())
-						{
-							PipeConnector pitem= new PipeConnector(p.getSymbol().getPerimeter(),0,0);
-							player.setItem(pitem);
-							pipeSwitches.get(i).changeContactStatus();
-							break;
-						}
+						player.setItem(p);
+						pipeConnectors.remove(p);
+						
+						break;
 					}
+					
 				}
 			}
 		}
@@ -540,7 +542,7 @@ public class LevelThree extends Level implements LevelTwoInterface {
 				if(getPipeList().get(i).getStartFill()==false)
 				{
 					getPipeList().get(i).checkFull(pipeSwitches);
-					if(getPipeList().get(i).getColor().equals(Color.cyan))
+					if(getPipeList().get(i).getColor().equals(new Color(0, 200, 250, 100)))
 					{
 						getPipeList().get(i).setTimeStarted(timer);
 					}
@@ -551,7 +553,7 @@ public class LevelThree extends Level implements LevelTwoInterface {
 					Pipe p= getPipeList().get(i);
 					ArrayList<LineObject> fillperimeter= new ArrayList<LineObject>();
 					LineObject pbot= p.getOutlines().get(2);
-					double height= 1000*Math.abs(p.getTimeStarted()-timer)*2/300*p.getHeight();
+					double height= 1000*Math.abs(p.getTimeStarted()-timer)*2/300*4/5*p.getHeight();
 					if(height/1000>=p.getHeight())
 						height=p.getHeight()*1000;
 					
@@ -647,7 +649,7 @@ public class LevelThree extends Level implements LevelTwoInterface {
 			for(int i=0; i< filledPipes.size(); i++)
 			{
 				totalObs.add(filledPipes.get(i));
-				g.setColor(Color.cyan);
+				g.setColor(new Color(0, 200, 250, 100));
 				Polygon p= new Polygon();
 				for(int j=0; j<filledPipes.get(i).getVertices().size(); j++)
 				{
@@ -902,17 +904,17 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		int finy= goal.getVertices().get(2).getYCoord();
 		for(int i=0; i< n; i++)
 		{
-			int diff= finx-stx;
-			Vertex v1= new Vertex(stx + i/n*diff,sty);
-			Vertex v2= new Vertex(stx + i/n*diff, finy);
+			double diff= finx-stx;
+			Vertex v1= new Vertex((int)(stx + i/n*diff),sty);
+			Vertex v2= new Vertex((int)(stx + i/n*diff), finy);
 			LineObject l= new LineObject(v1,v2);
 			c.getGrid().add(l);
 		}
 		for(int i=0; i< n; i++)
 		{
-			int diff= finy-sty;
-			Vertex v1= new Vertex(stx,sty + i/n*diff);
-			Vertex v2= new Vertex(finx, sty + i/n*diff);
+			double diff= finy-sty;
+			Vertex v1= new Vertex(stx,(int)(sty + i/n*diff));
+			Vertex v2= new Vertex(finx, (int)(sty + i/n*diff));
 			LineObject l= new LineObject(v1,v2);
 			c.getGrid().add(l);
 		}

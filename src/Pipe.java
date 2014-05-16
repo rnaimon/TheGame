@@ -156,7 +156,7 @@ public class Pipe extends Switch
 			}
 			if(checkLineage(p,dummy)==true)
 			{
-				setColor(Color.cyan);
+				setColor(new Color(0, 200, 250, 100));
 				startFill=true;
 			}
 			else

@@ -159,7 +159,7 @@ public class LevelFour extends Level {
 	public void function() {
 		
 	//changed projectile speed to be faster (5th input)
-		Projectile shot = new Projectile(player.getCentX() + player.getRadius(), player.getCentY(), 7, 4, 8, 1.5, player.getOrientation(), false);
+		Projectile shot = new Projectile(player.getCentX() + player.getRadius(), player.getCentY(), 7, 4, 13, 1.5, player.getOrientation(), false);
 		plasma.add(shot);
 	}
 	

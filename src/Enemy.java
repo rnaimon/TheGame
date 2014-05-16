@@ -35,7 +35,7 @@ public class Enemy implements EnemyInterface {
 		radius=r;
 		centx=x;
 		centy=y;
-		speed_x=4;
+		speed_x=3;
 		speed_y=4;
 		
 
