@@ -50,7 +50,6 @@ public class LevelFive extends Level {
 		for (int y = height; y > 0; y=y-2) {
 			
 			Rectangle rect = new Rectangle(0, y, width, 2);
-			System.out.println(0 + " " +  y + " " + width + " " + 2);
 
 			
 			water.add(rect);
@@ -335,7 +334,6 @@ public class LevelFive extends Level {
 			g.setFont(f2);
 			g.setColor(Color.red);
 			int countdown = breath/1000;
-		//	System.out.println("touching water and countdown is " + countdown + " and breath is " + breath);
 
 			
 			String countString = "" + countdown;
@@ -343,7 +341,6 @@ public class LevelFive extends Level {
 				g.drawString(countString, (int)player.getCentX(), (int)(player.getCentY() - 25));
 			
 			if (countdown < 0) {
-				System.out.println("out of breath");
 				reset = true;
 			}
 			
@@ -404,9 +401,7 @@ public class LevelFive extends Level {
 		int pY = (int)player.getCentY();
 		int pY2 = super.getGameHeight() - pY;
 		
-		int pWater = amountWater *2;
-		System.out.println(pWater + " pWater " + pY2 + " is pY2");
-		
+		int pWater = amountWater *2;		
 		if (pY2 - player.getRadius() < pWater) {
 			return true;
 		}

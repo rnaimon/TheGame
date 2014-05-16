@@ -60,7 +60,6 @@ public class Player implements PlayerInterface
 		
 		
 		try {
-			System.out.println("nice sphere");
 			bg = ImageIO.read(new File("blue-sphere-sized.png"));
 
 		}

@@ -551,7 +551,7 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		
 		Font f = new Font("Arial", Font.PLAIN, 20);
 		g.setFont(f);
-		g.setColor(Color.black);
+		g.setColor(Color.white);
 		String t1="Press 'Z' to Pick up and drop water pipe connectors!";
 		g.drawString(t1, gameWidth / 17, gameHeight/10);
 		double dy= g.getFontMetrics(f).getMaxDescent() + g.getFontMetrics().getHeight();
@@ -918,28 +918,31 @@ public class LevelThree extends Level implements LevelTwoInterface {
 	{
 		Cage c= new Cage();
 		Switch goal= getSwitchList().get(0);
-		int n= getPipeSwitchList().size();
+		int n2= getPipeSwitchList().size();
 		for(int i= 0; i< getPipeSwitchList().size(); i++)
 		{
 			if(getPipeSwitchList().get(i).getContacted()==true)
 			{
-				n--;
+				n2--;
 			}
 		}
+		double n= (double)(n2);
 		int stx= goal.getVertices().get(0).getXCoord() -5;
 		int finx= goal.getVertices().get(1).getXCoord() + 5;
 		int sty= goal.getVertices().get(0).getYCoord();
 		int finy= goal.getVertices().get(2).getYCoord();
-		for(int i=0; i< n; i++)
+		for(int j=0; j< n; j++)
 		{
+			double i= (double)j;
 			double diff= finx-stx;
 			Vertex v1= new Vertex((int)(stx + i/n*diff),sty);
 			Vertex v2= new Vertex((int)(stx + i/n*diff), finy);
 			LineObject l= new LineObject(v1,v2);
 			c.getGrid().add(l);
 		}
-		for(int i=0; i< n; i++)
+		for(int j=0; j< n; j++)
 		{
+			double i= (double)j;
 			double diff= finy-sty;
 			Vertex v1= new Vertex(stx,(int)(sty + i/n*diff));
 			Vertex v2= new Vertex(finx, (int)(sty + i/n*diff));

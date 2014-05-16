@@ -98,7 +98,6 @@ public class StartMenu extends Level {
 		
 		if(playClicked()) {
 			levelComplete = true;
-			System.out.println("XXXXXXXXXXXXXXXXXXXXXXX");
 		}
 		
 		//	play.setVerticalTextPosition(AbstractButton.CENTER);
@@ -118,8 +117,6 @@ public class StartMenu extends Level {
 	 * @return the boolean of whether the button was clicked
 	 */
 	public boolean playClicked() {
-		System.out.println("in play clicked");
-		System.out.println(playRect.x + " is x");
 		if(clickX >= playRect.x && clickX <= playRect.x + playRect.width && clickY >= playRect.y && clickY <= playRect.y + playRect.height) {
 			return true;
 		}

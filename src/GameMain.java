@@ -63,7 +63,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener, MouseList
 
 	//ArrayList<Level> levels = new ArrayList();
 	
-	
+	private double speedXPlayer;
 	//for double buffered graphics
 	 private int bufferWidth;
 	 private int bufferHeight;
@@ -182,7 +182,8 @@ public class GameMain extends Canvas implements Runnable, KeyListener, MouseList
 	 */
 	public void init() {
 		player = new Player(30, 10, 0, new Color(0, 0, 200));
-		
+		speedXPlayer=Toolkit.getDefaultToolkit().getScreenSize().width*9/1600;
+
 		levelList= new ArrayList<Object>();
 		LevelFive lv5 = new LevelFive(player, getWidth(), getHeight());
 		LevelFour lv4= new LevelFour(player, getWidth(), getHeight());
@@ -210,9 +211,8 @@ public class GameMain extends Canvas implements Runnable, KeyListener, MouseList
 	 */
 	public void start() {
 		gameState = MENU;
-		//gameState = STATE_PLAYING;
 		
-		player.setSpeedX(5);
+		player.setSpeedX((int)(speedXPlayer));
 
 	}
 
@@ -232,17 +232,21 @@ public class GameMain extends Canvas implements Runnable, KeyListener, MouseList
 	 */
 	public void updateFrame(Graphics2D g) {
 		
-		switch (gameState) {
-		// if the game is happening, you can move and the game continues
+		switch (gameState) 
+		{
 		case MENU:
+			
 			currentLevel = (Level)menu;
 			drawBoard(g);
-			if(((Level)(currentLevel)).checkComplete()) {
-				gameState = STATE_PLAYING;
-				currentLevel = (LevelOne)(levelList.get(0));
+			if(currentLevel!=null)
+			{
+				if(((Level)(currentLevel)).checkComplete()) 
+				{
+					gameState = STATE_PLAYING;
+					currentLevel = (LevelOne)(levelList.get(0));
+				}
 			}
-			
-		break;
+				break;
 		
 		case STATE_PLAYING:
 				if(((Level)(currentLevel)).checkComplete()==true)
@@ -250,21 +254,28 @@ public class GameMain extends Canvas implements Runnable, KeyListener, MouseList
 					int now= ((Level)(currentLevel)).getLevelNumber();
 					switch(now)
 					{
+					
+						case 0: player= new Player(30, 10, 0, new Color(0, 0, 200));
+								levelList.set(0, new LevelOne(player, getWidth(), getHeight()));
+								currentLevel= levelList.get(0);
+								player.setSpeedX((int)(speedXPlayer));
+								break;
 						case 1:
 								player= new Player(30, 10, 0, new Color(0, 0, 200));
 								levelList.set(1, new LevelTwo(player, getWidth(), getHeight()));
 								currentLevel= levelList.get(1);
-								break;
+								player.setSpeedX((int)(speedXPlayer));								break;
 						case 2:
 							player= new Player(30, 10, 0, new Color(0, 0, 200));
 							levelList.set(2, new LevelThree(player, getWidth(), getHeight()));
 							currentLevel= levelList.get(2);
-							break;
+							player.setSpeedX((int)(speedXPlayer));							break;
 							
 						case 3:
 							player= new Player(30, 10, 0, new Color(0, 0, 200));
 							levelList.set(3, new LevelFour(player, getWidth(), getHeight()));
 							currentLevel= levelList.get(3);
+							player.setSpeedX((int)(speedXPlayer));
 							break;
 							
 						case 4:
@@ -272,6 +283,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener, MouseList
 							player.setCentX(0);
 							player.setCentY(0);
 							player.setSpeedY(0);
+							player.setSpeedX((int)(speedXPlayer));
 							break;
 							
 						case 5:
@@ -280,6 +292,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener, MouseList
 							player.setCentY(0);
 							player.setSpeedY(0);
 							gameState= STATE_DONE;
+							player.setSpeedX((int)(speedXPlayer));
 							break;
 							
 						default:
@@ -290,22 +303,9 @@ public class GameMain extends Canvas implements Runnable, KeyListener, MouseList
 				}
 					if((player.getCentY() + player.getRadius()+ player.getSpeedY())>= getHeight())
 					{
-						if(((Level)(currentLevel)).getLevelNumber()==1)
-							currentLevel=new LevelOne(player, getWidth(), getHeight());
-						else if(((Level)(currentLevel)).getLevelNumber()==2)
-							currentLevel=new LevelTwo(player, getWidth(), getHeight());
-						else if(((Level)(currentLevel)).getLevelNumber()==3)
-							currentLevel=new LevelThree(player, getWidth(), getHeight());
-						else if(((Level)(currentLevel)).getLevelNumber()==4) 
-							currentLevel=new LevelFour(player, getWidth(), getHeight());
-						else if(((Level)(currentLevel)).getLevelNumber()==5) 
-							currentLevel=new LevelFive(player, getWidth(), getHeight());
-						
-						
-						
-						player.setCentX(0);
-						player.setCentY(0);
-						player.setSpeedY(0);
+						int n= ((Level)currentLevel).getLevelNumber();
+						((Level)currentLevel).setLevelNumber(n-1);
+						((Level)currentLevel).setLevelComplete(true);
 					}
 					
 					if (((Level)(currentLevel)).shouldReset() == true) {
@@ -388,29 +388,6 @@ public class GameMain extends Canvas implements Runnable, KeyListener, MouseList
 	
 	
 
-	/**
-	 * Tests whether a player can move up or down, to be eventually moved to the 
-	 * Level class.
-	 * 
-	 * @param p is the player to test
-	 * @param moveUpOrDown is whether we're trying to move up or down
-	 */
-	
-	/*
-	  public boolean canMove(PaddleDone p,boolean moveLeftOrRight){
-	  if(moveLeftOrRight){ if(p.getTopX()<=WALL_SIZE+p.getSpeed()) return
-	  false; else return true; }
-	  if(p.getTopX()+p.getSizeX()>=getWidth()-WALL_SIZE-p.getSpeed())return
-	  false; else return true;
-	  
-	  } public boolean canMoveV(PaddleDone p,boolean moveUpOrDown){
-	  if(moveUpOrDown){ if(p.getTopY()<=WALL_SIZE+p.getSpeed()) return false;
-	  else return true; }
-	  if(p.getTopY()+p.getSizeY()>=getHeight()-WALL_SIZE-p.getSpeed())return
-	  false; else return true;
-	  
-	  }
-	 */
 	
 	//method to determine if the player can move left or right (limits of the screen)
 	// will be moved to the Level class
@@ -502,53 +479,36 @@ public class GameMain extends Canvas implements Runnable, KeyListener, MouseList
 	 */
 	private void drawSprites(Graphics2D g) {
 
-		// p1.draw(g);
 		if (((Level)(currentLevel)).getLevelNumber() > 0)
 			player.draw(g);
-/*		for (int i = 0; i < objects.size(); i++) {
-			objects.get(i).draw(g);
-		}
-		*/
-		// player.draw(g);
 	}
 
 	/**
 	 * Draws the board background, and creates ArrayLists of the various obstacles and
 	 * platforms in the game (and then draws them).
 	 */
-	private void drawBoard(Graphics2D g) {
-	//	g.setColor(BG_COL);
-	//	g.fillRect(0, 0, getWidth(), getHeight());
-		// g.drawImage(IMAGE_BG,0,0,null);
-	//	g.setColor(Color.black);
-	//	g.fillRect(0, 0, getWidth(), getHeight());
-		// draw top and bottom walls
-	//	g.setColor(WALL_COL);
-	//	g.fillRect(0, 0, getWidth(), WALL_SIZE);
-	//	g.fillRect(0, getHeight() - WALL_SIZE, getWidth(), WALL_SIZE);
+	private void drawBoard(Graphics2D g)
+	{
+		if(currentLevel!=null)
+		{
+			if (((Level)(currentLevel)).getLevelNumber() > 0) 
+			{
+				BufferedImage background = ((Level)(currentLevel)).getBackground();
+				
+				g.drawImage(background, 0, 0, null);
+				
+				ArrayList<Obstacles> thingsInLevel= ((Level)(currentLevel)).getObstacleList();
+				player.setPlatforms(thingsInLevel);
 		
-		System.out.println(currentLevel);
-		System.exit(0);
-		System.out.println(((Level)(currentLevel)).getLevelNumber() + " is level num");
-		
-		
-		if (((Level)(currentLevel)).getLevelNumber() > 0) {
-			//System.out.println("")
-			BufferedImage background = ((Level)(currentLevel)).getBackground();
-			
-			g.drawImage(background, 0, 0, null);
-			
-			ArrayList<Obstacles> thingsInLevel= ((Level)(currentLevel)).getObstacleList();
-			player.setPlatforms(thingsInLevel);
 	
-
+			}
+			((Level)(currentLevel)).draw(g);
 		}
-		((Level)(currentLevel)).draw(g);
 			
 	}
 
 	public void mouseClicked(MouseEvent e) {
-		System.out.println("clicked");
+		
 		((StartMenu)(currentLevel)).setClicks(e.getX(), e.getY());
 		//clickY = e.getY();
 		
