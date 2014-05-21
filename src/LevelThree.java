@@ -423,24 +423,6 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		
 		
 		
-		
-		/*
-		 * The following are the obstacles for the pipeline
-		 * 
-		 * WARNING: coordinates are not correct. I am waiting to put in real values
-		 * until I can see where they are, because I don't want to do that twice.
-		 */
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		return obstacleList;
 
 	}
@@ -703,7 +685,7 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		{
 			if(getCage().getGrid()!=null)
 			{
-				System.out.println(getCage().getGrid().size());
+				
 				getCage().draw(g);
 			}
 		}

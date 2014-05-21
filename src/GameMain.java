@@ -194,10 +194,10 @@ public class GameMain extends Canvas implements Runnable, KeyListener, MouseList
 		menu = new StartMenu(player, getWidth(), getHeight());
 		
 		levelList.add(lv1);
-		levelList.add(lv5);
 		levelList.add(lv2);
-		levelList.add(lv4);
 		levelList.add(lv3);
+		levelList.add(lv4);
+		levelList.add(lv5);
 		if(levelList.get(0)!=null)
 			currentLevel= (LevelOne)(levelList.get(0));
 		start();
@@ -209,9 +209,9 @@ public class GameMain extends Canvas implements Runnable, KeyListener, MouseList
 	 * 
 	 * There is much more to be added, namely involving levels.
 	 */
-	public void start() {
+	public void start() 
+	{
 		gameState = MENU;
-		
 		player.setSpeedX((int)(speedXPlayer));
 
 	}
@@ -247,7 +247,6 @@ public class GameMain extends Canvas implements Runnable, KeyListener, MouseList
 				}
 			}
 				break;
-		//when the game has begun, and isn't over
 		case STATE_PLAYING:
 				if(((Level)(currentLevel)).checkComplete()==true)
 				{
@@ -262,14 +261,16 @@ public class GameMain extends Canvas implements Runnable, KeyListener, MouseList
 								break;
 						case 1:
 								player= new Player(30, 10, 0, new Color(0, 0, 200));
-								levelList.set(1, new LevelFive(player, getWidth(), getHeight()));
+								levelList.set(1, new LevelTwo(player, getWidth(), getHeight()));
 								currentLevel= levelList.get(1);
-								player.setSpeedX((int)(speedXPlayer));								break;
+								player.setSpeedX((int)(speedXPlayer));								
+								break;
 						case 2:
 							player= new Player(30, 10, 0, new Color(0, 0, 200));
-							levelList.set(2, new LevelTwo(player, getWidth(), getHeight()));
+							levelList.set(2, new LevelThree(player, getWidth(), getHeight()));
 							currentLevel= levelList.get(2);
-							player.setSpeedX((int)(speedXPlayer));							break;
+							player.setSpeedX((int)(speedXPlayer +5));							
+							break;
 							
 						case 3:
 							player= new Player(30, 10, 0, new Color(0, 0, 200));
@@ -279,15 +280,16 @@ public class GameMain extends Canvas implements Runnable, KeyListener, MouseList
 							break;
 							
 						case 4:
-							currentLevel= levelList.get(3);
+							player= new Player(30, 10, 0, new Color(0, 0, 200));
 							player.setCentX(0);
-							player.setCentY(0);
-							player.setSpeedY(0);
+							player.setCentY(getHeight()-30);
+							levelList.set(1, new LevelFive(player, getWidth(), getHeight()));
+							currentLevel= levelList.get(4);
 							player.setSpeedX((int)(speedXPlayer));
 							break;
 							
 						case 5:
-							//currentLevel= levelList.get(5);
+							
 							player.setCentX(0);
 							player.setCentY(0);
 							player.setSpeedY(0);
@@ -302,32 +304,12 @@ public class GameMain extends Canvas implements Runnable, KeyListener, MouseList
 					
 				}
 				
-				//dealing with player death
 					if((player.getCentY() + player.getRadius()+ player.getSpeedY())>= getHeight())
 					{
 						int n= ((Level)currentLevel).getLevelNumber();
 						((Level)currentLevel).setLevelNumber(n-1);
 						((Level)currentLevel).setLevelComplete(true);
 					}
-					
-					if (((Level)(currentLevel)).shouldReset() == true) {
-						if(((Level)(currentLevel)).getLevelNumber()==1)
-							currentLevel=new LevelOne(player, getWidth(), getHeight());
-						else if(((Level)(currentLevel)).getLevelNumber()==2)
-							currentLevel=new LevelTwo(player, getWidth(), getHeight());
-						else if(((Level)(currentLevel)).getLevelNumber()==3)
-							currentLevel=new LevelThree(player, getWidth(), getHeight());
-						else if(((Level)(currentLevel)).getLevelNumber()==4) 
-							currentLevel=new LevelFour(player, getWidth(), getHeight());
-						else if(((Level)(currentLevel)).getLevelNumber()==5) 
-							currentLevel=new LevelFive(player, getWidth(), getHeight());
-						
-						
-						player.setCentX(0);
-						player.setCentY(0);
-						player.setSpeedY(0);
-					}
-					//jumping when it's ok to jump	 
 					if (jump==true && player.getGrounded()==true)
 					{
 							
