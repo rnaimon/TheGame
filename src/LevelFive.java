@@ -302,7 +302,6 @@ public class LevelFive extends Level {
 		
 		if(getSwitchList()!=null)
 		{
-			System.out.println("here");
 			for(int i= 0; i< getSwitchList().size(); i++)
 			{
 				System.out.println("here");
