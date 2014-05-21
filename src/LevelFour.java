@@ -54,7 +54,7 @@ public class LevelFour extends Level {
 		
 		
 		try {
-			background = ImageIO.read(new File("blue-white-smear.jpg"));
+			background = ImageIO.read(new File("dark-blue-background-2.jpg"));
 
 		}
 		catch (IOException ex) {
@@ -257,6 +257,7 @@ public class LevelFour extends Level {
 		//FontMetrics fm = g.getFontMetrics();
 		Font f = new Font("Arial", Font.PLAIN, 20);
 		g.setFont(f);
+		g.setColor(Color.white);
 		g.drawString("Press 'Z' to fire plasma at those anti-virus enemies!", gameWidth / 17, gameHeight/10);
 	
 		

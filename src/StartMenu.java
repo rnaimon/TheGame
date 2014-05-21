@@ -59,7 +59,8 @@ public class StartMenu extends Level {
 	}
 	
 	public void draw(Graphics2D g) {
-
+		System.out.println("in menu");
+		
 		Font f = new Font("Candara", Font.PLAIN, 200);
 		g.setFont(f);
 		
@@ -73,8 +74,9 @@ public class StartMenu extends Level {
 		g.setFont(f2);
 		FontMetrics fm2 = g.getFontMetrics();
 		
+		g.drawImage(bg1, width/2-30, height/3 + 100, null);
 		
-		playRect = new Rectangle(width/2-100, height/3+200, 190, fm2.getAscent());
+		playRect = new Rectangle(width/2-100, height/3+200, 160, fm2.getAscent());
 		GradientPaint grayscale = new GradientPaint((float)(playRect.getX()), (float)playRect.getY(), Color.DARK_GRAY, (float)(playRect.getX() + playRect.getWidth()/3*2), ((float)(playRect.getY())), Color.LIGHT_GRAY, true);
 		g.setPaint(grayscale);
 		g.fill(playRect);

@@ -23,6 +23,7 @@ public class Player implements PlayerInterface
 	private Color color;
 	private Item current_item;
 	private boolean isGrounded;
+	private boolean forceGrounded;
 	private char orientation;
 	private ArrayList<Obstacles> levelPlatforms;
 	private ArrayList<Obstacles> hiddenPlatforms;
@@ -56,6 +57,7 @@ public class Player implements PlayerInterface
 		speed_x=5;
 		speed_y=0;
 		isGrounded=true;
+		forceGrounded = false;
 		orientation='r';
 		
 		
@@ -393,12 +395,26 @@ public class Player implements PlayerInterface
 	{
 		return speed_y;
 	}
+	
+	/***
+	 * Sets the player to be grounded artificially, for when that's needed.
+	 */
+	public void setGrounded(boolean g) {
+		if (g)
+			forceGrounded = true;
+		else
+			forceGrounded = false;
+	}
+	
 	/**
 	 * Checks whether the player is within a speed distance of a platform or actually on a platform.
 	 * @return
 	 */
 	public boolean getGrounded()
 	{
+		if (forceGrounded)
+			return true;
+		else {
 		ArrayList<LineObject> nearObstacles= new ArrayList<LineObject>();
 		for(int i=0; i< levelPlatforms.size(); i++)
 		{
@@ -448,6 +464,7 @@ public class Player implements PlayerInterface
 				
 		}
 		return onPlatform;
+		}
 	}
 	/*
 	public void setGrounded(boolean b)

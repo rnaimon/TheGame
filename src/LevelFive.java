@@ -4,7 +4,12 @@ import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 
 public class LevelFive extends Level {
@@ -20,6 +25,8 @@ public class LevelFive extends Level {
 	private int amountWater;
 	private int breath;
 	private LifePreserver LP1;
+	private BufferedImage background;
+
 	
 	/***
 	 * This is level five, which features the player trying to get above the rising water in the set amount of 
@@ -54,9 +61,27 @@ public class LevelFive extends Level {
 			
 			water.add(rect);
 		}
+		
+		try {
+			background = ImageIO.read(new File("sky-streak-background.jpg"));
+
+		}
+		catch (IOException ex) {
+			System.out.println("Nope.");
+		}
+		
+	
 
 		
 		
+	}
+	
+	/***
+	 * Returns the background for the level
+	 * @return the background buffered image
+	 */
+	public BufferedImage getBackground() {
+		return background;
 	}
 	
 	
@@ -281,7 +306,8 @@ public class LevelFive extends Level {
 		//FontMetrics fm = g.getFontMetrics();
 		Font f = new Font("Arial", Font.PLAIN, 20);
 		g.setFont(f);
-		g.drawString("Don't let the water drown you! Get to higher ground.", gameWidth / 17, gameHeight/10);
+		g.setColor(Color.DARK_GRAY);
+		g.drawString("Don't let the water drown you! Get to higher ground. And be careful, it's slippery out there.", gameWidth / 17, gameHeight/10);
 	
 		
 		if(getObstacleList()!=null)
@@ -326,6 +352,16 @@ public class LevelFive extends Level {
 		
 		
 		g.drawImage(LP1.getImage(), (int)LP1.getX(), (int)LP1.getY(), null);
+		
+		if(player.getCentX() - 4 > LP1.getX() && player.getCentX() + 4 < LP1.getX() + 100 && player.getCentY() + player.getRadius() < LP1.getY() + 30 && player.getCentY() + player.getRadius() > LP1.getY() +10) {
+			player.setGrounded(true);
+		//	player.setCentX(player.getCentX()-);
+		}
+		else
+			player.setGrounded(false);
+		
+		
+		
 		LP1.doMove(gameHeight - amountWater*2);
 		
 		
