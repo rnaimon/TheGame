@@ -6,27 +6,7 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-/***
- * Cheat sheet in code for how the switches and platforms should be handled:
- * Hit switch one, directly across from the landing platform. Go down the ramp and
- * hit the next lowest switch on the right, and then the lowest switch on the right.
- * Travel across to the lowest platform on the left and hit that switch. Go back up
- * to the lowest platform on the right, and then back up the ramp to the very first
- * platform. Hit the first switch again and make the first ramp disappear. Fall down
- * to the middle platform on the left, hit that switch, and then travel happily
- * up the ramps, making the small jump, to the top right platform and the end of 
- * the level. 
- */
 
-
-
-/***
- * This is level two, which features the player launching projectiles at switches
- * in order to activate platforms that allow movement to the end of the level. It 
- * is unfinished, so far, but will be a part of the MVP.
- * @author Rebecca Naimon
- *
- */
 public class LevelThree extends Level implements LevelTwoInterface {
 	
 	private boolean reset;
@@ -155,9 +135,7 @@ public class LevelThree extends Level implements LevelTwoInterface {
 		Obstacles Platform7= Platform6.translate(0, gameHeight/2);
 		obstacleList.add(Platform7);
 		ArrayList<LineObject> switch1 = new ArrayList<LineObject>();
-		
-		int x= 500;
-		int y=50;
+
 		// end goal switch is always first
 		LineObject Switch1Top= new LineObject(0,0 , 50, 0);
 		LineObject Switch1SideL= new LineObject(0, 0, 0, 50);

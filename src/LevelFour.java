@@ -10,8 +10,13 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-
-
+/***
+ * This is level four, which features the player shooting at anti-virus enemies in order to
+ * get to the final goal. The enemies are their own class. This level should resemble a
+ * classic aliens-attacking video game.
+ * @author Rebecca Naimon
+ *
+ */
 
 public class LevelFour extends Level {
 	
@@ -26,11 +31,11 @@ public class LevelFour extends Level {
 	private ArrayList<Enemy> enemies;
 	private BufferedImage background;
 	
-	/***
-	 * This is level four, which features the player shooting at anti-virus enemies in order to
-	 * get to the final goal.
-	 * @author Rebecca Naimon
-	 *
+	/**
+	 * This is the LevelFour constructor.
+	 * @param p is the Player
+	 * @param width is the width of the game
+	 * @param height is the height of the game
 	 */
 	public LevelFour(Player p, int width, int height)
 	{
@@ -52,7 +57,7 @@ public class LevelFour extends Level {
 		plasma = new ArrayList<Projectile>();
 		player.setItem(plasmaGun);
 		
-		
+		//background time!
 		try {
 			background = ImageIO.read(new File("dark-blue-background-2.jpg"));
 
@@ -84,10 +89,6 @@ public class LevelFour extends Level {
 		
 		ArrayList<Obstacles> obstacleList= new ArrayList<Obstacles>();
 		
-		/*
-		 * Currently, we're pretending the platform arrangement is the same as in level 3, but
-		 * that will change.
-		 */
 		
 		ArrayList<LineObject> platform1perimeter= new ArrayList<LineObject>();
 		LineObject platform1Top= new LineObject(0, gameHeight-4*gameHeight/5, gameWidth/5, gameHeight-4*gameHeight/5);
@@ -112,43 +113,27 @@ public class LevelFour extends Level {
 		
 		Obstacles Platform4 = Platform1.translate(0, 70);
 		obstacleList.add(Platform4);
-		
-	//	Obstacles Platform5 = Platform1.translate(350, 70);
-	//	obstacleList.add(Platform5);
+
 		
 		Obstacles Platform6 = Platform1.translate(700, 70);
 		obstacleList.add(Platform6);
 		
-	//	Obstacles Platform7 = Platform1.translate(0, 140);
-	//	obstacleList.add(Platform7);
-		
+
 		Obstacles Platform8 = Platform1.translate(350, 140);
 		obstacleList.add(Platform8);
 		
 		Obstacles Platform9 = Platform1.translate(700, 140);
 		obstacleList.add(Platform9);	
-		
-//		Obstacles Platform10 = Platform1.translate(0, 210);
-//		obstacleList.add(Platform10);
-		
-//		Obstacles Platform11 = Platform1.translate(350, 210);
-//		obstacleList.add(Platform11);
-		
-//		Obstacles Platform12 = Platform1.translate(700, 210);
-//		obstacleList.add(Platform12);
+
 		
 		Obstacles Platform13 = Platform1.translate(0, 280);
 		obstacleList.add(Platform13);
-		
-//		Obstacles Platform14 = Platform1.translate(350, 280);
-//		obstacleList.add(Platform14);
+
 		
 		Obstacles Platform15 = Platform1.translate(700, 280);
 		obstacleList.add(Platform15);
 		
-//		Obstacles Platform16 = Platform1.translate(0, 350);
-//		obstacleList.add(Platform16);
-		
+
 		Obstacles Platform17 = Platform1.translate(0, 420);
 		obstacleList.add(Platform17);		
 		
@@ -211,7 +196,10 @@ public class LevelFour extends Level {
 		return switchList;
 	}
 	
-	
+	/***
+	 * Method to set up the goal switch in this level.
+	 * @return the arraylist of switches (just the end goal, in this one).
+	 */
 	public ArrayList<Switch> setUpSwitches() {
 		
 		
@@ -245,7 +233,7 @@ public class LevelFour extends Level {
 	}
 
 	/***
-	 * 
+	 * Method to draw this specific level.
 	 */
 	public void draw(Graphics2D g) 
 	{
@@ -320,20 +308,7 @@ public class LevelFour extends Level {
 			for(int i=0; i< plasma.size(); i++)
 			{
 				Projectile p= plasma.get(i);
-				/*
-				ArrayList<Switch> nearbySwitches= new ArrayList<Switch>();
-				for(int j= 0; j<getSwitchList().size(); j++)
-				{
-					double dyi= d.getTopY();
-					double dyf= d.getTopY()+ d.getHeight();
-					LineObject side= getSwitchList().get(j).getOutlines().get(1);
-					if((dyi>side.getV1().getYCoord() && dyi<side.getV2().getYCoord()) ||
-							(dyf>side.getV2().getYCoord() && dyf<side.getV1().getYCoord()))
-					{
-						nearbySwitches.add(getSwitchList().get(j));
-					}
-				}
-				*/
+
 				boolean hit= false;
 				int numHit=0;
 				
@@ -341,7 +316,6 @@ public class LevelFour extends Level {
 				{
 					Enemy e = enemies.get(j);
 					
-				//	double dxf= p.getTopX()+ p.getWidth() + p.getSpeedX();
 					double centerXP = p.getCentX() + p.getRadius()/2;
 					double centerYP = p.getCentY() + p.getRadius()/2;
 					
@@ -364,7 +338,6 @@ public class LevelFour extends Level {
 					plasma.remove(i);
 					i--;
 					enemies.get(numHit).setAlive(false);
-					//hiddenRamps=fixObstacles();
 					
 				}
 				else
@@ -391,7 +364,6 @@ public class LevelFour extends Level {
 			if (shouldReset() == false) {
 			
 				
-				//System.out.println(enemies.size());
 				for (int x = 0; x < enemies.size(); x++) {
 					g.setColor(Color.red);
 					g.fillOval((int)enemies.get(x).getCentX(), (int)enemies.get(x).getCentY(), (int)enemies.get(x).getRadius(), (int)enemies.get(x).getRadius());
@@ -448,7 +420,7 @@ public class LevelFour extends Level {
 			if (e.getAlive() == false) {
 				enemies.remove(x);
 				x--;
-				//get rid of enemy
+				//gets rid of enemy
 			}
 			else if (enemyTouching(e, player)) {
 				reset = true;
@@ -476,7 +448,6 @@ public class LevelFour extends Level {
 		
 		int y = (int)(Math.random()*super.getGameHeight());
 		
-		//int y = 0 + 100;
 		
 		Enemy e = new Enemy(r, x, y);
 		
@@ -484,11 +455,14 @@ public class LevelFour extends Level {
 		
 	}
 	
-	
+	/***
+	 * This method returns whether the enemy is touching the player.
+	 * @param e is the Enemy
+	 * @param p is the player
+	 * @return whether they are touching
+	 */
 	public boolean enemyTouching(Enemy e, Player p) {
 		
-		
-	//	Math.sqrt(Math.pow(e.getCentX() - p.getCentX(), 2) + Math.pow(e.getCentY() - p.getCentY(), 2));
 		
 		double centerXP = p.getCentX() + p.getRadius()/2;
 		double centerYP = p.getCentY() + p.getRadius()/2;
@@ -496,15 +470,9 @@ public class LevelFour extends Level {
 		double centerXE = e.getCentX() + e.getRadius()/2;
 		double centerYE = e.getCentY() + e.getRadius()/2;
 		
-	//	System.out.println(centerXP + " is the center x of player and radius is " + p.getRadius()/2);
 		double dCenter = Math.sqrt(Math.pow(centerXE - centerXP, 2) + Math.pow(centerYE - centerYP, 2));
-	//	System.out.println(e.getCentX() + " " + e.getCentY() + " " + p.getCentX() + " " + p.getCentY());
-	//	System.out.println(dCenter + " distance from centers");
-		
-	//	System.out.println(e.getRadius()+p.getRadius() + " is radius addition");
-		
+			
 		if (e.getRadius()/2+p.getRadius()/2 > dCenter) {
-			System.out.println("touching");
 			return true;
 		}
 		return false;

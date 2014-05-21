@@ -106,13 +106,14 @@ public class LevelOne extends Level implements LevelOneInterface
 		obstacleList.add(Platform1);
 		obstacleList.add(Platform2);
 		obstacleList.add(Platform3);
-		
-		//System.out.println(obstacleList);
+
 		return obstacleList;
 				
 	}
 	
-	@Override
+/***
+ * Returns whether the level is complete or not.
+ */
 	public boolean checkComplete()
 	{
 		if(getLevelComplete()==true)
@@ -131,7 +132,10 @@ public class LevelOne extends Level implements LevelOneInterface
 	}
 	
 	
-	
+	/***
+	 * Method to set up the end goal for the level.
+	 * @return an arraylist of switches, in this case only containing one.
+	 */
 	public ArrayList<Switch> setUpEndGoal()
 	{
 		ArrayList<LineObject> goalPerimeter= new ArrayList<LineObject>();
@@ -205,16 +209,7 @@ public class LevelOne extends Level implements LevelOneInterface
 		{
 			for(int i= 0; i<getObstacleList().size(); i++)
 			{
-				/*
-				int[] vertx= new int[thingsInLevel.get(i).getVertices().size()];
-				int[] verty= new int[thingsInLevel.get(i).getVertices().size()];
-				for(int j=0; j< thingsInLevel.get(i).getVertices().size(); j++)
-				{
-					vertx[j]=(int)(thingsInLevel.get(i).getVertices().get(j).getXCoord());
-					verty[j]=(int)(thingsInLevel.get(i).getVertices().get(j).getYCoord());
-				}
-				g.fillPolygon(vertx, verty, thingsInLevel.get(i).getVertices().size());
-				*/
+
 				g.setColor(Color.magenta);
 				Polygon p= new Polygon();
 				for(int j=0; j<getObstacleList().get(i).getVertices().size(); j++)
@@ -287,6 +282,9 @@ public class LevelOne extends Level implements LevelOneInterface
 
 	}
 
+	/***
+	 * Method to return whether the level needs to reset
+	 */
 	public boolean shouldReset() {
 		
 		return reset;

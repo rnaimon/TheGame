@@ -30,6 +30,12 @@ public class Enemy implements EnemyInterface {
 	
 	private boolean isAlive = true;
 	
+	/***
+	 * Constructor for Enemy
+	 * @param r is the radius
+	 * @param x is the x-coordinate
+	 * @param y is the y-coordinate
+	 */
 	public Enemy(double r, int x, int y)
 	{
 		radius=r;
