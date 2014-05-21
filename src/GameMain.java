@@ -194,12 +194,12 @@ public class GameMain extends Canvas implements Runnable, KeyListener, MouseList
 		menu = new StartMenu(player, getWidth(), getHeight());
 		
 		levelList.add(lv1);
-		levelList.add(lv2);
-		levelList.add(lv3);
-		levelList.add(lv4);
 		levelList.add(lv5);
+		levelList.add(lv2);
+		levelList.add(lv4);
+		levelList.add(lv3);
 		if(levelList.get(0)!=null)
-			currentLevel= (LevelFour)(levelList.get(3));
+			currentLevel= (LevelOne)(levelList.get(0));
 		start();
 
 	}
@@ -243,11 +243,11 @@ public class GameMain extends Canvas implements Runnable, KeyListener, MouseList
 				if(((Level)(currentLevel)).checkComplete()) 
 				{
 					gameState = STATE_PLAYING;
-					currentLevel = (LevelFour)(levelList.get(3));
+					currentLevel = (LevelOne)(levelList.get(0));
 				}
 			}
 				break;
-		
+		//when the game has begun, and isn't over
 		case STATE_PLAYING:
 				if(((Level)(currentLevel)).checkComplete()==true)
 				{
@@ -262,12 +262,12 @@ public class GameMain extends Canvas implements Runnable, KeyListener, MouseList
 								break;
 						case 1:
 								player= new Player(30, 10, 0, new Color(0, 0, 200));
-								levelList.set(1, new LevelTwo(player, getWidth(), getHeight()));
+								levelList.set(1, new LevelFive(player, getWidth(), getHeight()));
 								currentLevel= levelList.get(1);
 								player.setSpeedX((int)(speedXPlayer));								break;
 						case 2:
 							player= new Player(30, 10, 0, new Color(0, 0, 200));
-							levelList.set(2, new LevelThree(player, getWidth(), getHeight()));
+							levelList.set(2, new LevelTwo(player, getWidth(), getHeight()));
 							currentLevel= levelList.get(2);
 							player.setSpeedX((int)(speedXPlayer));							break;
 							
@@ -279,7 +279,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener, MouseList
 							break;
 							
 						case 4:
-							currentLevel= levelList.get(4);
+							currentLevel= levelList.get(3);
 							player.setCentX(0);
 							player.setCentY(0);
 							player.setSpeedY(0);
@@ -301,6 +301,8 @@ public class GameMain extends Canvas implements Runnable, KeyListener, MouseList
 					}
 					
 				}
+				
+				//dealing with player death
 					if((player.getCentY() + player.getRadius()+ player.getSpeedY())>= getHeight())
 					{
 						int n= ((Level)currentLevel).getLevelNumber();
@@ -325,7 +327,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener, MouseList
 						player.setCentY(0);
 						player.setSpeedY(0);
 					}
-						 
+					//jumping when it's ok to jump	 
 					if (jump==true && player.getGrounded()==true)
 					{
 							
@@ -374,12 +376,13 @@ public class GameMain extends Canvas implements Runnable, KeyListener, MouseList
 				
 			
 				break;
+				
 				//if the game is over because the player won
 		case STATE_DONE:
 			Font f3 = new Font("Candara", Font.PLAIN, 40);
 			g.setFont(f3);
 			g.setColor(Color.white);
-			g.drawString("You have escaped with your marble intact!", 100, getWidth()/24);
+			g.drawString("You have escaped with your marble intact!", 100, getWidth()/3);
 			break;
 
 		}
@@ -387,10 +390,8 @@ public class GameMain extends Canvas implements Runnable, KeyListener, MouseList
 	}
 	
 	
-
-	
 	//method to determine if the player can move left or right (limits of the screen)
-	// will be moved to the Level class
+
 	/***
 	 * 
 	 * @param p is the player
@@ -473,7 +474,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener, MouseList
 	
 	
 	/**
-	 * Characters to draw when we're playing. So far, just the player. 
+	 * Characters to draw when we're playing. 
 	 * 
 	 * @param g
 	 */
@@ -507,6 +508,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener, MouseList
 			
 	}
 
+	// records where the mouse clicked, for the menu level
 	public void mouseClicked(MouseEvent e) {
 		
 		((StartMenu)(currentLevel)).setClicks(e.getX(), e.getY());
@@ -514,6 +516,10 @@ public class GameMain extends Canvas implements Runnable, KeyListener, MouseList
 		
 	}
 
+	/*
+	 * Necessary methods to use MouseListener
+	 */
+	
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
@@ -533,10 +539,6 @@ public class GameMain extends Canvas implements Runnable, KeyListener, MouseList
 		// TODO Auto-generated method stub
 		
 	}
-	
-	
-	
-	
 	
 	
 	// 
@@ -577,7 +579,7 @@ public class GameMain extends Canvas implements Runnable, KeyListener, MouseList
 
 	}
 
-	//to be ignored for now
+	//to be ignored
 	public void keyTyped(KeyEvent arg0) {
 		
 	}
@@ -638,8 +640,5 @@ public class GameMain extends Canvas implements Runnable, KeyListener, MouseList
 		
 	}
 
-	
-
-	
 	
 }
