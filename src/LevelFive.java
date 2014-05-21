@@ -39,12 +39,12 @@ public class LevelFive extends Level {
 		super(p, width, height);
 		player=p;
 		player.setCentX(0);
-		player.setCentY(getGameHeight()-30);
+		player.setCentY(getGameHeight()-300);
 		setLevelNumber(5);
 		reset=false;
 		timer = 0;
 		amountWater = 0;
-		switchList=null;
+		switchList= setUpSwitches();
 		setObstacleList(setUpEnvironment());
 		player.setPlatforms(getObstacleList());
 		levelComplete=false;
@@ -299,17 +299,69 @@ public class LevelFive extends Level {
 		}
 		else
 			breath = 4000;	
+		
+		if(getSwitchList()!=null)
+		{
+			System.out.println("here");
+			for(int i= 0; i< getSwitchList().size(); i++)
+			{
+				System.out.println("here");
+				g.setColor(Color.green);
+				if(i!=0)
+				g.setColor(Color.white);
+				int[] vertx= new int[getSwitchList().get(i).getVertices().size()];
+				int[] verty= new int[getSwitchList().get(i).getVertices().size()];
+				for(int j=0; j< getSwitchList().get(i).getVertices().size(); j++)
+				{
+					vertx[j]=(int)(getSwitchList().get(i).getVertices().get(j).getXCoord());
+					verty[j]=(int)(getSwitchList().get(i).getVertices().get(j).getYCoord());
+				}
+				g.fillPolygon(vertx, verty, (getSwitchList().get(i).getVertices().size()));
+			}	
+		}
 	}
 	
 	/***
 	 * This method manages the amount of water that should be filling up the level.
 	 */
-	public void manageWater() {
+	public void manageWater() 
+	{
 		if (timer/5 == ((double)timer)/5.0) {
 			amountWater++;
 		}
 	}
+	public ArrayList<Switch> getSwitchList()
+	{
+		return switchList;
+	}
 	
+	public ArrayList<Switch> setUpSwitches() 
+	{
+		
+		
+		ArrayList<Switch> switches= new ArrayList<Switch>();
+
+		
+		ArrayList<LineObject> switch1 = new ArrayList<LineObject>();
+		
+		int x= 500;
+		int y=50;
+		LineObject Switch1Top= new LineObject(250 + 2*x - y,super.getGameHeight()/6 - 2*y , 250+2*x, super.getGameHeight()/6 - 2*y);
+		LineObject Switch1SideL= new LineObject(250 + 2*x - y, super.getGameHeight()/6 - 2* y, 2*x+ 250 - y, super.getGameHeight()/6 - y);
+		LineObject Switch1Bottom= new LineObject(250 + 2*x - y,super.getGameHeight()/6 - y, 250+2*x, super.getGameHeight()/6 - y);
+		LineObject Switch1SideR= new LineObject(250+2*x,super.getGameHeight()/6 - 2*y, 250+2*x, super.getGameHeight()/6 - y);
+		
+		switch1.add(Switch1Top);
+		switch1.add(Switch1SideR);
+		switch1.add(Switch1Bottom);
+		switch1.add(Switch1SideL);
+
+		Switch s = new Switch(switch1);
+		s= new Switch(s.translate(-105, 25).getOutlines());
+		switches.add(s);
+		return switches;
+		
+	}
 	/***
 	 * This method determines whether the player is in the water
 	 * @param p is the Player
@@ -317,7 +369,6 @@ public class LevelFive extends Level {
 	 */
 	public boolean touchingWater() {
 		
-	//	int pX = (int)player.getCentX();
 		int pY = (int)player.getCentY();
 		int pY2 = super.getGameHeight() - pY;
 		

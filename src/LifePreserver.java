@@ -170,7 +170,6 @@ public class LifePreserver extends Item { //Obstacles {
 		
 		int amountY = heightWater - 40;
 
-		System.out.println(locX + " is locX and " + locY + " is locY and height water is" + heightWater);
 		setX((int)(getX()-(speedX*amountH)));
 		setY(amountY);
 		
